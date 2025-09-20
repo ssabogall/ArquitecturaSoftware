@@ -17,7 +17,6 @@ use Illuminate\Http\Request;
  */
 class Order extends Model
 {
-
     protected $fillable = [
         'date',
         'status',
@@ -42,7 +41,6 @@ class Order extends Model
             'total.min' => 'El total de la orden no puede ser negativo.',
         ]);
     }
-
 
     // Getters
     public function getId(): int

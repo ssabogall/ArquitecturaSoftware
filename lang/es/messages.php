@@ -2,7 +2,7 @@
 
 return [
     // --- General UI ---
-    'app_title' => 'Tienda en Línea',
+    'app_title' => 'CellHub',
     'home' => 'Inicio',
     'dashboard' => 'Panel de control',
     'profile' => 'Perfil',
@@ -35,8 +35,15 @@ return [
     'back' => 'Volver',
     'name' => 'Nombre',
     'description' => 'Descripción',
+    'address' => 'Dirección',
+    'phone' => 'Teléfono',
+    'staff' => 'Staff',
+    'optional' => 'Opcional',
     'created_at' => 'Creado el',
     'updated_at' => 'Actualizado el',
+    'id' => 'ID',
+    'actions' => 'Acciones',
+    'not_provided' => '—',
 
     // --- Estados y mensajes ---
     'no_results' => 'No se encontraron resultados',
@@ -57,11 +64,26 @@ return [
     'reset_password' => 'Restablecer contraseña',
     'send_password_reset_link' => 'Enviar enlace para restablecer contraseña',
     'confirm_password_before_continue' => 'Por favor confirma tu contraseña antes de continuar.',
-    
+
     // --- Verificación de email ---
     'verify_email' => 'Verifica tu dirección de correo electrónico',
     'verification_link_sent' => 'Se ha enviado un nuevo enlace de verificación a tu correo electrónico.',
     'check_email_for_link' => 'Antes de continuar, revisa tu correo electrónico para el enlace de verificación.',
     'did_not_receive_email' => 'Si no recibiste el correo',
     'request_another_link' => 'haz clic aquí para solicitar otro',
+
+    // --- Admin ---
+    'admin_panel' => 'Panel de administración',
+    'users' => 'Usuarios',
+    'orders' => 'Órdenes',
+    'products' => 'Productos',
+    'view' => 'Ver',
+
+    // --- Admin - Users ---
+    'new_user' => 'Nuevo usuario',
+    'edit_user' => 'Editar usuario',
+    'user_details' => 'Detalle de usuario',
+    'user_created' => 'Usuario creado correctamente.',
+    'user_updated' => 'Usuario actualizado correctamente.',
+    'user_deleted' => 'Usuario eliminado correctamente.',
 ];

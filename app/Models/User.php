@@ -53,16 +53,23 @@ class User extends Authenticatable
 
     /**
      * Validate user data
+     *
+     * @param  array<string, mixed>  $data
+     * @param  int|null  $ignoreId  If provided, email uniqueness will ignore this user id (update scenario)
      */
-    public static function validate(array $data): Validator
+    public static function validate(array $data, ?int $ignoreId = null): Validator
     {
+        $emailRule = 'required|string|email|max:255|unique:users,email';
+        if ($ignoreId !== null) {
+            $emailRule = 'required|string|email|max:255|unique:users,email,'.$ignoreId;
+        }
+
         return ValidatorFacade::make($data, [
-            'id' => 'required|string|unique:users,id',
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8',
+            'email' => $emailRule,
+            'password' => $ignoreId === null ? 'required|string|min:8' : 'nullable|string|min:8',
             'staff' => 'boolean',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'nullable|string|max:30',
             'address' => 'nullable|string|max:255',
         ]);
     }
@@ -88,9 +95,14 @@ class User extends Authenticatable
         return $this->password;
     }
 
-    public function isStaff(): bool
+    public function getStaff(): bool
     {
         return $this->staff;
+    }
+
+    public function isStaff(): bool
+    {
+        return $this->getStaff();
     }
 
     public function getPhone(): ?string
