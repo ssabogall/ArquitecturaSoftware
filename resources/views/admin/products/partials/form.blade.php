@@ -1,3 +1,9 @@
+{{--
+  View: Admin Products Form Partial
+  Purpose: Parcial de formulario para crear/editar productos en admin.
+
+  @author Alejandro Carmona
+--}}
 @php
   /** @var \App\Models\MobilePhone $product */
   $isEdit = isset($product) && $product && $product->exists;

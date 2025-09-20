@@ -1,3 +1,9 @@
+{{--
+    View: Admin Products Index
+    Purpose: Muestra la lista de productos en el panel de administrador.
+
+    @author Alejandro Carmona
+--}}
 @extends('layouts.admin')
 
 @section('title', __('messages.products'))

@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * messages.php
+ *
+ * Recursos para usar lang.
+ *
+ * @author Alejandro Carmona
+ * @author Miguel Angel Arcila
+ *
+ */
+
 return [
     // --- General UI ---
     'app_title' => 'CellHub',
@@ -82,7 +92,7 @@ return [
     'paid' => 'pagada',
     'shipped' => 'enviada',
     'cancelled' => 'cancelada',
-    
+
     // --- Admin - Products ---
     'new_product' => 'Nuevo producto',
     'edit_product' => 'Editar producto',

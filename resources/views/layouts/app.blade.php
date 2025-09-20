@@ -1,3 +1,9 @@
+{{--
+    View: Layout App
+    Purpose: Layout base público para páginas de la aplicación.
+
+    @author Alejandro Carmona
+--}}
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>

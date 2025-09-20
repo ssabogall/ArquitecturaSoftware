@@ -1,3 +1,9 @@
+{{--
+    View: Admin Orders Index
+    Purpose: Muestra la lista de órdenes en el panel de administrador.
+
+    @author Alejandro Carmona
+--}}
 @extends('layouts.admin')
 
 @section('title', __('messages.orders'))

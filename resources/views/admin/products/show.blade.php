@@ -1,3 +1,9 @@
+{{--
+  View: Admin Products Show
+  Purpose: Muestra el detalle de un producto en el panel de administrador.
+
+  @author Alejandro Carmona
+--}}
 @extends('layouts.admin')
 
 @section('title', __('messages.product_details'))

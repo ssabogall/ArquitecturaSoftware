@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Migration: Create Mobile Phones Table
+ *
+ * Crea la tabla de teléfonos móviles para almacenar información sobre los productos.
+ *
+ * @author Alejandro Carmona
+ *
+ */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

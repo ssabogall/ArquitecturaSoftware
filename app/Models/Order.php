@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Order.php
+ *
+ * Modelo para las órdenes.
+ *
+ * @author Alejandro Carmona
+ *
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

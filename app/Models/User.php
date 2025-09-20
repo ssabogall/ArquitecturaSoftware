@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * User.php
+ *
+ * Modelo para los usuarios.
+ *
+ * @author Alejandro Carmona
+ *
+ */
+
 namespace App\Models;
 
 use Illuminate\Contracts\Validation\Validator;

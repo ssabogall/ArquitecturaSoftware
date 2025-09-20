@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Migration: Create Orders Table
+ *
+ * Crea la tabla de pedidos para almacenar las órdenes realizadas por los usuarios.
+ *
+ * @author Alejandro Carmona
+ *
+ */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

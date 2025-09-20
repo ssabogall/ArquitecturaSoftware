@@ -1,3 +1,9 @@
+{{--
+    View: Home Index
+    Purpose: Muestra la página de inicio pública de la aplicación.
+
+    @author Alejandro Carmona
+--}}
 @extends('layouts.app')
 
 @section('title', __('messages.home'))

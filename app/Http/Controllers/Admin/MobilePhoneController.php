@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Admin/MobilePhoneController.php
+ *
+ * Controlador para los productos en el panel de administración.
+ *
+ * @author Alejandro Carmona
+ *
+ */
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;

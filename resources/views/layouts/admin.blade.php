@@ -1,3 +1,9 @@
+{{--
+    View: Layout Admin
+    Purpose: Layout base para el panel de administración.
+
+    @author Alejandro Carmona
+--}}
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>

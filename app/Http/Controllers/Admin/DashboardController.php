@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Admin/DashboardController.php
+ *
+ * Controlador para el panel de administración.
+ *
+ * @author Alejandro Carmona
+ *
+ */
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;

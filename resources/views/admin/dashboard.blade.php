@@ -1,3 +1,9 @@
+{{--
+    View: Admin Dashboard
+    Purpose: Muestra el panel principal del administrador con accesos y widgets de métricas.
+
+    @author Alejandro Carmona
+--}}
 @extends('layouts.admin')
 
 @section('title', __('messages.admin_panel'))

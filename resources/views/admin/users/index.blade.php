@@ -1,3 +1,9 @@
+{{--
+  View: Admin Users Index
+  Purpose: Muestra la lista de usuarios en el panel de administrador.
+
+  @author Alejandro Carmona
+--}}
 @extends('layouts.admin')
 
 @section('title', __('messages.users'))

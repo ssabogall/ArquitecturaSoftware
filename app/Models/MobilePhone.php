@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * MobilePhone.php
+ *
+ * Modelo para MobilePhone.
+ *
+ * @author Alejandro Carmona
+ *
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

@@ -1,3 +1,9 @@
+{{--
+  View: Admin Users Show
+  Purpose: Muestra el detalle de un usuario en el panel de administrador.
+
+  @author Alejandro Carmona
+--}}
 @extends('layouts.admin')
 
 @section('title', __('messages.user_details'))

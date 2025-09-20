@@ -1,3 +1,9 @@
+{{--
+  View: Admin Users Edit
+  Purpose: Muestra el formulario para editar un usuario en admin.
+
+  @author Alejandro Carmona
+--}}
 @extends('layouts.admin')
 
 @section('title', __('messages.edit_user'))

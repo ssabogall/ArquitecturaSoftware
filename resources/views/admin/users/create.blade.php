@@ -1,3 +1,9 @@
+{{--
+  View: Admin Users Create
+  Purpose: Muestra el formulario para crear un nuevo usuario en admin.
+
+  @author Alejandro Carmona
+--}}
 @extends('layouts.admin')
 
 @section('title', __('messages.new_user'))

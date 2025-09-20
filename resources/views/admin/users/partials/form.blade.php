@@ -1,3 +1,9 @@
+{{--
+  View: Admin Users Form Partial
+  Purpose: Parcial de formulario para crear/editar usuarios en admin.
+
+  @author Alejandro Carmona
+--}}
 @php
   /** @var \App\Models\User $user */
   $isEdit = $user && $user->exists;

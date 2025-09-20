@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Admin/OrderController.php
+ *
+ * Controlador para las órdenes en el panel de administración.
+ *
+ * @author Alejandro Carmona
+ *
+ */
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;

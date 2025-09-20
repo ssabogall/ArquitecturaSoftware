@@ -1,3 +1,9 @@
+{{--
+  View: Admin Products Edit
+  Purpose: Muestra el formulario para editar un producto existente.
+
+  @author Alejandro Carmona
+--}}
 @extends('layouts.admin')
 
 @section('title', __('messages.edit_product'))

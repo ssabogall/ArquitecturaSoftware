@@ -1,3 +1,9 @@
+{{--
+  View: Admin Products Create
+  Purpose: Muestra el formulario para crear un nuevo producto.
+
+  @author Alejandro Carmona
+--}}
 @extends('layouts.admin')
 
 @section('title', __('messages.new_product'))
