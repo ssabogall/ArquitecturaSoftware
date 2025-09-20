@@ -3,12 +3,116 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MobilePhone;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class MobilePhoneController extends Controller
 {
     public function index(): View
     {
-        return view('admin.products.index');
+        $viewData = [];
+        $viewData['products'] = MobilePhone::orderBy('id', 'desc')->paginate(50);
+        return view('admin.products.index', $viewData);
+    }
+
+    public function create(): View
+    {
+        $viewData = [];
+        $viewData['product'] = new MobilePhone();
+        return view('admin.products.create', $viewData);
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+
+        $photoUrl = null;
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $brand = $request->input('brand', 'generic');
+            $brandSlug = Str::slug($brand);
+            $dir = public_path('images/' . $brandSlug);
+            if (!is_dir($dir)) {
+                mkdir($dir, 0755, true);
+            }
+            $original = $request->file('photo')->getClientOriginalName();
+            $ext = pathinfo($original, PATHINFO_EXTENSION) ?: 'png';
+            $base = pathinfo($original, PATHINFO_FILENAME);
+            $filename = Str::slug($base) . '-' . time() . '.' . strtolower($ext);
+            $request->file('photo')->move($dir, $filename);
+            $relative = '/images/' . $brandSlug . '/' . $filename;
+            $photoUrl = url($relative);
+            $request->merge(['photo_url' => $photoUrl]);
+        }
+
+        MobilePhone::validate($request);
+
+        $data = $request->only(['name','brand','price','stock']);
+        $data['photo_url'] = $photoUrl;
+        $product = MobilePhone::create($data);
+
+        return redirect()->route('admin.products.index')->with([
+            'flash.message_key' => 'messages.product_created',
+            'flash.level' => 'success',
+        ]);
+    }
+
+    public function show(string $id): View
+    {
+        $viewData = [];
+        $viewData['product'] = MobilePhone::findOrFail($id);
+        return view('admin.products.show', $viewData);
+    }
+
+    public function edit(string $id): View
+    {
+        $viewData = [];
+        $viewData['product'] = MobilePhone::findOrFail($id);
+        return view('admin.products.edit', $viewData);
+    }
+
+    public function update(Request $request, string $id): RedirectResponse
+    {
+        $product = MobilePhone::findOrFail($id);
+        $photoUrl = $product->photo_url;
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $brand = $request->input('brand', $product->brand);
+            $brandSlug = Str::slug($brand);
+            $dir = public_path('images/' . $brandSlug);
+            if (!is_dir($dir)) {
+                mkdir($dir, 0755, true);
+            }
+            $original = $request->file('photo')->getClientOriginalName();
+            $ext = pathinfo($original, PATHINFO_EXTENSION) ?: 'png';
+            $base = pathinfo($original, PATHINFO_FILENAME);
+            $filename = Str::slug($base) . '-' . time() . '.' . strtolower($ext);
+            $request->file('photo')->move($dir, $filename);
+            $relative = '/images/' . $brandSlug . '/' . $filename;
+            $photoUrl = url($relative);
+        }
+
+        $request->merge(['photo_url' => $photoUrl]);
+        MobilePhone::validate($request);
+
+        $data = $request->only(['name','brand','price','stock']);
+        $data['photo_url'] = $photoUrl;
+        $product->update($data);
+
+        return redirect()->route('admin.products.index')->with([
+            'flash.message_key' => 'messages.product_updated',
+            'flash.level' => 'success',
+        ]);
+    }
+
+    public function destroy(string $id): RedirectResponse
+    {
+        $product = MobilePhone::findOrFail($id);
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with([
+            'flash.message_key' => 'messages.product_deleted',
+            'flash.level' => 'success',
+        ]);
     }
 }

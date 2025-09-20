@@ -13,18 +13,18 @@ class UserController extends Controller
 {
     public function index(): View
     {
-        $users = User::orderBy('id', 'desc')->paginate(50);
+        $viewData = [];
+        $viewData['users'] = User::orderBy('id', 'desc')->paginate(50);
 
-        return view('admin.users.index', [
-            'users' => $users,
-        ]);
+        return view('admin.users.index', $viewData);
     }
 
     public function create(): View
     {
-        return view('admin.users.create', [
-            'user' => new User,
-        ]);
+        $viewData = [];
+        $viewData['user'] = new User;
+
+        return view('admin.users.create', $viewData);
     }
 
     public function store(Request $request): RedirectResponse
@@ -49,16 +49,18 @@ class UserController extends Controller
 
     public function show(string $id): View
     {
-        $user = User::findOrFail($id);
+        $viewData = [];
+        $viewData['user'] = User::findOrFail($id);
 
-        return view('admin.users.show', ['user' => $user]);
+        return view('admin.users.show', $viewData);
     }
 
     public function edit(string $id): View
     {
-        $user = User::findOrFail($id);
+        $viewData = [];
+        $viewData['user'] = User::findOrFail($id);
 
-        return view('admin.users.edit', ['user' => $user]);
+        return view('admin.users.edit', $viewData);
     }
 
     public function update(Request $request, string $id): RedirectResponse

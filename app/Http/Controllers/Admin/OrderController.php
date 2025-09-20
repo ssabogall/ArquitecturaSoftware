@@ -9,6 +9,7 @@ class OrderController extends Controller
 {
     public function index(): View
     {
-        return view('admin.orders.index');
+        $viewData = [];
+        return view('admin.orders.index', $viewData);
     }
 }

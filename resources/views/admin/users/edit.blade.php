@@ -6,7 +6,7 @@
 @section('content')
 <div class="card">
   <div class="card-body">
-    <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+  <form action="{{ route('admin.users.update', $user->getId()) }}" method="POST">
       @csrf
       @method('PUT')
       @include('admin.users.partials.form', ['user' => $user])

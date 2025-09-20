@@ -29,15 +29,15 @@
           <tbody>
             @foreach($users as $user)
               <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{ $user->staff ? __('messages.yes') : __('messages.no') }}</td>
-                <td>{{ $user->created_at }}</td>
+                <td>{{ $user->getId() }}</td>
+                <td>{{ $user->getName() }}</td>
+                <td>{{ $user->getEmail() }}</td>
+                <td>{{ $user->isStaff() ? __('messages.yes') : __('messages.no') }}</td>
+                <td>{{ $user->getCreatedAt() }}</td>
                 <td class="text-end">
-                  <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view') }}</a>
-                  <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-primary btn-sm">{{ __('messages.edit') }}</a>
-                  <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.are_you_sure') }}')">
+                  <a href="{{ route('admin.users.show', $user->getId()) }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view') }}</a>
+                  <a href="{{ route('admin.users.edit', $user->getId()) }}" class="btn btn-primary btn-sm">{{ __('messages.edit') }}</a>
+                  <form action="{{ route('admin.users.destroy', $user->getId()) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.are_you_sure') }}')">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger btn-sm" type="submit">{{ __('messages.delete') }}</button>

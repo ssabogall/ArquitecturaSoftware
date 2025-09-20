@@ -78,6 +78,24 @@ return [
     'orders' => 'Órdenes',
     'products' => 'Productos',
     'view' => 'Ver',
+    'pending' => 'pendiente',
+    'paid' => 'pagada',
+    'shipped' => 'enviada',
+    'cancelled' => 'cancelada',
+    
+    // --- Admin - Products ---
+    'new_product' => 'Nuevo producto',
+    'edit_product' => 'Editar producto',
+    'product_details' => 'Detalle de producto',
+    'product_created' => 'Producto creado correctamente.',
+    'product_updated' => 'Producto actualizado correctamente.',
+    'product_deleted' => 'Producto eliminado correctamente.',
+    'brand' => 'Marca',
+    'price' => 'Precio',
+    'stock' => 'Stock',
+    'photo_url' => 'URL de la foto',
+    'photo' => 'Foto',
+    'current' => 'Actual',
 
     // --- Admin - Users ---
     'new_user' => 'Nuevo usuario',
