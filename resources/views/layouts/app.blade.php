@@ -20,27 +20,26 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-dark bg-secondary py-4">
+    <nav class="navbar navbar-light bg-light py-2">
         <div class="container d-flex justify-content-between align-items-center">
-            <!-- Brand -->
-            <a class="navbar-brand mb-0 h1" href="{{ route('home.index') }}">
-                {{ __('messages.app_title') }}
+            <a class="navbar-brand d-flex align-items-center mb-0" href="{{ route('home.index') }}" aria-label="{{ __('messages.app_title') }}">
+                <img src="{{ asset('images/logo.png') }}" alt="{{ __('messages.app_title') }}" style="height: 84px; width: auto;" />
             </a>
 
             <!-- Auth Links -->
             <div class="navbar-nav ms-auto d-flex flex-row gap-3 align-items-center">
                 @guest
-                    <a class="nav-link text-white" href="{{ route('login') }}">{{ __('messages.login') }}</a>
-                    <a class="nav-link text-white" href="{{ route('register') }}">{{ __('messages.register') }}</a>
+                    <a class="nav-link text-dark" href="{{ route('login') }}">{{ __('messages.login') }}</a>
+                    <a class="nav-link text-dark" href="{{ route('register') }}">{{ __('messages.register') }}</a>
                 @else
-                    <span class="navbar-text text-white me-2">
+                    <span class="navbar-text text-dark me-2">
                         {{ Auth::user()->getName() }}
                     </span>
 
                     <!-- Logout -->
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
-                        <a role="button" class="nav-link text-white"
+                        <a role="button" class="nav-link text-dark"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('messages.logout') }}
                         </a>
