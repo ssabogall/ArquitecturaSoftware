@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 /**
  * SPECIFICATION ATTRIBUTES
  * $this->attributes['id'] - int - contains the specification primary key
- * $this->attributes['mobile_phone_id'] - int - references mobile_phones.id
+ * $this->attributes['mobile_phone_id'] - int - references mobile_phones.id (1–1)
  * $this->attributes['model'] - string - phone model name
  * $this->attributes['processor'] - string - processor name
  * $this->attributes['battery'] - int - battery capacity (mAh)
@@ -63,7 +63,6 @@ class Specification extends Model
             'mobile_phone_id.required' => 'El teléfono móvil es obligatorio.',
             'mobile_phone_id.integer' => 'El identificador del teléfono debe ser un número entero.',
             'mobile_phone_id.exists' => 'El teléfono móvil seleccionado no existe.',
-
             'model.required' => 'El modelo es obligatorio.',
             'model.string' => 'El modelo debe ser texto.',
             'model.max' => 'El modelo no puede superar los 255 caracteres.',
@@ -101,7 +100,7 @@ class Specification extends Model
         ]);
     }
 
-    // Relación
+    // Relaciones
     public function mobilePhone(): BelongsTo
     {
         return $this->belongsTo(MobilePhone::class, 'mobile_phone_id');

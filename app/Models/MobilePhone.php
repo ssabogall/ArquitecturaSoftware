@@ -12,6 +12,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 
 /**
@@ -62,6 +64,22 @@ class MobilePhone extends Model
             'stock.integer' => 'El stock debe ser un número entero.',
             'stock.min' => 'El stock no puede ser negativo.',
         ]);
+    }
+
+    // Relaciones
+    public function specification(): HasOne
+    {
+        return $this->hasOne(Specification::class, 'mobile_phone_id');
+    }
+
+    public function orderItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class, 'mobile_phone_id');
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'mobile_phone_id');
     }
 
     // Getters
@@ -130,4 +148,5 @@ class MobilePhone extends Model
     {
         $this->attributes['stock'] = $stock;
     }
+
 }

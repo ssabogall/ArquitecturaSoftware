@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\MobilePhone;
 use App\Models\Order;
+use App\Models\Review;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -30,6 +31,7 @@ class DashboardController extends Controller
             'shipped' => Order::where('status', 'shipped')->count(),
             'cancelled' => Order::where('status', 'cancelled')->count(),
         ];
+        $viewData['pendingReviews'] = Review::where('status', 'pending')->count();
 
         return view('admin.dashboard', $viewData);
     }

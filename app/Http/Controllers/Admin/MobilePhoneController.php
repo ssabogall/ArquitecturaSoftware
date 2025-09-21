@@ -6,13 +6,15 @@
  * Controlador para los productos en el panel de administración.
  *
  * @author Alejandro Carmona
- *
+ * @author Miguel Arcila
+ * 
  */
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MobilePhone;
+use App\Models\Specification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -36,7 +38,6 @@ class MobilePhoneController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-
         $photoUrl = null;
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $brand = $request->input('brand', 'generic');
@@ -57,9 +58,13 @@ class MobilePhoneController extends Controller
 
         MobilePhone::validate($request);
 
-        $data = $request->only(['name','brand','price','stock']);
-        $data['photo_url'] = $photoUrl;
-        $product = MobilePhone::create($data);
+        $product = new MobilePhone();
+        $product->setName((string) $request->input('name'));
+        $product->setBrand((string) $request->input('brand'));
+        $product->setPrice((int) $request->input('price'));
+        $product->setStock((int) $request->input('stock'));
+        $product->setPhotoUrl($photoUrl);
+        $product->save();
 
         return redirect()->route('admin.products.index')->with([
             'flash.message_key' => 'messages.product_created',
@@ -84,9 +89,9 @@ class MobilePhoneController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $product = MobilePhone::findOrFail($id);
-        $photoUrl = $product->photo_url;
+        $photoUrl = $product->getPhotoUrl();
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
-            $brand = $request->input('brand', $product->brand);
+            $brand = $request->input('brand', $product->getBrand());
             $brandSlug = Str::slug($brand);
             $dir = public_path('images/' . $brandSlug);
             if (!is_dir($dir)) {
@@ -103,10 +108,12 @@ class MobilePhoneController extends Controller
 
         $request->merge(['photo_url' => $photoUrl]);
         MobilePhone::validate($request);
-
-        $data = $request->only(['name','brand','price','stock']);
-        $data['photo_url'] = $photoUrl;
-        $product->update($data);
+        $product->setName((string) $request->input('name'));
+        $product->setBrand((string) $request->input('brand'));
+        $product->setPrice((int) $request->input('price'));
+        $product->setStock((int) $request->input('stock'));
+        $product->setPhotoUrl($photoUrl);
+        $product->save();
 
         return redirect()->route('admin.products.index')->with([
             'flash.message_key' => 'messages.product_updated',

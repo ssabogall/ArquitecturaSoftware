@@ -87,11 +87,20 @@ return [
     'users' => 'Usuarios',
     'orders' => 'Órdenes',
     'products' => 'Productos',
+    'specifications' => 'Especificaciones',
+    'reviews' => 'Reseñas',
     'view' => 'Ver',
     'pending' => 'pendiente',
     'paid' => 'pagada',
     'shipped' => 'enviada',
     'cancelled' => 'cancelada',
+    'approved' => 'aprobada',
+    'rejected' => 'rechazada',
+    'status' => 'Estado',
+    'rating' => 'Calificación',
+    'comments' => 'Comentarios',
+    'approve' => 'Aprobar',
+    'reject' => 'Rechazar',
 
     // --- Admin - Products ---
     'new_product' => 'Nuevo producto',
@@ -106,6 +115,29 @@ return [
     'photo_url' => 'URL de la foto',
     'photo' => 'Foto',
     'current' => 'Actual',
+
+    // --- Admin - Reviews ---
+    'pending_reviews_widget' => ':count reseñas pendientes por aprobación',
+    'review_approved' => 'Reseña aprobada correctamente.',
+    'review_rejected' => 'Reseña rechazada.',
+
+    // --- Admin - Specifications ---
+    'spec_details' => 'Detalle de especificación',
+    'new_spec' => 'Nueva especificación',
+    'edit_spec' => 'Editar especificación',
+    'spec_created' => 'Especificación creada correctamente.',
+    'spec_updated' => 'Especificación actualizada correctamente.',
+    'spec_deleted' => 'Especificación eliminada correctamente.',
+    'model' => 'Modelo',
+    'processor' => 'Procesador',
+    'battery' => 'Batería (mAh)',
+    'screen_size' => 'Tamaño de pantalla (\")',
+    'screen_tech' => 'Tecnología de pantalla',
+    'ram' => 'RAM (GB)',
+    'storage' => 'Almacenamiento (GB)',
+    'camera_specs' => 'Cámaras',
+    'color' => 'Color',
+    'select' => 'Seleccionar',
 
     // --- Admin - Users ---
     'new_user' => 'Nuevo usuario',

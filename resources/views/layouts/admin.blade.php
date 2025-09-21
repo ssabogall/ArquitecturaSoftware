@@ -44,6 +44,16 @@
                     <i class="bi bi-phone me-2"></i><span class="label">{{ __('messages.products') }}</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.specifications.index') }}" title="{{ __('messages.specifications') }}" class="nav-link">
+                    <i class="bi bi-sliders me-2"></i><span class="label">{{ __('messages.specifications') }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.reviews.index') }}" title="{{ __('messages.reviews') }}" class="nav-link">
+                    <i class="bi bi-chat-square-quote me-2"></i><span class="label">{{ __('messages.reviews') }}</span>
+                </a>
+            </li>
         </ul>
         <hr>
         <div class="mt-auto d-grid gap-2">

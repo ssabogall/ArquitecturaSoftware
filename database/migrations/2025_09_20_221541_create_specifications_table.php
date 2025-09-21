@@ -2,7 +2,8 @@
 /**
  * Migration: Create Specifications Table
  *
- * Crea la tabla 'specifications' con relación 1–1 hacia 'mobile_phones'.
+ * Crea la tabla 'specifications' con los campos técnicos del dispositivo.
+ * Relación 1–1: MobilePhone hasOne Specification y la FK vive en specifications.mobile_phone_id
  *
  * @author Miguel Arcila
  *
@@ -27,7 +28,7 @@ return new class extends Migration {
             $table->string('camera_specs');
             $table->string('color');
 
-            // Relación 1–1 con mobile_phones
+            // Relación 1–1 con mobile_phones (FK vive en specifications)
             $table->unsignedBigInteger('mobile_phone_id')->unique();
             $table->foreign('mobile_phone_id')
                   ->references('id')

@@ -38,7 +38,19 @@
         </div>
     </div>
 
-    <div class="row g-3 mt-1">
+        <div class="row g-3 mt-3">
+            <div class="col-12">
+                <div class="alert alert-info d-flex align-items-center justify-content-between" role="alert">
+                    <div>
+                        <i class="bi bi-chat-square-quote me-2"></i>
+                        {{ __('messages.pending_reviews_widget', ['count' => $pendingReviews ?? 0]) }}
+                    </div>
+                    <a href="{{ route('admin.reviews.index') }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view') }}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-1">
         <div class="col-md-3">
             <div class="card text-bg-light h-100">
                 <div class="card-body">

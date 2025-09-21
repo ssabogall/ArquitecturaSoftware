@@ -12,6 +12,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 
 /**
@@ -49,6 +50,12 @@ class Order extends Model
             'total.integer' => 'El total de la orden debe ser un número entero.',
             'total.min' => 'El total de la orden no puede ser negativo.',
         ]);
+    }
+
+    // Relaciones
+    public function items(): HasMany
+    {
+        return $this->hasMany(OrderItem::class, 'order_id');
     }
 
     // Getters
