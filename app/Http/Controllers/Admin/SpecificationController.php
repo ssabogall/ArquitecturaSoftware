@@ -11,8 +11,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Specification;
 use App\Models\MobilePhone;
+use App\Models\Specification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -23,21 +23,23 @@ class SpecificationController extends Controller
     {
         $viewData = [];
         $viewData['specs'] = Specification::with('mobilePhone')->orderByDesc('id')->paginate(50);
+
         return view('admin.specifications.index', $viewData);
     }
 
     public function create(): View
     {
         $viewData = [];
-        $viewData['spec'] = new Specification();
+        $viewData['spec'] = new Specification;
         $viewData['phones'] = MobilePhone::orderBy('name')->get();
+
         return view('admin.specifications.create', $viewData);
     }
 
     public function store(Request $request): RedirectResponse
     {
         Specification::validate($request);
-        $spec = new Specification();
+        $spec = new Specification;
         $spec->setMobilePhoneId((int) $request->input('mobile_phone_id'));
         $spec->setModel((string) $request->input('model'));
         $spec->setProcessor((string) $request->input('processor'));
@@ -60,6 +62,7 @@ class SpecificationController extends Controller
     {
         $viewData = [];
         $viewData['spec'] = Specification::with('mobilePhone')->findOrFail($id);
+
         return view('admin.specifications.show', $viewData);
     }
 
@@ -68,6 +71,7 @@ class SpecificationController extends Controller
         $viewData = [];
         $viewData['spec'] = Specification::findOrFail($id);
         $viewData['phones'] = MobilePhone::orderBy('name')->get();
+
         return view('admin.specifications.edit', $viewData);
     }
 

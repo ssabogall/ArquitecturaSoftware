@@ -6,7 +6,6 @@
  * Controlador para los usuarios en el panel de administración.
  *
  * @author Alejandro Carmona
- *
  */
 
 namespace App\Http\Controllers\Admin;

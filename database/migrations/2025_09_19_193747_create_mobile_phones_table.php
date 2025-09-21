@@ -6,7 +6,6 @@
  * Crea la tabla de teléfonos móviles para almacenar información sobre los productos.
  *
  * @author Alejandro Carmona
- *
  */
 
 use Illuminate\Database\Migrations\Migration;

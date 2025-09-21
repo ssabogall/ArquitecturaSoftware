@@ -6,7 +6,6 @@
  * Controlador para el carrito de compras.
  *
  * @author Miguel Arcila
- *
  */
 
 namespace App\Http\Controllers;
@@ -21,7 +20,6 @@ use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
-
     public function index(): View
     {
         $viewData = [];
@@ -94,7 +92,7 @@ class CartController extends Controller
         ]);
 
         $items = session('cart.items', []);
-        if (!isset($items[$id])) {
+        if (! isset($items[$id])) {
             return redirect()->route('cart.index');
         }
 
@@ -115,7 +113,6 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
-
     public function remove(int $id): RedirectResponse
     {
         $items = session('cart.items', []);
@@ -125,6 +122,7 @@ class CartController extends Controller
             session()->flash('flash.message_key', 'messages.item_removed');
             session()->flash('flash.level', 'warning');
         }
+
         return redirect()->route('cart.index');
     }
 
@@ -146,7 +144,7 @@ class CartController extends Controller
         $dbItems = [];
         foreach ($items as $it) {
             $phone = MobilePhone::find($it['id']);
-            if (!$phone) {
+            if (! $phone) {
                 return redirect()->route('cart.index')->with('flash.message_key', 'messages.error')->with('flash.level', 'danger');
             }
             $qty = min($it['quantity'], $phone->getStock());
@@ -160,7 +158,7 @@ class CartController extends Controller
 
         DB::beginTransaction();
         try {
-            $order = new Order();
+            $order = new Order;
             $order->setDate(now()->toDateString());
             $order->setStatus('pending');
             $order->setTotal($total);
@@ -175,7 +173,7 @@ class CartController extends Controller
                 $phone->setStock($phone->getStock() - $qty);
                 $phone->save();
 
-                $item = new OrderItem();
+                $item = new OrderItem;
                 $item->setOrderId($order->getId());
                 $item->setMobilePhoneId($phone->getId());
                 $item->setQuantity($qty);
@@ -186,9 +184,9 @@ class CartController extends Controller
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
+
             return redirect()->route('cart.index')->with('flash.message_key', 'messages.error')->with('flash.level', 'danger');
         }
-
 
         session()->forget('cart.items');
 

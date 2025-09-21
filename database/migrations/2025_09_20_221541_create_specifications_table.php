@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Migration: Create Specifications Table
  *
@@ -6,14 +7,14 @@
  * Relación 1–1: MobilePhone hasOne Specification y la FK vive en specifications.mobile_phone_id
  *
  * @author Miguel Arcila
- *
  */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('specifications', function (Blueprint $table) {
@@ -31,9 +32,9 @@ return new class extends Migration {
             // Relación 1–1 con mobile_phones (FK vive en specifications)
             $table->unsignedBigInteger('mobile_phone_id')->unique();
             $table->foreign('mobile_phone_id')
-                  ->references('id')
-                  ->on('mobile_phones')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('mobile_phones')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -6,7 +6,6 @@
  * Crea la tabla de pedidos para almacenar las órdenes realizadas por los usuarios.
  *
  * @author Alejandro Carmona
- *
  */
 
 use Illuminate\Database\Migrations\Migration;

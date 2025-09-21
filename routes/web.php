@@ -37,4 +37,3 @@ Route::post('/cart', 'App\Http\Controllers\CartController@add')->name('cart.add'
 Route::put('/cart/{id}', 'App\Http\Controllers\CartController@update')->name('cart.update');
 Route::delete('/cart/{id}', 'App\Http\Controllers\CartController@remove')->name('cart.remove');
 Route::post('/cart/checkout', 'App\Http\Controllers\CartController@checkout')->middleware('auth')->name('cart.checkout');
- 

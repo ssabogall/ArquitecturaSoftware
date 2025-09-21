@@ -6,7 +6,6 @@
  * Elimina la columna huérfana users.review_id que no se utiliza.
  *
  * @author Miguel Arcila
- *
  */
 
 use Illuminate\Database\Migrations\Migration;
@@ -26,7 +25,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        if (!Schema::hasColumn('users', 'review_id')) {
+        if (! Schema::hasColumn('users', 'review_id')) {
             Schema::table('users', function (Blueprint $table) {
                 $table->unsignedBigInteger('review_id')->nullable();
             });

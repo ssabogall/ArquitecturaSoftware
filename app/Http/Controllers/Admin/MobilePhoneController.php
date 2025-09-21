@@ -7,14 +7,12 @@
  *
  * @author Alejandro Carmona
  * @author Miguel Arcila
- * 
  */
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MobilePhone;
-use App\Models\Specification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -26,13 +24,15 @@ class MobilePhoneController extends Controller
     {
         $viewData = [];
         $viewData['products'] = MobilePhone::orderBy('id', 'desc')->paginate(50);
+
         return view('admin.products.index', $viewData);
     }
 
     public function create(): View
     {
         $viewData = [];
-        $viewData['product'] = new MobilePhone();
+        $viewData['product'] = new MobilePhone;
+
         return view('admin.products.create', $viewData);
     }
 
@@ -42,23 +42,23 @@ class MobilePhoneController extends Controller
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $brand = $request->input('brand', 'generic');
             $brandSlug = Str::slug($brand);
-            $dir = public_path('images/' . $brandSlug);
-            if (!is_dir($dir)) {
+            $dir = public_path('images/'.$brandSlug);
+            if (! is_dir($dir)) {
                 mkdir($dir, 0755, true);
             }
             $original = $request->file('photo')->getClientOriginalName();
             $ext = pathinfo($original, PATHINFO_EXTENSION) ?: 'png';
             $base = pathinfo($original, PATHINFO_FILENAME);
-            $filename = Str::slug($base) . '-' . time() . '.' . strtolower($ext);
+            $filename = Str::slug($base).'-'.time().'.'.strtolower($ext);
             $request->file('photo')->move($dir, $filename);
-            $relative = '/images/' . $brandSlug . '/' . $filename;
+            $relative = '/images/'.$brandSlug.'/'.$filename;
             $photoUrl = url($relative);
             $request->merge(['photo_url' => $photoUrl]);
         }
 
         MobilePhone::validate($request);
 
-        $product = new MobilePhone();
+        $product = new MobilePhone;
         $product->setName((string) $request->input('name'));
         $product->setBrand((string) $request->input('brand'));
         $product->setPrice((int) $request->input('price'));
@@ -76,6 +76,7 @@ class MobilePhoneController extends Controller
     {
         $viewData = [];
         $viewData['product'] = MobilePhone::findOrFail($id);
+
         return view('admin.products.show', $viewData);
     }
 
@@ -83,6 +84,7 @@ class MobilePhoneController extends Controller
     {
         $viewData = [];
         $viewData['product'] = MobilePhone::findOrFail($id);
+
         return view('admin.products.edit', $viewData);
     }
 
@@ -93,16 +95,16 @@ class MobilePhoneController extends Controller
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $brand = $request->input('brand', $product->getBrand());
             $brandSlug = Str::slug($brand);
-            $dir = public_path('images/' . $brandSlug);
-            if (!is_dir($dir)) {
+            $dir = public_path('images/'.$brandSlug);
+            if (! is_dir($dir)) {
                 mkdir($dir, 0755, true);
             }
             $original = $request->file('photo')->getClientOriginalName();
             $ext = pathinfo($original, PATHINFO_EXTENSION) ?: 'png';
             $base = pathinfo($original, PATHINFO_FILENAME);
-            $filename = Str::slug($base) . '-' . time() . '.' . strtolower($ext);
+            $filename = Str::slug($base).'-'.time().'.'.strtolower($ext);
             $request->file('photo')->move($dir, $filename);
-            $relative = '/images/' . $brandSlug . '/' . $filename;
+            $relative = '/images/'.$brandSlug.'/'.$filename;
             $photoUrl = url($relative);
         }
 

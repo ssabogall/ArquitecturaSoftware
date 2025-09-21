@@ -6,17 +6,16 @@
  * Controlador para las órdenes.
  *
  * @author Miguel Arcila
- *
  */
 
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -29,6 +28,7 @@ class OrderController extends Controller
         $viewData = [
             'orders' => $orders,
         ];
+
         return view('orders.index', $viewData);
     }
 
@@ -38,6 +38,7 @@ class OrderController extends Controller
             return redirect()->route('order.index')->with('flash.message_key', 'messages.error')->with('flash.level', 'danger');
         }
         $order->load(['items.mobilePhone', 'user']);
+
         return view('orders.show', ['order' => $order]);
     }
 
@@ -60,8 +61,10 @@ class OrderController extends Controller
                 $order->setStatus('cancelled');
                 $order->save();
             });
+
             return back()->with('flash.message_key', 'messages.order_cancelled')->with('flash.level', 'success');
         }
+
         return back()->with('flash.message_key', 'messages.invalid_action')->with('flash.level', 'warning');
     }
 
@@ -84,8 +87,10 @@ class OrderController extends Controller
                 $order->setStatus('cancelled');
                 $order->save();
             });
+
             return back()->with('flash.message_key', 'messages.order_cancelled')->with('flash.level', 'success');
         }
+
         return back()->with('flash.message_key', 'messages.invalid_action')->with('flash.level', 'warning');
     }
 
@@ -96,7 +101,8 @@ class OrderController extends Controller
         }
         $order->load(['items.mobilePhone', 'user']);
         $pdf = Pdf::loadView('orders.invoice', ['order' => $order]);
-        $fileName = 'invoice-'. $order->getId() .'.pdf';
+        $fileName = 'invoice-'.$order->getId().'.pdf';
+
         return $pdf->stream($fileName);
     }
 
@@ -107,7 +113,8 @@ class OrderController extends Controller
         }
         $order->load(['items.mobilePhone', 'user']);
         $pdf = Pdf::loadView('orders.invoice', ['order' => $order]);
-        $fileName = 'invoice-'. $order->getId() .'.pdf';
+        $fileName = 'invoice-'.$order->getId().'.pdf';
+
         return $pdf->download($fileName);
     }
 }

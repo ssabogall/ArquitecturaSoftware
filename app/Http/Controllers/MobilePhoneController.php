@@ -6,7 +6,6 @@
  * Controlador para los teléfonos móviles.
  *
  * @author Miguel Arcila
- *
  */
 
 namespace App\Http\Controllers;
@@ -20,7 +19,6 @@ use Illuminate\Support\Facades\Auth;
 
 class MobilePhoneController extends Controller
 {
-
     public function index(Request $request): View
     {
         $q = trim((string) $request->query('q', ''));
@@ -57,7 +55,9 @@ class MobilePhoneController extends Controller
 
         $approved = $viewData['phone']->reviews;
         $count = $approved->count();
-        $average = $count > 0 ? round($approved->avg(function ($r) { return $r->getRating(); }), 1) : null;
+        $average = $count > 0 ? round($approved->avg(function ($r) {
+            return $r->getRating();
+        }), 1) : null;
 
         $viewData['reviewsAvg'] = $average;
         $viewData['reviewsCount'] = $count;
@@ -76,7 +76,7 @@ class MobilePhoneController extends Controller
 
         Review::validate($request);
 
-        $review = new Review();
+        $review = new Review;
         $review->setUserId(Auth::id());
         $review->setMobilePhoneId($id);
         $review->setStatus('pending');

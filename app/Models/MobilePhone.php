@@ -7,14 +7,13 @@
  *
  * @author Alejandro Carmona
  * @author Miguel Arcila
- *
  */
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\Request;
 
 /**
@@ -144,19 +143,21 @@ class MobilePhone extends Model
     public function getApprovedReviewsAvgRatingFormatted(): ?string
     {
         $avg = $this->getApprovedReviewsAvgRating();
+
         return $avg !== null ? number_format($avg, 1, ',', '.') : null;
     }
 
     public function getPhotoFilename(): ?string
     {
         $url = $this->getPhotoUrl();
-        if (!$url) {
+        if (! $url) {
             return null;
         }
         $path = parse_url($url, PHP_URL_PATH);
         if (is_string($path) && $path !== '') {
             return basename($path);
         }
+
         return basename($url);
     }
 
@@ -185,5 +186,4 @@ class MobilePhone extends Model
     {
         $this->attributes['stock'] = $stock;
     }
-
 }

@@ -21,6 +21,7 @@ class ReviewController extends Controller
     {
         $viewData = [];
         $viewData['reviews'] = Review::with(['user', 'mobilePhone'])->orderByDesc('id')->paginate(50);
+
         return view('admin.reviews.index', $viewData);
     }
 

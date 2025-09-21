@@ -6,7 +6,6 @@
  * Controlador para el perfil del usuario.
  *
  * @author Miguel Arcila
- *
  */
 
 namespace App\Http\Controllers;
@@ -23,6 +22,7 @@ class AccountController extends Controller
     {
         $viewData = [];
         $viewData['user'] = Auth::user();
+
         return view('auth.profile', $viewData);
     }
 

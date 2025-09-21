@@ -7,16 +7,15 @@
  *
  * @author Alejandro Carmona
  * @author Miguel Arcila
- *
  */
 
 namespace App\Models;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
-use Illuminate\Http\Request;
 
 /**
  * USER ATTRIBUTES

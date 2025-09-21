@@ -6,16 +6,15 @@
  * Controlador para el panel de administración.
  *
  * @author Alejandro Carmona
- *
  */
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\MobilePhone;
 use App\Models\Order;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\View\View;
 
 class DashboardController extends Controller

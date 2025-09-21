@@ -6,7 +6,6 @@
  * Controlador para las órdenes en el panel de administración.
  *
  * @author Alejandro Carmona
- *
  */
 
 namespace App\Http\Controllers\Admin;
@@ -19,6 +18,7 @@ class OrderController extends Controller
     public function index(): View
     {
         $viewData = [];
+
         return view('admin.orders.index', $viewData);
     }
 }

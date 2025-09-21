@@ -6,7 +6,6 @@
  * Middleware para verificar si el usuario es administrador.
  *
  * @author Alejandro Carmona
- *
  */
 
 namespace App\Http\Middleware;

@@ -29,8 +29,7 @@ use Illuminate\Http\Request;
  * $this->attributes['color'] - string - color name
  * $this->attributes['created_at'] - Carbon - creation date
  * $this->attributes['updated_at'] - Carbon - last update date
-*/
-
+ */
 class Specification extends Model
 {
     protected $fillable = [

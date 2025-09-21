@@ -6,17 +6,17 @@
  * Controlador para el home
  *
  * @author Miguel Arcila
- *
  */
 
 namespace App\Http\Controllers;
+
 use App\Models\MobilePhone;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        
+
         $topPhones = MobilePhone::query()
             ->withAvg(['reviews as approved_reviews_avg_rating' => function ($q) {
                 $q->where('status', 'approved');

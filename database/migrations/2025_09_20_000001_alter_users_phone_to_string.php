@@ -6,7 +6,6 @@
  * Cambia el tipo de dato del campo 'phone' en la tabla de usuarios a VARCHAR.
  *
  * @author Alejandro Carmona
- *
  */
 
 use Illuminate\Database\Migrations\Migration;

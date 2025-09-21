@@ -6,7 +6,6 @@
  * Añade campos adicionales a la tabla de usuarios.
  *
  * @author Alejandro Carmona
- *
  */
 
 use Illuminate\Database\Migrations\Migration;

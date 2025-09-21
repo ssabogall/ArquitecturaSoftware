@@ -7,7 +7,6 @@
  *
  * @author Alejandro Carmona
  * @author Miguel Angel Arcila
- *
  */
 
 return [
@@ -183,7 +182,7 @@ return [
     'user_created' => 'Usuario creado correctamente.',
     'user_updated' => 'Usuario actualizado correctamente.',
     'user_deleted' => 'Usuario eliminado correctamente.',
-    
+
     // --- Perfil de usuario ---
     'my_account' => 'Mi cuenta',
     'profile_updated' => 'Perfil actualizado correctamente.',
