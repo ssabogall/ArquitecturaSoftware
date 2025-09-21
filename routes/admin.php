@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index')->name('dashboard');
+
 // Users
 Route::get('users', 'App\Http\Controllers\Admin\UserController@index')->name('users.index');
 Route::get('users/create', 'App\Http\Controllers\Admin\UserController@create')->name('users.create');
@@ -37,6 +38,6 @@ Route::patch('specifications/{specification}', 'App\Http\Controllers\Admin\Speci
 Route::delete('specifications/{specification}', 'App\Http\Controllers\Admin\SpecificationController@destroy')->name('specifications.destroy');
 
 // Reviews
-Route::get('reviews', 'App\\Http\\Controllers\\Admin\\ReviewController@index')->name('reviews.index');
-Route::patch('reviews/{review}/approve', 'App\\Http\\Controllers\\Admin\\ReviewController@approve')->name('reviews.approve');
-Route::patch('reviews/{review}/reject', 'App\\Http\\Controllers\\Admin\\ReviewController@reject')->name('reviews.reject');
+Route::get('reviews', 'App\Http\Controllers\Admin\ReviewController@index')->name('reviews.index');
+Route::patch('reviews/{review}/approve', 'App\Http\Controllers\Admin\ReviewController@approve')->name('reviews.approve');
+Route::patch('reviews/{review}/reject', 'App\Http\Controllers\Admin\ReviewController@reject')->name('reviews.reject');

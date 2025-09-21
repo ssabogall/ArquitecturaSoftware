@@ -97,6 +97,21 @@ class OrderItem extends Model
         return $this->attributes['price'];
     }
 
+    public function getPriceFormatted(): string
+    {
+        return number_format($this->getPrice(), 0, ',', '.');
+    }
+
+    public function getSubtotal(): int
+    {
+        return $this->getPrice() * $this->getQuantity();
+    }
+
+    public function getSubtotalFormatted(): string
+    {
+        return number_format($this->getSubtotal(), 0, ',', '.');
+    }
+
     public function getCreatedAt(): string
     {
         return (string) $this->attributes['created_at'];

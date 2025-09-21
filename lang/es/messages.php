@@ -28,11 +28,14 @@ return [
     'login' => 'Iniciar sesión',
     'register' => 'Registrarse',
     'logout' => 'Cerrar sesión',
+    'my_profile' => 'Mi perfil',
+    'my_orders' => 'Mis órdenes',
     'email' => 'Correo electrónico',
     'password' => 'Contraseña',
     'confirm_password' => 'Confirmar contraseña',
     'remember_me' => 'Recordarme',
     'forgot_password' => '¿Olvidaste tu contraseña?',
+    'hello_name' => 'Hola, :name',
 
     // --- Formularios ---
     'submit' => 'Enviar',
@@ -53,6 +56,9 @@ return [
     'updated_at' => 'Actualizado el',
     'id' => 'ID',
     'actions' => 'Acciones',
+    'quantity' => 'Cantidad',
+    'total' => 'Total',
+    'date' => 'Fecha',
     'not_provided' => '—',
 
     // --- Estados y mensajes ---
@@ -64,11 +70,14 @@ return [
     'error' => 'Error',
     'warning' => 'Advertencia',
     'info' => 'Información',
+    'or' => 'o',
 
     // --- Página de bienvenida ---
     'welcome' => 'Bienvenido',
     'welcome_website' => 'Bienvenido a nuestro sitio web',
     'glad_you_are_here' => 'Nos alegra que estés aquí',
+    'home_headline' => 'Encuentra tu próximo celular',
+    'home_subheadline' => 'Nuestros productos mejor valorados',
 
     // --- Contraseñas ---
     'reset_password' => 'Restablecer contraseña',
@@ -99,6 +108,9 @@ return [
     'status' => 'Estado',
     'rating' => 'Calificación',
     'comments' => 'Comentarios',
+    'average_rating' => 'Calificación promedio',
+    'based_on_reviews' => 'basado en :count reseñas',
+    'out_of_max' => 'sobre :max',
     'approve' => 'Aprobar',
     'reject' => 'Rechazar',
 
@@ -115,11 +127,36 @@ return [
     'photo_url' => 'URL de la foto',
     'photo' => 'Foto',
     'current' => 'Actual',
+    'currency_symbol' => '$',
+    'cart' => 'Carrito',
+    'checkout' => 'Finalizar compra',
+    'add_to_cart' => 'Añadir al carrito',
+    'added_to_cart' => 'Producto añadido al carrito.',
+    'cart_updated' => 'Carrito actualizado.',
+    'item_removed' => 'Producto eliminado del carrito.',
+    'last_units' => 'Últimas :count unidades',
+    'order_created' => 'Tu orden fue creada correctamente.',
+    'order_cancelled' => 'La orden fue cancelada.',
+    'invalid_action' => 'Acción no permitida para el estado actual.',
+    'return' => 'Devolver',
+    'address_required_for_checkout' => 'Necesitas registrar una dirección de entrega antes de finalizar la compra.',
+    'go_to_profile_to_update' => 'Ve a tu perfil para actualizar tu información.',
+    'invoice' => 'Factura',
+    'invoice_number' => 'N° de factura',
+    'view_pdf' => 'Ver PDF',
+    'download_pdf' => 'Descargar PDF',
 
     // --- Admin - Reviews ---
     'pending_reviews_widget' => ':count reseñas pendientes por aprobación',
     'review_approved' => 'Reseña aprobada correctamente.',
     'review_rejected' => 'Reseña rechazada.',
+    'review_submitted_pending' => 'Tu reseña fue enviada y será publicada cuando sea aprobada.',
+    'review_submit_info' => 'Tu reseña quedará pendiente de aprobación antes de publicarse.',
+    'to_review_info' => 'para dejar una reseña.',
+    'leave_review' => 'Dejar una reseña',
+    'search' => 'Buscar',
+    'search_placeholder' => 'Buscar por nombre o marca',
+    'clear' => 'Limpiar',
 
     // --- Admin - Specifications ---
     'spec_details' => 'Detalle de especificación',
@@ -146,4 +183,8 @@ return [
     'user_created' => 'Usuario creado correctamente.',
     'user_updated' => 'Usuario actualizado correctamente.',
     'user_deleted' => 'Usuario eliminado correctamente.',
+    
+    // --- Perfil de usuario ---
+    'my_account' => 'Mi cuenta',
+    'profile_updated' => 'Perfil actualizado correctamente.',
 ];

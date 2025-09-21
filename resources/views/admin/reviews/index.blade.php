@@ -40,9 +40,8 @@
                             <td>{{ optional($review->user)->getName() }}</td>
                             <td>{{ optional($review->mobilePhone)->getName() }}</td>
                             <td>
-                                @php($status = $review->getStatus())
-                                <span class="badge text-bg-{{ $status === 'approved' ? 'success' : ($status === 'rejected' ? 'danger' : 'secondary') }}">
-                                    {{ __($status) }}
+                                <span class="badge text-bg-{{ $review->getStatus() === 'approved' ? 'success' : ($review->getStatus() === 'rejected' ? 'danger' : 'secondary') }}">
+                                    {{ __($review->getStatus()) }}
                                 </span>
                             </td>
                             <td>{{ $review->getRating() }}</td>
@@ -52,14 +51,14 @@
                                 <form action="{{ route('admin.reviews.approve', $review->getId()) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('PATCH')
-                                    <button class="btn btn-success btn-sm" type="submit" @if($status==='approved') disabled @endif>
+                                    <button class="btn btn-success btn-sm" type="submit" @if($review->getStatus()==='approved') disabled @endif>
                                         <i class="bi bi-check2"></i> {{ __('messages.approve') }}
                                     </button>
                                 </form>
                                 <form action="{{ route('admin.reviews.reject', $review->getId()) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('PATCH')
-                                    <button class="btn btn-outline-danger btn-sm" type="submit" @if($status==='rejected') disabled @endif>
+                                    <button class="btn btn-outline-danger btn-sm" type="submit" @if($review->getStatus()==='rejected') disabled @endif>
                                         <i class="bi bi-x"></i> {{ __('messages.reject') }}
                                     </button>
                                 </form>

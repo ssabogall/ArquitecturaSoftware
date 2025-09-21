@@ -6,6 +6,7 @@
  * Modelo para MobilePhone.
  *
  * @author Alejandro Carmona
+ * @author Miguel Arcila
  *
  */
 
@@ -108,6 +109,11 @@ class MobilePhone extends Model
         return $this->attributes['price'];
     }
 
+    public function getPriceFormatted(): string
+    {
+        return number_format($this->getPrice(), 0, ',', '.');
+    }
+
     public function getStock(): int
     {
         return $this->attributes['stock'];
@@ -121,6 +127,37 @@ class MobilePhone extends Model
     public function getUpdatedAt(): string
     {
         return (string) $this->attributes['updated_at'];
+    }
+
+    public function getApprovedReviewsAvgRating(): ?float
+    {
+        return isset($this->attributes['approved_reviews_avg_rating'])
+            ? (float) $this->attributes['approved_reviews_avg_rating']
+            : null;
+    }
+
+    public function getApprovedReviewsCount(): int
+    {
+        return (int) ($this->attributes['approved_reviews_count'] ?? 0);
+    }
+
+    public function getApprovedReviewsAvgRatingFormatted(): ?string
+    {
+        $avg = $this->getApprovedReviewsAvgRating();
+        return $avg !== null ? number_format($avg, 1, ',', '.') : null;
+    }
+
+    public function getPhotoFilename(): ?string
+    {
+        $url = $this->getPhotoUrl();
+        if (!$url) {
+            return null;
+        }
+        $path = parse_url($url, PHP_URL_PATH);
+        if (is_string($path) && $path !== '') {
+            return basename($path);
+        }
+        return basename($url);
     }
 
     // Setters

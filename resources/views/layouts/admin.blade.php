@@ -3,6 +3,7 @@
     Purpose: Layout base para el panel de administración.
 
     @author Alejandro Carmona
+    @author Miguel Arcila
 --}}
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -19,8 +20,8 @@
     <title>@yield('title', __('messages.admin_panel'))</title>
 </head>
 
-<body>
-<div class="admin-layout d-flex">
+<body class="min-vh-100 d-flex flex-column">
+<div class="admin-layout d-flex flex-grow-1">
     <!-- Sidebar -->
     <nav class="admin-sidebar d-flex flex-column p-3">
         <ul class="nav nav-pills flex-column mb-auto">
@@ -70,18 +71,14 @@
     </nav>
 
     <!-- Main content -->
-    <main class="admin-main flex-fill">
+    <main class="admin-main flex-fill d-flex flex-column">
         <header class="admin-header border-bottom p-3">
             <h1 class="h4 m-0">@yield('header', __('messages.dashboard'))</h1>
         </header>
-        <section class="admin-content p-4">
-            @php
-                $flashKey = session('flash.message_key');
-                $flashLevel = session('flash.level', 'success');
-            @endphp
-            @if ($flashKey)
-                <div class="alert alert-{{ $flashLevel }}" role="alert">
-                    {{ __($flashKey) }}
+        <section class="admin-content p-4 flex-grow-1">
+            @if (session('flash.message_key'))
+                <div class="alert alert-{{ session('flash.level', 'success') }}" role="alert">
+                    {{ __(session('flash.message_key')) }}
                 </div>
             @endif
             @yield('content')

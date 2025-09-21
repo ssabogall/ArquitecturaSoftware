@@ -3,9 +3,10 @@
 /**
  * User.php
  *
- * Modelo para los usuarios.
+ * Modelo para los usuarios. Se maneja con laravel/ui.
  *
  * @author Alejandro Carmona
+ * @author Miguel Arcila
  *
  */
 
@@ -15,6 +16,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
+use Illuminate\Http\Request;
 
 /**
  * USER ATTRIBUTES
@@ -80,6 +82,24 @@ class User extends Authenticatable
             'staff' => 'boolean',
             'phone' => 'nullable|string|max:30',
             'address' => 'nullable|string|max:255',
+        ]);
+    }
+
+    // Validate profile update data (name, phone, address)
+    public static function validateProfile(Request $request): void
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:30',
+            'address' => 'nullable|string|max:255',
+        ], [
+            'name.required' => 'El nombre es obligatorio.',
+            'name.string' => 'El nombre debe ser texto.',
+            'name.max' => 'El nombre no puede superar los 255 caracteres.',
+            'phone.string' => 'El teléfono debe ser texto.',
+            'phone.max' => 'El teléfono no puede superar los 30 caracteres.',
+            'address.string' => 'La dirección debe ser texto.',
+            'address.max' => 'La dirección no puede superar los 255 caracteres.',
         ]);
     }
 
