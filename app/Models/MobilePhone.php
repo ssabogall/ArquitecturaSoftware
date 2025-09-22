@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * MOBILE PHONE ATTRIBUTES
@@ -41,7 +43,8 @@ class MobilePhone extends Model
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'photo_url' => 'nullable|url',
+            // Permitimos URL absoluta o ruta relativa (por eso solo validamos string y longitud)
+            'photo_url' => 'nullable|string|max:2048',
             'brand' => 'required|string|max:255',
             'price' => 'required|integer|min:0',
             'stock' => 'required|integer|min:0',
@@ -50,7 +53,8 @@ class MobilePhone extends Model
             'name.string' => 'El nombre debe ser una cadena de texto.',
             'name.max' => 'El nombre no puede superar los 255 caracteres.',
 
-            'photo_url.url' => 'La URL de la foto debe ser válida.',
+            'photo_url.string' => 'La URL de la foto debe ser texto.',
+            'photo_url.max' => 'La URL de la foto no puede superar los 2048 caracteres.',
 
             'brand.required' => 'La marca es obligatoria.',
             'brand.string' => 'La marca debe ser texto.',
@@ -95,7 +99,30 @@ class MobilePhone extends Model
 
     public function getPhotoUrl(): ?string
     {
-        return $this->attributes['photo_url'];
+        $value = $this->attributes['photo_url'] ?? null;
+        if (empty($value)) {
+            return null;
+        }
+
+        if (Str::startsWith($value, ['http://', 'https://', 'data:'])) {
+            return $value;
+        }
+
+        $path = ltrim($value, '/');
+
+        if (Str::startsWith($path, 'storage/')) {
+            return asset($path);
+        }
+
+        if (Storage::disk('public')->exists($path)) {
+            return asset('storage/'.$path);
+        }
+
+        if (file_exists(public_path($path))) {
+            return asset($path);
+        }
+
+        return asset($path);
     }
 
     public function getBrand(): string
