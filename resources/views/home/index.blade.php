@@ -21,27 +21,7 @@
         <div class="row g-3">
             @foreach ($topPhones as $phone)
                 <div class="col-12 col-md-4">
-                    <div class="card h-100">
-                        @if ($phone->getPhotoUrl())
-                            <img src="{{ $phone->getPhotoUrl() }}" class="card-img-top img-card" alt="{{ $phone->getName() }}">
-                        @endif
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title mb-1">{{ $phone->getName() }}</h5>
-                            <div class="text-muted mb-2">{{ __('messages.brand') }}: {{ $phone->getBrand() }}</div>
-                            <div class="mb-2">
-                                @if($phone->getApprovedReviewsAvgRating())
-                                    <span class="badge bg-primary">{{ __('messages.rating') }}: {{ $phone->getApprovedReviewsAvgRatingFormatted() }}/5</span>
-                                    <span class="text-muted small">({{ $phone->getApprovedReviewsCount() }})</span>
-                                @else
-                                    <span class="text-muted small">{{ __('messages.no_results') }}</span>
-                                @endif
-                            </div>
-                            <div class="mt-auto d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">{{ __('messages.currency_symbol') }}{{ $phone->getPriceFormatted() }}</span>
-                                <a href="{{ route('phones.show', ['id' => $phone->getId()]) }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view') }}</a>
-                            </div>
-                        </div>
-                    </div>
+                    @include('phones.partials.card', ['phone' => $phone, 'showRating' => true, 'showAddToCart' => false])
                 </div>
             @endforeach
         </div>
