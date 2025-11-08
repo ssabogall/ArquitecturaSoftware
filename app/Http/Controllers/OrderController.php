@@ -51,10 +51,10 @@ class OrderController extends Controller
             DB::transaction(function () use ($order) {
                 $order->loadMissing('items.mobilePhone');
                 foreach ($order->items as $it) {
-                    $phone = $it->mobilePhone;
-                    if ($phone) {
-                        $phone->setStock($phone->getStock() + $it->getQuantity());
-                        $phone->save();
+                    $mobilePhone = $it->mobilePhone;
+                    if ($mobilePhone) {
+                        $mobilePhone->setStock($mobilePhone->getStock() + $it->getQuantity());
+                        $mobilePhone->save();
                     }
                 }
 
@@ -77,10 +77,10 @@ class OrderController extends Controller
             DB::transaction(function () use ($order) {
                 $order->loadMissing('items.mobilePhone');
                 foreach ($order->items as $it) {
-                    $phone = $it->mobilePhone;
-                    if ($phone) {
-                        $phone->setStock($phone->getStock() + $it->getQuantity());
-                        $phone->save();
+                    $mobilePhone = $it->mobilePhone;
+                    if ($mobilePhone) {
+                        $mobilePhone->setStock($mobilePhone->getStock() + $it->getQuantity());
+                        $mobilePhone->save();
                     }
                 }
 

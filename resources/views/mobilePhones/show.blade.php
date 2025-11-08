@@ -7,26 +7,26 @@
 
 @extends('layouts.app')
 
-@section('title', $phone->getName())
+@section('title', $mobilePhone->getName())
 
 @section('content')
 <div class="mb-3">
     <div>
-        <a href="{{ route('phones.index') }}" class="btn btn-outline-primary btn-sm">&larr; {{ __('messages.back') }}</a>
+        <a href="{{ route('mobilePhones.index') }}" class="btn btn-outline-primary btn-sm">&larr; {{ __('messages.back') }}</a>
     </div>
-    <h1 class="h3 mt-2 mb-1">{{ $phone->getName() }}</h1>
-    <div class="text-muted">{{ __('messages.brand') }}: {{ $phone->getBrand() }}</div>
-    <div class="fw-bold fs-5">{{ __('messages.currency_symbol') }}{{ $phone->getPriceFormatted() }}</div>
-    @if ($phone->getStock() > 0 && $phone->getStock() <= 5)
+    <h1 class="h3 mt-2 mb-1">{{ $mobilePhone->getName() }}</h1>
+    <div class="text-muted">{{ __('messages.brand') }}: {{ $mobilePhone->getBrand() }}</div>
+    <div class="fw-bold fs-5">{{ __('messages.currency_symbol') }}{{ $mobilePhone->getPriceFormatted() }}</div>
+    @if ($mobilePhone->getStock() > 0 && $mobilePhone->getStock() <= 5)
         <div class="alert alert-warning py-1 px-2 d-inline-block mt-2 mb-0">
-            {{ __('messages.last_units', ['count' => $phone->getStock()]) }}
+            {{ __('messages.last_units', ['count' => $mobilePhone->getStock()]) }}
         </div>
     @endif
     <form action="{{ route('cart.add') }}" method="POST" class="d-flex align-items-center gap-2 mt-2">
         @csrf
-        <input type="hidden" name="mobile_phone_id" value="{{ $phone->getId() }}" />
-        <input type="number" class="form-control form-control-sm text-center" name="quantity" value="1" min="1" max="{{ $phone->getStock() }}" step="1" required style="width: 140px;" />
-        <button type="submit" class="btn btn-primary btn-sm" @if($phone->getStock() <= 0) disabled aria-disabled="true" @endif>{{ __('messages.add_to_cart') }}</button>
+        <input type="hidden" name="mobile_phone_id" value="{{ $mobilePhone->getId() }}" />
+        <input type="number" class="form-control form-control-sm text-center" name="quantity" value="1" min="1" max="{{ $mobilePhone->getStock() }}" step="1" required style="width: 140px;" />
+        <button type="submit" class="btn btn-primary btn-sm" @if($mobilePhone->getStock() <= 0) disabled aria-disabled="true" @endif>{{ __('messages.add_to_cart') }}</button>
     </form>
 </div>
 
@@ -53,42 +53,42 @@
 
 <div class="row g-4">
     <div class="col-12 col-lg-6">
-        @if ($phone->getPhotoUrl())
-            <img src="{{ $phone->getPhotoUrl() }}" class="img-product img-fluid rounded shadow-sm" alt="{{ $phone->getName() }}" />
+        @if ($mobilePhone->getPhotoUrl())
+            <img src="{{ $mobilePhone->getPhotoUrl() }}" class="img-product img-fluid rounded shadow-sm" alt="{{ $mobilePhone->getName() }}" />
         @endif
     </div>
     <div class="col-12 col-lg-6">
         <div class="card">
             <div class="card-header">{{ __('messages.specifications') }}</div>
             <div class="card-body">
-                @if ($phone->specification)
+                @if ($mobilePhone->specification)
                     <dl class="row mb-0">
                         <dt class="col-sm-5">{{ __('messages.model') }}</dt>
-                        <dd class="col-sm-7">{{ $phone->specification->getModel() }}</dd>
+                        <dd class="col-sm-7">{{ $mobilePhone->specification->getModel() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.processor') }}</dt>
-                        <dd class="col-sm-7">{{ $phone->specification->getProcessor() }}</dd>
+                        <dd class="col-sm-7">{{ $mobilePhone->specification->getProcessor() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.battery') }}</dt>
-                        <dd class="col-sm-7">{{ $phone->specification->getBattery() }}</dd>
+                        <dd class="col-sm-7">{{ $mobilePhone->specification->getBattery() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.screen_size') }}</dt>
-                        <dd class="col-sm-7">{{ $phone->specification->getScreenSize() }}</dd>
+                        <dd class="col-sm-7">{{ $mobilePhone->specification->getScreenSize() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.screen_tech') }}</dt>
-                        <dd class="col-sm-7">{{ $phone->specification->getScreenTech() }}</dd>
+                        <dd class="col-sm-7">{{ $mobilePhone->specification->getScreenTech() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.ram') }}</dt>
-                        <dd class="col-sm-7">{{ $phone->specification->getRam() }}</dd>
+                        <dd class="col-sm-7">{{ $mobilePhone->specification->getRam() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.storage') }}</dt>
-                        <dd class="col-sm-7">{{ $phone->specification->getStorage() }}</dd>
+                        <dd class="col-sm-7">{{ $mobilePhone->specification->getStorage() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.camera_specs') }}</dt>
-                        <dd class="col-sm-7">{{ $phone->specification->getCameraSpecs() }}</dd>
+                        <dd class="col-sm-7">{{ $mobilePhone->specification->getCameraSpecs() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.color') }}</dt>
-                        <dd class="col-sm-7">{{ $phone->specification->getColor() }}</dd>
+                        <dd class="col-sm-7">{{ $mobilePhone->specification->getColor() }}</dd>
                     </dl>
                 @else
                     <p class="text-muted mb-0">{{ __('messages.no_results') }}</p>
@@ -109,7 +109,7 @@
             <div class="card mb-3">
                 <div class="card-header">{{ __('messages.leave_review') }}</div>
                 <div class="card-body">
-                <form action="{{ route('phones.reviews.submit', ['id' => $phone->getId()]) }}" method="POST" class="row g-3">
+                <form action="{{ route('mobilePhones.reviews.submit', ['id' => $mobilePhone->getId()]) }}" method="POST" class="row g-3">
                     @csrf
                     <div class="col-12 col-md-4">
                         <label for="rating" class="form-label">{{ __('messages.rating') }}</label>
@@ -143,11 +143,11 @@
     <div class="card">
         <div class="card-header">{{ __('messages.reviews') }}</div>
         <div class="card-body">
-            @if ($phone->reviews->isEmpty())
+            @if ($mobilePhone->reviews->isEmpty())
                 <p class="text-muted mb-0">{{ __('messages.no_results') }}</p>
             @else
                 <ul class="list-group list-group-flush">
-                    @foreach ($phone->reviews as $review)
+                    @foreach ($mobilePhone->reviews as $review)
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between">
                                 <strong>{{ $review->user ? $review->user->getName() : __('messages.not_provided') }}</strong>

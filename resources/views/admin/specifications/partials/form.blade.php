@@ -10,8 +10,8 @@
     <label for="mobile_phone_id" class="form-label">{{ __('messages.products') }}</label>
     <select id="mobile_phone_id" name="mobile_phone_id" class="form-select" required>
         <option value="">-- {{ __('messages.select') }} --</option>
-        @foreach($phones as $p)
-            <option value="{{ $p->getId() }}" @selected((string)old('mobile_phone_id', (isset($spec) && $spec && $spec->exists) ? (string)$spec->getMobilePhoneId() : '') === (string)$p->getId())>{{ $p->getName() }}</option>
+        @foreach($mobilePhones as $mobilePhone)
+            <option value="{{ $mobilePhone->getId() }}" @selected((string)old('mobile_phone_id', (isset($spec) && $spec && $spec->exists) ? (string)$spec->getMobilePhoneId() : '') === (string)$mobilePhone->getId())>{{ $mobilePhone->getName() }}</option>
         @endforeach
     </select>
     @error('mobile_phone_id')

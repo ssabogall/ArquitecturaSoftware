@@ -17,7 +17,7 @@ Route::put('/profile', 'App\Http\Controllers\AccountController@update')->middlew
 Route::patch('/profile', 'App\Http\Controllers\AccountController@update')->middleware('auth');
 
 // Reviews
-Route::post('/phones/{id}/reviews', 'App\Http\Controllers\MobilePhoneController@submitReview')->middleware('auth')->name('phones.reviews.submit');
+Route::post('/mobilePhones/{id}/reviews', 'App\Http\Controllers\MobilePhoneController@submitReview')->middleware('auth')->name('mobilePhones.reviews.submit');
 
 // Orders
 Route::get('/orders', 'App\\Http\\Controllers\\OrderController@index')->middleware('auth')->name('order.index');
@@ -28,8 +28,8 @@ Route::get('/orders/{order}/invoice', 'App\\Http\\Controllers\\OrderController@i
 Route::get('/orders/{order}/invoice/download', 'App\\Http\\Controllers\\OrderController@invoiceDownload')->middleware('auth')->name('order.invoice.download');
 
 // Mobile Phones
-Route::get('/phones', 'App\Http\Controllers\MobilePhoneController@index')->name('phones.index');
-Route::get('/phones/{id}', 'App\Http\Controllers\MobilePhoneController@show')->name('phones.show');
+Route::get('/mobilePhones', 'App\Http\Controllers\MobilePhoneController@index')->name('mobilePhones.index');
+Route::get('/mobilePhones/{id}', 'App\Http\Controllers\MobilePhoneController@show')->name('mobilePhones.show');
 
 // Cart
 Route::get('/cart', 'App\Http\Controllers\CartController@index')->name('cart.index');

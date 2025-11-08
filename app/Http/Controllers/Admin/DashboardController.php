@@ -3,7 +3,7 @@
 /**
  * Admin/DashboardController.php
  *
- * Controlador para el panel de administración.
+ * Controller for the administration panel.
  *
  * @author Alejandro Carmona
  */

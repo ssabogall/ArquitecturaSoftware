@@ -23,37 +23,37 @@ class MobilePhoneController extends Controller
     {
         $q = trim((string) $request->query('q', ''));
 
-        $phonesQuery = MobilePhone::with('specification')
+        $mobilePhoneQuery = MobilePhone::with('specification')
             ->where('stock', '>', 0);
 
         if ($q !== '') {
-            $phonesQuery->where(function ($sub) use ($q) {
+            $mobilePhoneQuery->where(function ($sub) use ($q) {
                 $sub->where('name', 'like', "%$q%")
                     ->orWhere('brand', 'like', "%$q%");
             });
         }
 
-        $phones = $phonesQuery
+        $mobilePhones = $mobilePhoneQuery
             ->orderBy('created_at', 'desc')
             ->paginate(12)
             ->withQueryString();
 
         $viewData = [
-            'phones' => $phones,
+            'mobilePhones' => $mobilePhones,
             'q' => $q,
         ];
 
-        return view('phones.index', $viewData);
+        return view('mobilePhones.index', $viewData);
     }
 
     public function show(int $id): View
     {
         $viewData = [];
-        $viewData['phone'] = MobilePhone::with(['specification', 'reviews' => function ($q) {
+        $viewData['mobilePhone'] = MobilePhone::with(['specification', 'reviews' => function ($q) {
             $q->where('status', 'approved')->latest();
         }])->findOrFail($id);
 
-        $approved = $viewData['phone']->reviews;
+        $approved = $viewData['mobilePhone']->reviews;
         $count = $approved->count();
         $average = $count > 0 ? round($approved->avg(function ($r) {
             return $r->getRating();
@@ -62,7 +62,7 @@ class MobilePhoneController extends Controller
         $viewData['reviewsAvg'] = $average;
         $viewData['reviewsCount'] = $count;
 
-        return view('phones.show', $viewData);
+        return view('mobilePhones.show', $viewData);
     }
 
     public function submitReview(Request $request, int $id): RedirectResponse
@@ -87,6 +87,6 @@ class MobilePhoneController extends Controller
         session()->flash('flash.message_key', 'messages.review_submitted_pending');
         session()->flash('flash.level', 'info');
 
-        return redirect()->route('phones.show', ['id' => $id]);
+        return redirect()->route('mobilePhones.show', ['id' => $id]);
     }
 }

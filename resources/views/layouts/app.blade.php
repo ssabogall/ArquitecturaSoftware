@@ -30,7 +30,7 @@
 
             <!-- Nav Links -->
             <div class="navbar-nav ms-auto d-flex flex-row gap-3 align-items-center">
-                <a class="nav-link text-dark" href="{{ route('phones.index') }}">{{ __('messages.products') }}</a>
+                <a class="nav-link text-dark" href="{{ route('mobilePhones.index') }}">{{ __('messages.products') }}</a>
                 <!-- Cart icon -->
                 <a class="nav-link text-dark d-flex align-items-center" href="{{ route('cart.index') }}" title="{{ __('messages.cart') }}" aria-label="{{ __('messages.cart') }}">
                     <i class="bi bi-cart fs-5"></i>

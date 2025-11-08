@@ -41,7 +41,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.products.index') }}" title="{{ __('messages.products') }}" class="nav-link">
+                <a href="{{ route('admin.mobilePhones.index') }}" title="{{ __('messages.products') }}" class="nav-link">
                     <i class="bi bi-phone me-2"></i><span class="label">{{ __('messages.products') }}</span>
                 </a>
             </li>

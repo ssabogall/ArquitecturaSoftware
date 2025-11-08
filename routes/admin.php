@@ -17,15 +17,15 @@ Route::delete('users/{user}', 'App\Http\Controllers\Admin\UserController@destroy
 // Orders (solo index de momento)
 Route::get('orders', 'App\Http\Controllers\Admin\OrderController@index')->name('orders.index');
 
-// Products
-Route::get('products', 'App\Http\Controllers\Admin\MobilePhoneController@index')->name('products.index');
-Route::get('products/create', 'App\Http\Controllers\Admin\MobilePhoneController@create')->name('products.create');
-Route::post('products', 'App\Http\Controllers\Admin\MobilePhoneController@store')->name('products.store');
-Route::get('products/{product}', 'App\Http\Controllers\Admin\MobilePhoneController@show')->name('products.show');
-Route::get('products/{product}/edit', 'App\Http\Controllers\Admin\MobilePhoneController@edit')->name('products.edit');
-Route::put('products/{product}', 'App\Http\Controllers\Admin\MobilePhoneController@update')->name('products.update');
-Route::patch('products/{product}', 'App\Http\Controllers\Admin\MobilePhoneController@update');
-Route::delete('products/{product}', 'App\Http\Controllers\Admin\MobilePhoneController@destroy')->name('products.destroy');
+// MobilePhones
+Route::get('mobilePhones', 'App\Http\Controllers\Admin\MobilePhoneController@index')->name('mobilePhones.index');
+Route::get('mobilePhones/create', 'App\Http\Controllers\Admin\MobilePhoneController@create')->name('mobilePhones.create');
+Route::post('mobilePhones', 'App\Http\Controllers\Admin\MobilePhoneController@store')->name('mobilePhones.store');
+Route::get('mobilePhones/{mobilePhone}', 'App\Http\Controllers\Admin\MobilePhoneController@show')->name('mobilePhones.show');
+Route::get('mobilePhones/{mobilePhone}/edit', 'App\Http\Controllers\Admin\MobilePhoneController@edit')->name('mobilePhones.edit');
+Route::put('mobilePhones/{mobilePhone}', 'App\Http\Controllers\Admin\MobilePhoneController@update')->name('mobilePhones.update');
+Route::patch('mobilePhones/{mobilePhone}', 'App\Http\Controllers\Admin\MobilePhoneController@update');
+Route::delete('mobilePhones/{mobilePhone}', 'App\Http\Controllers\Admin\MobilePhoneController@destroy')->name('mobilePhones.destroy');
 
 // Specifications
 Route::get('specifications', 'App\Http\Controllers\Admin\SpecificationController@index')->name('specifications.index');

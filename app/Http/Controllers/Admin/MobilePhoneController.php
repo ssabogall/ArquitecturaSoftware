@@ -23,17 +23,17 @@ class MobilePhoneController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData['products'] = MobilePhone::orderBy('id', 'desc')->paginate(50);
+        $viewData['mobilePhones'] = MobilePhone::orderBy('id', 'desc')->paginate(50);
 
-        return view('admin.products.index', $viewData);
+        return view('admin.mobilePhones.index', $viewData);
     }
 
     public function create(): View
     {
         $viewData = [];
-        $viewData['product'] = new MobilePhone;
+        $viewData['mobilePhone'] = new MobilePhone;
 
-        return view('admin.products.create', $viewData);
+        return view('admin.mobilePhones.create', $viewData);
     }
 
     public function store(Request $request): RedirectResponse
@@ -58,15 +58,15 @@ class MobilePhoneController extends Controller
 
         MobilePhone::validate($request);
 
-        $product = new MobilePhone;
-        $product->setName((string) $request->input('name'));
-        $product->setBrand((string) $request->input('brand'));
-        $product->setPrice((int) $request->input('price'));
-        $product->setStock((int) $request->input('stock'));
-        $product->setPhotoUrl($photoUrl);
-        $product->save();
+        $mobilePhone = new MobilePhone;
+        $mobilePhone->setName((string) $request->input('name'));
+        $mobilePhone->setBrand((string) $request->input('brand'));
+        $mobilePhone->setPrice((int) $request->input('price'));
+        $mobilePhone->setStock((int) $request->input('stock'));
+        $mobilePhone->setPhotoUrl($photoUrl);
+        $mobilePhone->save();
 
-        return redirect()->route('admin.products.index')->with([
+        return redirect()->route('admin.mobilePhones.index')->with([
             'flash.message_key' => 'messages.product_created',
             'flash.level' => 'success',
         ]);
@@ -75,25 +75,25 @@ class MobilePhoneController extends Controller
     public function show(string $id): View
     {
         $viewData = [];
-        $viewData['product'] = MobilePhone::findOrFail($id);
+        $viewData['mobilePhone'] = MobilePhone::findOrFail($id);
 
-        return view('admin.products.show', $viewData);
+        return view('admin.mobilePhones.show', $viewData);
     }
 
     public function edit(string $id): View
     {
         $viewData = [];
-        $viewData['product'] = MobilePhone::findOrFail($id);
+        $viewData['mobilePhone'] = MobilePhone::findOrFail($id);
 
-        return view('admin.products.edit', $viewData);
+        return view('admin.mobilePhones.edit', $viewData);
     }
 
     public function update(Request $request, string $id): RedirectResponse
     {
-        $product = MobilePhone::findOrFail($id);
-        $photoUrl = $product->getPhotoUrl();
+        $mobilePhone = MobilePhone::findOrFail($id);
+        $photoUrl = $mobilePhone->getPhotoUrl();
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
-            $brand = $request->input('brand', $product->getBrand());
+            $brand = $request->input('brand', $mobilePhone->getBrand());
             $brandSlug = Str::slug($brand);
             $dir = public_path('images/'.$brandSlug);
             if (! is_dir($dir)) {
@@ -110,14 +110,14 @@ class MobilePhoneController extends Controller
 
         $request->merge(['photo_url' => $photoUrl]);
         MobilePhone::validate($request);
-        $product->setName((string) $request->input('name'));
-        $product->setBrand((string) $request->input('brand'));
-        $product->setPrice((int) $request->input('price'));
-        $product->setStock((int) $request->input('stock'));
-        $product->setPhotoUrl($photoUrl);
-        $product->save();
+        $mobilePhone->setName((string) $request->input('name'));
+        $mobilePhone->setBrand((string) $request->input('brand'));
+        $mobilePhone->setPrice((int) $request->input('price'));
+        $mobilePhone->setStock((int) $request->input('stock'));
+        $mobilePhone->setPhotoUrl($photoUrl);
+        $mobilePhone->save();
 
-        return redirect()->route('admin.products.index')->with([
+        return redirect()->route('admin.mobilePhones.index')->with([
             'flash.message_key' => 'messages.product_updated',
             'flash.level' => 'success',
         ]);
@@ -125,10 +125,10 @@ class MobilePhoneController extends Controller
 
     public function destroy(string $id): RedirectResponse
     {
-        $product = MobilePhone::findOrFail($id);
-        $product->delete();
+        $mobilePhone = MobilePhone::findOrFail($id);
+        $mobilePhone->delete();
 
-        return redirect()->route('admin.products.index')->with([
+        return redirect()->route('admin.mobilePhones.index')->with([
             'flash.message_key' => 'messages.product_deleted',
             'flash.level' => 'success',
         ]);

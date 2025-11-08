@@ -19,9 +19,9 @@
 
     @if(isset($topPhones) && $topPhones->count() > 0)
         <div class="row g-3">
-            @foreach ($topPhones as $phone)
+            @foreach ($topPhones as $mobilePhone)
                 <div class="col-12 col-md-4">
-                    @include('phones.partials.card', ['phone' => $phone, 'showRating' => true, 'showAddToCart' => false])
+                    @include('mobilePhones.partials.card', ['mobilePhone' => $mobilePhone, 'showRating' => true, 'showAddToCart' => false])
                 </div>
             @endforeach
         </div>

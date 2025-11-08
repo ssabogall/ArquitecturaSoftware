@@ -32,7 +32,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-phone me-2"></i>{{ __('messages.products') }}</h5>
-                    <a href="{{ route('admin.products.index') }}" class="btn btn-primary btn-sm">{{ __('messages.view') }}</a>
+                    <a href="{{ route('admin.mobilePhones.index') }}" class="btn btn-primary btn-sm">{{ __('messages.view') }}</a>
                 </div>
             </div>
         </div>

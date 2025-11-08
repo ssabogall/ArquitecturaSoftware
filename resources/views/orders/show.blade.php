@@ -65,7 +65,7 @@
               </div>
               <div>
                 @auth
-                  <a href="{{ route('phones.show', ['id' => $it->getMobilePhoneId()]) }}" class="btn btn-sm btn-outline-primary">{{ __('messages.leave_review') }}</a>
+                  <a href="{{ route('mobilePhones.show', ['id' => $it->getMobilePhoneId()]) }}" class="btn btn-sm btn-outline-primary">{{ __('messages.leave_review') }}</a>
                 @endauth
               </div>
             </div>

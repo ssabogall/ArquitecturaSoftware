@@ -31,7 +31,7 @@ class SpecificationController extends Controller
     {
         $viewData = [];
         $viewData['spec'] = new Specification;
-        $viewData['phones'] = MobilePhone::orderBy('name')->get();
+        $viewData['mobilePhones'] = MobilePhone::orderBy('name')->get();
 
         return view('admin.specifications.create', $viewData);
     }
@@ -70,7 +70,7 @@ class SpecificationController extends Controller
     {
         $viewData = [];
         $viewData['spec'] = Specification::findOrFail($id);
-        $viewData['phones'] = MobilePhone::orderBy('name')->get();
+        $viewData['mobilePhones'] = MobilePhone::orderBy('name')->get();
 
         return view('admin.specifications.edit', $viewData);
     }

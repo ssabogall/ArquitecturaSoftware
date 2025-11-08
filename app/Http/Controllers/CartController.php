@@ -53,15 +53,15 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $phone = MobilePhone::findOrFail((int) $request->input('mobile_phone_id'));
+        $mobilePhone = MobilePhone::findOrFail((int) $request->input('mobile_phone_id'));
         $qty = (int) $request->input('quantity');
-        $stock = $phone->getStock();
+        $stock = $mobilePhone->getStock();
         if ($qty > $stock) {
             $qty = $stock;
         }
 
         $items = session('cart.items', []);
-        $id = $phone->getId();
+        $id = $mobilePhone->getId();
 
         if (isset($items[$id])) {
             $newQty = $items[$id]['quantity'] + $qty;
@@ -69,10 +69,10 @@ class CartController extends Controller
         } else {
             $items[$id] = [
                 'id' => $id,
-                'name' => $phone->getName(),
-                'brand' => $phone->getBrand(),
-                'photo_url' => $phone->getPhotoUrl(),
-                'price' => $phone->getPrice(),
+                'name' => $mobilePhone->getName(),
+                'brand' => $mobilePhone->getBrand(),
+                'photo_url' => $mobilePhone->getPhotoUrl(),
+                'price' => $mobilePhone->getPrice(),
                 'quantity' => $qty,
                 'stock' => $stock,
             ];
@@ -96,8 +96,8 @@ class CartController extends Controller
             return redirect()->route('cart.index');
         }
 
-        $phone = MobilePhone::find($id);
-        $stock = $phone ? $phone->getStock() : ($items[$id]['stock'] ?? 0);
+        $mobilePhone = MobilePhone::find($id);
+        $stock = $mobilePhone ? $mobilePhone->getStock() : ($items[$id]['stock'] ?? 0);
 
         $qty = (int) $request->input('quantity');
         if ($qty <= 0) {
@@ -143,17 +143,17 @@ class CartController extends Controller
         $total = 0;
         $dbItems = [];
         foreach ($items as $it) {
-            $phone = MobilePhone::find($it['id']);
-            if (! $phone) {
+            $mobilePhone = MobilePhone::find($it['id']);
+            if (! $mobilePhone) {
                 return redirect()->route('cart.index')->with('flash.message_key', 'messages.error')->with('flash.level', 'danger');
             }
-            $qty = min($it['quantity'], $phone->getStock());
+            $qty = min($it['quantity'], $mobilePhone->getStock());
             if ($qty <= 0) {
                 return redirect()->route('cart.index')->with('flash.message_key', 'messages.error')->with('flash.level', 'danger');
             }
-            $price = $phone->getPrice();
+            $price = $mobilePhone->getPrice();
             $total += ($price * $qty);
-            $dbItems[] = ['phone' => $phone, 'qty' => $qty, 'price' => $price];
+            $dbItems[] = ['mobilePhone' => $mobilePhone, 'qty' => $qty, 'price' => $price];
         }
 
         DB::beginTransaction();
@@ -166,16 +166,16 @@ class CartController extends Controller
             $order->save();
 
             foreach ($dbItems as $row) {
-                $phone = $row['phone'];
+                $mobilePhone = $row['mobilePhone'];
                 $qty = $row['qty'];
                 $price = $row['price'];
 
-                $phone->setStock($phone->getStock() - $qty);
-                $phone->save();
+                $mobilePhone->setStock($mobilePhone->getStock() - $qty);
+                $mobilePhone->save();
 
                 $item = new OrderItem;
                 $item->setOrderId($order->getId());
-                $item->setMobilePhoneId($phone->getId());
+                $item->setMobilePhoneId($mobilePhone->getId());
                 $item->setQuantity($qty);
                 $item->setPrice($price);
                 $item->save();
