@@ -12,14 +12,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\ImageStorage;
 use App\Models\MobilePhone;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class MobilePhoneController extends Controller
 {
+    private ImageStorage $imageStorage;
+
+    public function __construct(ImageStorage $imageStorage)
+    {
+        $this->imageStorage = $imageStorage;
+    }
     public function index(): View
     {
         $viewData = [];
@@ -37,31 +43,9 @@ class MobilePhoneController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $photoUrl = null;
-
-        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
-            $brand = $request->input('brand', 'generic');
-            $brandSlug = Str::slug($brand);
-            $directoryPath = public_path('images/'.$brandSlug);
-
-            if (! is_dir($directoryPath)) {
-                mkdir($directoryPath, 0755, true);
-            }
-
-            $originalFileName = $request->file('photo')->getClientOriginalName();
-            $extension = pathinfo($originalFileName, PATHINFO_EXTENSION) ?: 'png';
-            $baseName = pathinfo($originalFileName, PATHINFO_FILENAME);
-            $fileName = Str::slug($baseName).'-'.time().'.'.strtolower($extension);
-
-            $request->file('photo')->move($directoryPath, $fileName);
-
-            $relativePath = '/images/'.$brandSlug.'/'.$fileName;
-            $photoUrl = url($relativePath);
-
-            $request->merge(['photo_url' => $photoUrl]);
-        }
-
         MobilePhone::validate($request);
+
+        $photoUrl = $this->imageStorage->store($request);
 
         $mobilePhone = new MobilePhone;
         $mobilePhone->setName((string) $request->input('name'));
@@ -95,37 +79,19 @@ class MobilePhoneController extends Controller
 
     public function update(Request $request, string $id): RedirectResponse
     {
-        $mobilePhone = MobilePhone::findOrFail($id);
-        $photoUrl = $mobilePhone->getPhotoUrl();
-
-        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
-            $brand = $request->input('brand', $mobilePhone->getBrand());
-            $brandSlug = Str::slug($brand);
-            $directoryPath = public_path('images/'.$brandSlug);
-
-            if (! is_dir($directoryPath)) {
-                mkdir($directoryPath, 0755, true);
-            }
-
-            $originalFileName = $request->file('photo')->getClientOriginalName();
-            $extension = pathinfo($originalFileName, PATHINFO_EXTENSION) ?: 'png';
-            $baseName = pathinfo($originalFileName, PATHINFO_FILENAME);
-            $fileName = Str::slug($baseName).'-'.time().'.'.strtolower($extension);
-
-            $request->file('photo')->move($directoryPath, $fileName);
-
-            $relativePath = '/images/'.$brandSlug.'/'.$fileName;
-            $photoUrl = url($relativePath);
-        }
-
-        $request->merge(['photo_url' => $photoUrl]);
         MobilePhone::validate($request);
+
+        $mobilePhone = MobilePhone::findOrFail($id);
+
+        $photoUrl = $this->imageStorage->store($request);
+        if ($photoUrl) {
+            $mobilePhone->setPhotoUrl($photoUrl);
+        }
 
         $mobilePhone->setName((string) $request->input('name'));
         $mobilePhone->setBrand((string) $request->input('brand'));
         $mobilePhone->setPrice((int) $request->input('price'));
         $mobilePhone->setStock((int) $request->input('stock'));
-        $mobilePhone->setPhotoUrl($photoUrl);
         $mobilePhone->save();
 
         return redirect()->route('admin.mobilePhones.index')->with([
