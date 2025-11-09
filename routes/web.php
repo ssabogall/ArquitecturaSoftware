@@ -34,6 +34,10 @@ Route::get('/orders/{order}/invoice/download', 'App\\Http\\Controllers\\OrderCon
 Route::get('/mobilePhones', 'App\Http\Controllers\MobilePhoneController@index')->name('mobilePhones.index');
 Route::get('/mobilePhones/{id}', 'App\Http\Controllers\MobilePhoneController@show')->name('mobilePhones.show');
 
+// Compare
+Route::get('/compare', 'App\Http\Controllers\CompareController@index')->name('compare.index');
+Route::post('/compare', 'App\Http\Controllers\CompareController@show')->name('compare.show');
+
 // Cart
 Route::get('/cart', 'App\Http\Controllers\CartController@index')->name('cart.index');
 Route::post('/cart', 'App\Http\Controllers\CartController@add')->name('cart.add');

@@ -203,6 +203,21 @@ class MobilePhone extends Model
         ]);
     }
 
+    public static function validateCompare(Request $request): void
+    {
+        $request->validate([
+            'phones' => 'required|array|min:2|max:3',
+            'phones.*' => 'required|exists:mobile_phones,id',
+        ], [
+            'phones.required' => __('validation.compare.phones_required'),
+            'phones.array' => __('validation.compare.phones_array'),
+            'phones.min' => __('validation.compare.phones_min'),
+            'phones.max' => __('validation.compare.phones_max'),
+            'phones.*.required' => __('validation.compare.phone_id_required'),
+            'phones.*.exists' => __('validation.compare.phone_not_found'),
+        ]);
+    }
+
     // Helper methods
     public function getPriceFormatted(): string
     {

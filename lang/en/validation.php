@@ -182,6 +182,15 @@ return [
         ],
     ],
 
+    'compare' => [
+        'phones_required' => 'You must select phones to compare.',
+        'phones_array' => 'The phone selection is not valid.',
+        'phones_min' => 'You must select at least :min phones to compare.',
+        'phones_max' => 'You cannot compare more than :max phones at once.',
+        'phone_id_required' => 'Each selected phone must be valid.',
+        'phone_not_found' => 'One or more selected phones do not exist.',
+    ],
+
     'attributes' => [
         'name' => 'name',
         'email' => 'email',

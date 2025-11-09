@@ -12,13 +12,15 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="h3 m-0">{{ __('messages.products') }}</h1>
-    <form action="{{ route('mobilePhones.index') }}" method="GET" class="d-flex gap-2" role="search" aria-label="{{ __('messages.search') }}">
-        <input type="search" name="q" value="{{ $viewData['searchQuery'] ?? '' }}" class="form-control form-control-sm" placeholder="{{ __('messages.search_placeholder') }}" aria-label="{{ __('messages.search') }}" />
-        <button type="submit" class="btn btn-sm btn-primary">{{ __('messages.search') }}</button>
-        @if(($viewData['searchQuery'] ?? '') !== '')
-            <a href="{{ route('mobilePhones.index') }}" class="btn btn-sm btn-outline-secondary">{{ __('messages.clear') }}</a>
-        @endif
-    </form>
+    
+    <!-- Search Bar -->
+    <div class="d-flex gap-2">
+        <input type="search" 
+               id="searchInput" 
+               class="form-control" 
+               placeholder="{{ __('messages.search_placeholder') }}" 
+               style="width: 300px;">
+    </div>
 </div>
 
 @if ($viewData['mobilePhones']->count() === 0)
@@ -36,4 +38,28 @@
         {{ $viewData['mobilePhones']->links() }}
     </div>
 @endif
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.col-12.col-sm-6.col-lg-4');
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        
+        cards.forEach(card => {
+            const cardText = card.textContent.toLowerCase();
+            
+            if (cardText.includes(searchTerm)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+@endpush
+
 @endsection

@@ -201,4 +201,20 @@ return [
     'language' => 'Language',
     'language_spanish' => 'Español',
     'language_english' => 'English',
+
+    // --- Phone Comparison ---
+    'compare_phones' => 'Compare Phones',
+    'select_phones_to_compare' => 'Select between 2 and 3 phones to compare their specifications',
+    'phones_selected' => 'phones selected',
+    'compare_button' => 'Compare',
+    'phone_comparison' => 'Phone Comparison',
+    'back_to_selection' => 'Back to Selection',
+    'select_at_least_2' => 'Please select at least 2 phones to compare.',
+    'no_products' => 'No products available.',
+    'view_details' => 'View Details',
+    'specifications_comparison' => 'Specifications Comparison',
+    'specification' => 'Specification',
+    'no_specifications' => 'No specifications available for these phones.',
+    'highlighted_specs_differ' => 'Highlighted cells indicate differences between models.',
+    'out_of_stock' => 'Out of Stock',
 ];
