@@ -3,7 +3,7 @@
 /**
  * AccountController.php
  *
- * Controlador para el perfil del usuario.
+ * Controller for the user profile.
  *
  * @author Miguel Arcila
  */
@@ -23,7 +23,7 @@ class AccountController extends Controller
         $viewData = [];
         $viewData['user'] = Auth::user();
 
-        return view('auth.profile', $viewData);
+        return view('auth.profile')->with('viewData', $viewData);
     }
 
     public function update(Request $request): RedirectResponse

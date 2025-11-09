@@ -17,9 +17,9 @@
         <p class="lead text-muted mb-0">{{ __('messages.home_subheadline') }}</p>
     </div>
 
-    @if(isset($topPhones) && $topPhones->count() > 0)
+    @if(isset($viewData['topPhones']) && $viewData['topPhones']->count() > 0)
         <div class="row g-3">
-            @foreach ($topPhones as $mobilePhone)
+            @foreach ($viewData['topPhones'] as $mobilePhone)
                 <div class="col-12 col-md-4">
                     @include('mobilePhones.partials.card', ['mobilePhone' => $mobilePhone, 'showRating' => true, 'showAddToCart' => false])
                 </div>

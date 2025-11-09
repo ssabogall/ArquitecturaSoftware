@@ -17,7 +17,7 @@
             <a href="{{ route('admin.mobilePhones.create') }}" class="btn btn-primary btn-sm">{{ __('messages.create') }}</a>
         </div>
 
-        @if(!isset($mobilePhones) || $mobilePhones->isEmpty())
+        @if(!isset($viewData['mobilePhones']) || $viewData['mobilePhones']->isEmpty())
             <p class="mb-0">{{ __('messages.no_results') }}</p>
         @else
             <div class="table-responsive">
@@ -34,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($mobilePhones as $mobilePhone)
+                        @foreach($viewData['mobilePhones'] as $mobilePhone)
                             <tr>
                                 <td>{{ $mobilePhone->getId() }}</td>
                                 <td>{{ $mobilePhone->getName() }}</td>
@@ -43,9 +43,9 @@
                                 <td>{{ $mobilePhone->getStock() }}</td>
                                 <td>{{ $mobilePhone->getCreatedAt() }}</td>
                                 <td class="text-end">
-                                    <a href="{{ route('admin.mobilePhones.show', $mobilePhone->getId()) }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view') }}</a>
-                                    <a href="{{ route('admin.mobilePhones.edit', $mobilePhone->getId()) }}" class="btn btn-primary btn-sm">{{ __('messages.edit') }}</a>
-                                    <form action="{{ route('admin.mobilePhones.destroy', $mobilePhone->getId()) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.are_you_sure') }}')">
+                                    <a href="{{ route('admin.mobilePhones.show', ['mobilePhone' => $mobilePhone->getId()]) }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view') }}</a>
+                                    <a href="{{ route('admin.mobilePhones.edit', ['mobilePhone' => $mobilePhone->getId()]) }}" class="btn btn-primary btn-sm">{{ __('messages.edit') }}</a>
+                                    <form action="{{ route('admin.mobilePhones.destroy', ['mobilePhone' => $mobilePhone->getId()]) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.are_you_sure') }}')">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm" type="submit">{{ __('messages.delete') }}</button>
@@ -56,7 +56,7 @@
                     </tbody>
                 </table>
             </div>
-            {{ $mobilePhones->links() }}
+            {{ $viewData['mobilePhones']->links() }}
         @endif
     </div>
 </div>

@@ -3,7 +3,7 @@
 /**
  * Admin/SpecificationController.php
  *
- * Controlador para gestionar especificaciones (Specification) en el panel de administración.
+ * Controller for managing specifications (Specification) in the administration panel.
  *
  * @author Miguel Arcila
  */
@@ -24,7 +24,7 @@ class SpecificationController extends Controller
         $viewData = [];
         $viewData['specs'] = Specification::with('mobilePhone')->orderByDesc('id')->paginate(50);
 
-        return view('admin.specifications.index', $viewData);
+        return view('admin.specifications.index')->with('viewData', $viewData);
     }
 
     public function create(): View
@@ -33,24 +33,25 @@ class SpecificationController extends Controller
         $viewData['spec'] = new Specification;
         $viewData['mobilePhones'] = MobilePhone::orderBy('name')->get();
 
-        return view('admin.specifications.create', $viewData);
+        return view('admin.specifications.create')->with('viewData', $viewData);
     }
 
     public function store(Request $request): RedirectResponse
     {
         Specification::validate($request);
-        $spec = new Specification;
-        $spec->setMobilePhoneId((int) $request->input('mobile_phone_id'));
-        $spec->setModel((string) $request->input('model'));
-        $spec->setProcessor((string) $request->input('processor'));
-        $spec->setBattery((int) $request->input('battery'));
-        $spec->setScreenSize((float) $request->input('screen_size'));
-        $spec->setScreenTech((string) $request->input('screen_tech'));
-        $spec->setRam((int) $request->input('ram'));
-        $spec->setStorage((int) $request->input('storage'));
-        $spec->setCameraSpecs($request->input('camera_specs'));
-        $spec->setColor((string) $request->input('color'));
-        $spec->save();
+
+        $specification = new Specification;
+        $specification->setMobilePhoneId((int) $request->input('mobile_phone_id'));
+        $specification->setModel((string) $request->input('model'));
+        $specification->setProcessor((string) $request->input('processor'));
+        $specification->setBattery((int) $request->input('battery'));
+        $specification->setScreenSize((float) $request->input('screen_size'));
+        $specification->setScreenTech((string) $request->input('screen_tech'));
+        $specification->setRam((int) $request->input('ram'));
+        $specification->setStorage((int) $request->input('storage'));
+        $specification->setCameraSpecs($request->input('camera_specs'));
+        $specification->setColor((string) $request->input('color'));
+        $specification->save();
 
         return redirect()->route('admin.specifications.index')->with([
             'flash.message_key' => 'messages.spec_created',
@@ -63,7 +64,7 @@ class SpecificationController extends Controller
         $viewData = [];
         $viewData['spec'] = Specification::with('mobilePhone')->findOrFail($id);
 
-        return view('admin.specifications.show', $viewData);
+        return view('admin.specifications.show')->with('viewData', $viewData);
     }
 
     public function edit(string $id): View
@@ -72,24 +73,25 @@ class SpecificationController extends Controller
         $viewData['spec'] = Specification::findOrFail($id);
         $viewData['mobilePhones'] = MobilePhone::orderBy('name')->get();
 
-        return view('admin.specifications.edit', $viewData);
+        return view('admin.specifications.edit')->with('viewData', $viewData);
     }
 
     public function update(Request $request, string $id): RedirectResponse
     {
-        $spec = Specification::findOrFail($id);
+        $specification = Specification::findOrFail($id);
         Specification::validate($request);
-        $spec->setMobilePhoneId((int) $request->input('mobile_phone_id'));
-        $spec->setModel((string) $request->input('model'));
-        $spec->setProcessor((string) $request->input('processor'));
-        $spec->setBattery((int) $request->input('battery'));
-        $spec->setScreenSize((float) $request->input('screen_size'));
-        $spec->setScreenTech((string) $request->input('screen_tech'));
-        $spec->setRam((int) $request->input('ram'));
-        $spec->setStorage((int) $request->input('storage'));
-        $spec->setCameraSpecs($request->input('camera_specs'));
-        $spec->setColor((string) $request->input('color'));
-        $spec->save();
+
+        $specification->setMobilePhoneId((int) $request->input('mobile_phone_id'));
+        $specification->setModel((string) $request->input('model'));
+        $specification->setProcessor((string) $request->input('processor'));
+        $specification->setBattery((int) $request->input('battery'));
+        $specification->setScreenSize((float) $request->input('screen_size'));
+        $specification->setScreenTech((string) $request->input('screen_tech'));
+        $specification->setRam((int) $request->input('ram'));
+        $specification->setStorage((int) $request->input('storage'));
+        $specification->setCameraSpecs($request->input('camera_specs'));
+        $specification->setColor((string) $request->input('color'));
+        $specification->save();
 
         return redirect()->route('admin.specifications.index')->with([
             'flash.message_key' => 'messages.spec_updated',
@@ -99,8 +101,8 @@ class SpecificationController extends Controller
 
     public function destroy(string $id): RedirectResponse
     {
-        $spec = Specification::findOrFail($id);
-        $spec->delete();
+        $specification = Specification::findOrFail($id);
+        $specification->delete();
 
         return redirect()->route('admin.specifications.index')->with([
             'flash.message_key' => 'messages.spec_deleted',

@@ -3,7 +3,7 @@
 /**
  * Admin/DashboardController.php
  *
- * Controller for the administration panel.
+ * Controller for managing the administration panel.
  *
  * @author Alejandro Carmona
  */
@@ -22,16 +22,19 @@ class DashboardController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData['activeUsers'] = User::count();
+
+        $viewData['activeUsersCount'] = User::count();
         $viewData['productsCount'] = MobilePhone::count();
+
         $viewData['ordersByStatus'] = [
             'pending' => Order::where('status', 'pending')->count(),
             'paid' => Order::where('status', 'paid')->count(),
             'shipped' => Order::where('status', 'shipped')->count(),
             'cancelled' => Order::where('status', 'cancelled')->count(),
         ];
-        $viewData['pendingReviews'] = Review::where('status', 'pending')->count();
 
-        return view('admin.dashboard', $viewData);
+        $viewData['pendingReviewsCount'] = Review::where('status', 'pending')->count();
+
+        return view('admin.dashboard')->with('viewData', $viewData);
     }
 }

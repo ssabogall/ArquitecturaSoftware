@@ -3,7 +3,7 @@
 /**
  * Admin/UserController.php
  *
- * Controlador para los usuarios en el panel de administración.
+ * Controller for users in the administration panel.
  *
  * @author Alejandro Carmona
  */
@@ -24,7 +24,7 @@ class UserController extends Controller
         $viewData = [];
         $viewData['users'] = User::orderBy('id', 'desc')->paginate(50);
 
-        return view('admin.users.index', $viewData);
+        return view('admin.users.index')->with('viewData', $viewData);
     }
 
     public function create(): View
@@ -32,20 +32,20 @@ class UserController extends Controller
         $viewData = [];
         $viewData['user'] = new User;
 
-        return view('admin.users.create', $viewData);
+        return view('admin.users.create')->with('viewData', $viewData);
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $validated = User::validate($request->all())->validate();
+        $validatedData = User::validate($request->all())->validate();
 
         $user = new User;
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->password = Hash::make($validated['password']);
-        $user->staff = (bool) ($validated['staff'] ?? false);
-        $user->phone = $validated['phone'] ?? null;
-        $user->address = $validated['address'] ?? null;
+        $user->setName($validatedData['name']);
+        $user->setEmail($validatedData['email']);
+        $user->setPassword(Hash::make($validatedData['password']));
+        $user->setStaff((bool) ($validatedData['staff'] ?? false));
+        $user->setPhone($validatedData['phone'] ?? null);
+        $user->setAddress($validatedData['address'] ?? null);
         $user->save();
 
         return redirect()->route('admin.users.index')
@@ -60,7 +60,7 @@ class UserController extends Controller
         $viewData = [];
         $viewData['user'] = User::findOrFail($id);
 
-        return view('admin.users.show', $viewData);
+        return view('admin.users.show')->with('viewData', $viewData);
     }
 
     public function edit(string $id): View
@@ -68,24 +68,24 @@ class UserController extends Controller
         $viewData = [];
         $viewData['user'] = User::findOrFail($id);
 
-        return view('admin.users.edit', $viewData);
+        return view('admin.users.edit')->with('viewData', $viewData);
     }
 
     public function update(Request $request, string $id): RedirectResponse
     {
         $user = User::findOrFail($id);
-        $validated = User::validate($request->all(), (int) $user->id)->validate();
+        $validatedData = User::validate($request->all(), (int) $user->id)->validate();
 
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        if (! empty($validated['password'])) {
-            $user->password = Hash::make($validated['password']);
+        $user->setName($validatedData['name']);
+        $user->setEmail($validatedData['email']);
+        if (! empty($validatedData['password'])) {
+            $user->setPassword(Hash::make($validatedData['password']));
         }
-        if (array_key_exists('staff', $validated)) {
-            $user->staff = (bool) $validated['staff'];
+        if (array_key_exists('staff', $validatedData)) {
+            $user->setStaff((bool) $validatedData['staff']);
         }
-        $user->phone = $validated['phone'] ?? null;
-        $user->address = $validated['address'] ?? null;
+        $user->setPhone($validatedData['phone'] ?? null);
+        $user->setAddress($validatedData['address'] ?? null);
         $user->save();
 
         return redirect()->route('admin.users.index')

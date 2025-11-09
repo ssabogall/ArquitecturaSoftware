@@ -12,9 +12,49 @@
 @section('content')
 <div class="card">
   <div class="card-body">
-  <form action="{{ route('admin.mobilePhones.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.mobilePhones.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
-      @include('admin.mobilePhones.partials.form', ['mobilePhone' => $mobilePhone])
+      
+      <div class="mb-3">
+        <label for="name" class="form-label">{{ __('messages.name') }}</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+        @error('name')
+          <div class="text-danger small">{{ $message }}</div>
+        @enderror
+      </div>
+
+      <div class="mb-3">
+        <label for="brand" class="form-label">{{ __('messages.brand') }}</label>
+        <input type="text" class="form-control" id="brand" name="brand" value="{{ old('brand') }}" required>
+        @error('brand')
+          <div class="text-danger small">{{ $message }}</div>
+        @enderror
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">{{ __('messages.price') }}</label>
+        <input type="number" min="0" step="1" class="form-control" id="price" name="price" value="{{ old('price', 0) }}" required>
+        @error('price')
+          <div class="text-danger small">{{ $message }}</div>
+        @enderror
+      </div>
+
+      <div class="mb-3">
+        <label for="stock" class="form-label">{{ __('messages.stock') }}</label>
+        <input type="number" min="0" step="1" class="form-control" id="stock" name="stock" value="{{ old('stock', 0) }}" required>
+        @error('stock')
+          <div class="text-danger small">{{ $message }}</div>
+        @enderror
+      </div>
+
+      <div class="mb-3">
+        <label for="photo" class="form-label">{{ __('messages.photo') }}</label>
+        <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
+        @error('photo')
+          <div class="text-danger small">{{ $message }}</div>
+        @enderror
+      </div>
+
       <div class="d-flex gap-2">
         <button type="submit" class="btn btn-primary">{{ __('messages.save') }}</button>
         <a href="{{ route('admin.mobilePhones.index') }}" class="btn btn-secondary">{{ __('messages.cancel') }}</a>

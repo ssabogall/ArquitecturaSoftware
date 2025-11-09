@@ -3,7 +3,7 @@
 /**
  * User.php
  *
- * Modelo para los usuarios. Se maneja con laravel/ui.
+ * Model for users. Managed with laravel/ui.
  *
  * @author Alejandro Carmona
  * @author Miguel Arcila
@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Validator as ValidatorFacade;
 
 /**
  * USER ATTRIBUTES
+ *
  * $this->attributes['id'] - string - contains the user primary key (UUID)
  * $this->attributes['name'] - string - contains the user name
  * $this->attributes['email'] - string - contains the user email
@@ -61,47 +62,6 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Validate user data
-     *
-     * @param  array<string, mixed>  $data
-     * @param  int|null  $ignoreId  If provided, email uniqueness will ignore this user id (update scenario)
-     */
-    public static function validate(array $data, ?int $ignoreId = null): Validator
-    {
-        $emailRule = 'required|string|email|max:255|unique:users,email';
-        if ($ignoreId !== null) {
-            $emailRule = 'required|string|email|max:255|unique:users,email,'.$ignoreId;
-        }
-
-        return ValidatorFacade::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => $emailRule,
-            'password' => $ignoreId === null ? 'required|string|min:8' : 'nullable|string|min:8',
-            'staff' => 'boolean',
-            'phone' => 'nullable|string|max:30',
-            'address' => 'nullable|string|max:255',
-        ]);
-    }
-
-    // Validate profile update data (name, phone, address)
-    public static function validateProfile(Request $request): void
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:30',
-            'address' => 'nullable|string|max:255',
-        ], [
-            'name.required' => 'El nombre es obligatorio.',
-            'name.string' => 'El nombre debe ser texto.',
-            'name.max' => 'El nombre no puede superar los 255 caracteres.',
-            'phone.string' => 'El teléfono debe ser texto.',
-            'phone.max' => 'El teléfono no puede superar los 30 caracteres.',
-            'address.string' => 'La dirección debe ser texto.',
-            'address.max' => 'La dirección no puede superar los 255 caracteres.',
-        ]);
-    }
-
     // Getters
     public function getId(): string
     {
@@ -126,11 +86,6 @@ class User extends Authenticatable
     public function getStaff(): bool
     {
         return $this->staff;
-    }
-
-    public function isStaff(): bool
-    {
-        return $this->getStaff();
     }
 
     public function getPhone(): ?string
@@ -182,5 +137,47 @@ class User extends Authenticatable
     public function setAddress(?string $address): void
     {
         $this->attributes['address'] = $address;
+    }
+
+    // Validations
+    /**
+     * Validate user data
+     *
+     * @param  array<string, mixed>  $data
+     * @param  int|null  $ignoreId  If provided, email uniqueness will ignore this user id (update scenario)
+     */
+    public static function validate(array $data, ?int $ignoreId = null): Validator
+    {
+        $emailRule = 'required|string|email|max:255|unique:users,email';
+        if ($ignoreId !== null) {
+            $emailRule = 'required|string|email|max:255|unique:users,email,'.$ignoreId;
+        }
+
+        return ValidatorFacade::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => $emailRule,
+            'password' => $ignoreId === null ? 'required|string|min:8' : 'nullable|string|min:8',
+            'staff' => 'boolean',
+            'phone' => 'nullable|string|max:30',
+            'address' => 'nullable|string|max:255',
+        ]);
+    }
+
+    /**
+     * Validate profile update data (name, phone, address)
+     */
+    public static function validateProfile(Request $request): void
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:30',
+            'address' => 'nullable|string|max:255',
+        ]);
+    }
+
+    // Helper methods
+    public function isStaff(): bool
+    {
+        return $this->getStaff();
     }
 }

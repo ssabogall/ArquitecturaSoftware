@@ -11,7 +11,7 @@
 @section('content')
 <h1 class="h3 mb-3">{{ __('messages.cart') }}</h1>
 
-@if (empty($items ?? []))
+@if (empty($viewData['items'] ?? []))
     <div class="alert alert-info">{{ __('messages.no_results') }}</div>
 @else
     <div class="table-responsive">
@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($items as $it)
+                @foreach ($viewData['items'] as $it)
                     <tr>
                         <td style="width: 120px;">
                             @if (!empty($it['photo_url']))
@@ -64,7 +64,7 @@
         <div class="card" style="min-width: 320px;">
             <div class="card-body d-flex justify-content-between">
                 <div class="fw-semibold">{{ __('messages.total') }}</div>
-                <div class="fw-bold">{{ __('messages.currency_symbol') }}{{ $total_formatted }}</div>
+                <div class="fw-bold">{{ __('messages.currency_symbol') }}{{ $viewData['total_formatted'] }}</div>
             </div>
             <div class="card-footer text-end">
                 @auth

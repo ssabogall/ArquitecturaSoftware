@@ -7,88 +7,88 @@
 
 @extends('layouts.app')
 
-@section('title', $mobilePhone->getName())
+@section('title', $viewData['mobilePhone']->getName())
 
 @section('content')
 <div class="mb-3">
     <div>
         <a href="{{ route('mobilePhones.index') }}" class="btn btn-outline-primary btn-sm">&larr; {{ __('messages.back') }}</a>
     </div>
-    <h1 class="h3 mt-2 mb-1">{{ $mobilePhone->getName() }}</h1>
-    <div class="text-muted">{{ __('messages.brand') }}: {{ $mobilePhone->getBrand() }}</div>
-    <div class="fw-bold fs-5">{{ __('messages.currency_symbol') }}{{ $mobilePhone->getPriceFormatted() }}</div>
-    @if ($mobilePhone->getStock() > 0 && $mobilePhone->getStock() <= 5)
+    <h1 class="h3 mt-2 mb-1">{{ $viewData['mobilePhone']->getName() }}</h1>
+    <div class="text-muted">{{ __('messages.brand') }}: {{ $viewData['mobilePhone']->getBrand() }}</div>
+    <div class="fw-bold fs-5">{{ __('messages.currency_symbol') }}{{ $viewData['mobilePhone']->getPriceFormatted() }}</div>
+    @if ($viewData['mobilePhone']->getStock() > 0 && $viewData['mobilePhone']->getStock() <= 5)
         <div class="alert alert-warning py-1 px-2 d-inline-block mt-2 mb-0">
-            {{ __('messages.last_units', ['count' => $mobilePhone->getStock()]) }}
+            {{ __('messages.last_units', ['count' => $viewData['mobilePhone']->getStock()]) }}
         </div>
     @endif
     <form action="{{ route('cart.add') }}" method="POST" class="d-flex align-items-center gap-2 mt-2">
         @csrf
-        <input type="hidden" name="mobile_phone_id" value="{{ $mobilePhone->getId() }}" />
-        <input type="number" class="form-control form-control-sm text-center" name="quantity" value="1" min="1" max="{{ $mobilePhone->getStock() }}" step="1" required style="width: 140px;" />
-        <button type="submit" class="btn btn-primary btn-sm" @if($mobilePhone->getStock() <= 0) disabled aria-disabled="true" @endif>{{ __('messages.add_to_cart') }}</button>
+        <input type="hidden" name="mobile_phone_id" value="{{ $viewData['mobilePhone']->getId() }}" />
+        <input type="number" class="form-control form-control-sm text-center" name="quantity" value="1" min="1" max="{{ $viewData['mobilePhone']->getStock() }}" step="1" required style="width: 140px;" />
+        <button type="submit" class="btn btn-primary btn-sm" @if($viewData['mobilePhone']->getStock() <= 0) disabled aria-disabled="true" @endif>{{ __('messages.add_to_cart') }}</button>
     </form>
 </div>
 
-@if (($reviewsCount ?? 0) > 0)
+@if (($viewData['reviewsCount'] ?? 0) > 0)
     <div class="mb-3 d-flex align-items-center gap-2">
         <div>
-            @for ($i = 0; $i < floor($reviewsAvg ?? 0); $i++)
+            @for ($i = 0; $i < floor($viewData['reviewsAvg'] ?? 0); $i++)
                 <i class="bi bi-star-fill text-warning"></i>
             @endfor
-            @if (isset($reviewsAvg) && ($reviewsAvg - floor($reviewsAvg)) >= 0.5)
+            @if (isset($viewData['reviewsAvg']) && ($viewData['reviewsAvg'] - floor($viewData['reviewsAvg'])) >= 0.5)
                 <i class="bi bi-star-half text-warning"></i>
             @endif
-            @for ($i = 0; $i < 5 - floor($reviewsAvg ?? 0) - ((isset($reviewsAvg) && ($reviewsAvg - floor($reviewsAvg)) >= 0.5) ? 1 : 0); $i++)
+            @for ($i = 0; $i < 5 - floor($viewData['reviewsAvg'] ?? 0) - ((isset($viewData['reviewsAvg']) && ($viewData['reviewsAvg'] - floor($viewData['reviewsAvg'])) >= 0.5) ? 1 : 0); $i++)
                 <i class="bi bi-star text-warning"></i>
             @endfor
         </div>
         <div class="text-muted">
             <strong>{{ __('messages.average_rating') }}:</strong>
-            {{ $reviewsAvg }} {{ __('messages.out_of_max', ['max' => 5]) }}
-            <span class="ms-2">({{ __('messages.based_on_reviews', ['count' => $reviewsCount]) }})</span>
+            {{ $viewData['reviewsAvg'] }} {{ __('messages.out_of_max', ['max' => 5]) }}
+            <span class="ms-2">({{ __('messages.based_on_reviews', ['count' => $viewData['reviewsCount']]) }})</span>
         </div>
     </div>
 @endif
 
 <div class="row g-4">
     <div class="col-12 col-lg-6">
-        @if ($mobilePhone->getPhotoUrl())
-            <img src="{{ $mobilePhone->getPhotoUrl() }}" class="img-product img-fluid rounded shadow-sm" alt="{{ $mobilePhone->getName() }}" />
+        @if ($viewData['mobilePhone']->getPhotoUrl())
+            <img src="{{ $viewData['mobilePhone']->getPhotoUrl() }}" class="img-product img-fluid rounded shadow-sm" alt="{{ $viewData['mobilePhone']->getName() }}" />
         @endif
     </div>
     <div class="col-12 col-lg-6">
         <div class="card">
             <div class="card-header">{{ __('messages.specifications') }}</div>
             <div class="card-body">
-                @if ($mobilePhone->specification)
+                @if ($viewData['mobilePhone']->getSpecification())
                     <dl class="row mb-0">
                         <dt class="col-sm-5">{{ __('messages.model') }}</dt>
-                        <dd class="col-sm-7">{{ $mobilePhone->specification->getModel() }}</dd>
+                        <dd class="col-sm-7">{{ $viewData['mobilePhone']->getSpecification()->getModel() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.processor') }}</dt>
-                        <dd class="col-sm-7">{{ $mobilePhone->specification->getProcessor() }}</dd>
+                        <dd class="col-sm-7">{{ $viewData['mobilePhone']->getSpecification()->getProcessor() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.battery') }}</dt>
-                        <dd class="col-sm-7">{{ $mobilePhone->specification->getBattery() }}</dd>
+                        <dd class="col-sm-7">{{ $viewData['mobilePhone']->getSpecification()->getBattery() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.screen_size') }}</dt>
-                        <dd class="col-sm-7">{{ $mobilePhone->specification->getScreenSize() }}</dd>
+                        <dd class="col-sm-7">{{ $viewData['mobilePhone']->getSpecification()->getScreenSize() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.screen_tech') }}</dt>
-                        <dd class="col-sm-7">{{ $mobilePhone->specification->getScreenTech() }}</dd>
+                        <dd class="col-sm-7">{{ $viewData['mobilePhone']->getSpecification()->getScreenTech() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.ram') }}</dt>
-                        <dd class="col-sm-7">{{ $mobilePhone->specification->getRam() }}</dd>
+                        <dd class="col-sm-7">{{ $viewData['mobilePhone']->getSpecification()->getRam() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.storage') }}</dt>
-                        <dd class="col-sm-7">{{ $mobilePhone->specification->getStorage() }}</dd>
+                        <dd class="col-sm-7">{{ $viewData['mobilePhone']->getSpecification()->getStorage() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.camera_specs') }}</dt>
-                        <dd class="col-sm-7">{{ $mobilePhone->specification->getCameraSpecs() }}</dd>
+                        <dd class="col-sm-7">{{ $viewData['mobilePhone']->getSpecification()->getCameraSpecs() }}</dd>
 
                         <dt class="col-sm-5">{{ __('messages.color') }}</dt>
-                        <dd class="col-sm-7">{{ $mobilePhone->specification->getColor() }}</dd>
+                        <dd class="col-sm-7">{{ $viewData['mobilePhone']->getSpecification()->getColor() }}</dd>
                     </dl>
                 @else
                     <p class="text-muted mb-0">{{ __('messages.no_results') }}</p>
@@ -109,7 +109,7 @@
             <div class="card mb-3">
                 <div class="card-header">{{ __('messages.leave_review') }}</div>
                 <div class="card-body">
-                <form action="{{ route('mobilePhones.reviews.submit', ['id' => $mobilePhone->getId()]) }}" method="POST" class="row g-3">
+                <form action="{{ route('mobilePhones.reviews.submit', ['id' => $viewData['mobilePhone']->getId()]) }}" method="POST" class="row g-3">
                     @csrf
                     <div class="col-12 col-md-4">
                         <label for="rating" class="form-label">{{ __('messages.rating') }}</label>
@@ -143,14 +143,14 @@
     <div class="card">
         <div class="card-header">{{ __('messages.reviews') }}</div>
         <div class="card-body">
-            @if ($mobilePhone->reviews->isEmpty())
+            @if ($viewData['mobilePhone']->getReviews()->isEmpty())
                 <p class="text-muted mb-0">{{ __('messages.no_results') }}</p>
             @else
                 <ul class="list-group list-group-flush">
-                    @foreach ($mobilePhone->reviews as $review)
+                    @foreach ($viewData['mobilePhone']->getReviews() as $review)
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between">
-                                <strong>{{ $review->user ? $review->user->getName() : __('messages.not_provided') }}</strong>
+                                <strong>{{ $review->getUser() ? $review->getUser()->getName() : __('messages.not_provided') }}</strong>
                                 <span class="badge bg-primary">{{ __('messages.rating') }}: {{ $review->getRating() }}/5</span>
                             </div>
                             <p class="mb-0">{{ $review->getComments() }}</p>

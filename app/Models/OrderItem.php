@@ -3,8 +3,8 @@
 /**
  * OrderItem.php
  *
- * Modelo para los ítems de una orden (carrito y checkout).
- * Un OrderItem pertenece a una Order y a un MobilePhone.
+ * Model for order items (cart and checkout).
+ * An OrderItem belongs to an Order and a MobilePhone.
  *
  * @author Miguel Arcila
  */
@@ -17,13 +17,16 @@ use Illuminate\Http\Request;
 
 /**
  * ORDER ITEM ATTRIBUTES
+ *
  * $this->attributes['id'] - int - contains the order item primary key
  * $this->attributes['order_id'] - int - references orders.id
  * $this->attributes['mobile_phone_id'] - int - references mobile_phones.id
  * $this->attributes['quantity'] - int - quantity of items
- * $this->attributes['price'] - int - unit price at purchase time (cents or integer)
+ * $this->attributes['price'] - int - unit price at purchase time
  * $this->attributes['created_at'] - Carbon - creation date
  * $this->attributes['updated_at'] - Carbon - last update date
+ * $this->order - Order - contains the parent order
+ * $this->mobilePhone - MobilePhone - contains the associated mobile phone
  */
 class OrderItem extends Model
 {
@@ -33,43 +36,6 @@ class OrderItem extends Model
         'quantity',
         'price',
     ];
-
-    public static function validate(Request $request): void
-    {
-        $request->validate([
-            'order_id' => 'required|integer|exists:orders,id',
-            'mobile_phone_id' => 'required|integer|exists:mobile_phones,id',
-            'quantity' => 'required|integer|min:1',
-            'price' => 'required|integer|min:0',
-        ], [
-            'order_id.required' => 'La orden es obligatoria.',
-            'order_id.integer' => 'La orden debe ser un identificador numérico.',
-            'order_id.exists' => 'La orden seleccionada no existe.',
-
-            'mobile_phone_id.required' => 'El producto es obligatorio.',
-            'mobile_phone_id.integer' => 'El producto debe ser un identificador numérico.',
-            'mobile_phone_id.exists' => 'El producto seleccionado no existe.',
-
-            'quantity.required' => 'La cantidad es obligatoria.',
-            'quantity.integer' => 'La cantidad debe ser un número entero.',
-            'quantity.min' => 'La cantidad mínima es 1.',
-
-            'price.required' => 'El precio es obligatorio.',
-            'price.integer' => 'El precio debe ser un número entero.',
-            'price.min' => 'El precio no puede ser negativo.',
-        ]);
-    }
-
-    // Relaciones
-    public function order(): BelongsTo
-    {
-        return $this->belongsTo(Order::class);
-    }
-
-    public function mobilePhone(): BelongsTo
-    {
-        return $this->belongsTo(MobilePhone::class, 'mobile_phone_id');
-    }
 
     // Getters
     public function getId(): int
@@ -95,21 +61,6 @@ class OrderItem extends Model
     public function getPrice(): int
     {
         return $this->attributes['price'];
-    }
-
-    public function getPriceFormatted(): string
-    {
-        return number_format($this->getPrice(), 0, ',', '.');
-    }
-
-    public function getSubtotal(): int
-    {
-        return $this->getPrice() * $this->getQuantity();
-    }
-
-    public function getSubtotalFormatted(): string
-    {
-        return number_format($this->getSubtotal(), 0, ',', '.');
     }
 
     public function getCreatedAt(): string
@@ -141,5 +92,53 @@ class OrderItem extends Model
     public function setPrice(int $price): void
     {
         $this->attributes['price'] = $price;
+    }
+
+    // Relationships
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function getOrder(): ?Order
+    {
+        return $this->order;
+    }
+
+    public function mobilePhone(): BelongsTo
+    {
+        return $this->belongsTo(MobilePhone::class, 'mobile_phone_id');
+    }
+
+    public function getMobilePhone(): ?MobilePhone
+    {
+        return $this->mobilePhone;
+    }
+
+    // Validations
+    public static function validate(Request $request): void
+    {
+        $request->validate([
+            'order_id' => 'required|integer|exists:orders,id',
+            'mobile_phone_id' => 'required|integer|exists:mobile_phones,id',
+            'quantity' => 'required|integer|min:1',
+            'price' => 'required|integer|min:0',
+        ]);
+    }
+
+    // Helper methods
+    public function getPriceFormatted(): string
+    {
+        return number_format($this->getPrice(), 0, ',', '.');
+    }
+
+    public function getSubtotal(): int
+    {
+        return $this->getPrice() * $this->getQuantity();
+    }
+
+    public function getSubtotalFormatted(): string
+    {
+        return number_format($this->getSubtotal(), 0, ',', '.');
     }
 }

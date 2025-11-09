@@ -12,7 +12,7 @@
 @section('content')
 <h1 class="h3 mb-3">{{ __('messages.my_orders') }}</h1>
 
-@if ($orders->isEmpty())
+@if ($viewData['orders']->isEmpty())
   <div class="alert alert-info">{{ __('messages.no_results') }}</div>
 @else
   <div class="table-responsive">
@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-      @foreach ($orders as $order)
+      @foreach ($viewData['orders'] as $order)
         <tr>
           <td>#{{ $order->getId() }}</td>
           <td>{{ $order->getDate() }}</td>
@@ -41,6 +41,6 @@
       </tbody>
     </table>
   </div>
-  <div class="mt-2">{{ $orders->links() }}</div>
+  <div class="mt-2">{{ $viewData['orders']->links() }}</div>
 @endif
 @endsection

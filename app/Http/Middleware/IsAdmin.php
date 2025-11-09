@@ -3,7 +3,7 @@
 /**
  * Middleware/IsAdmin.php
  *
- * Middleware para verificar si el usuario es administrador.
+ * Middleware to verify if the user is an administrator.
  *
  * @author Alejandro Carmona
  */
@@ -18,9 +18,8 @@ class IsAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-
         if (! auth()->check() || ! auth()->user()->isStaff()) {
-            abort(403, 'No autorizado.');
+            abort(403, 'Unauthorized.');
         }
 
         return $next($request);

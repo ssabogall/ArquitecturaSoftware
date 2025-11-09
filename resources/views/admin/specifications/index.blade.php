@@ -32,7 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-            @forelse($specs as $spec)
+            @forelse($viewData['specs'] as $spec)
                 <tr>
                     <td>{{ $spec->getId() }}</td>
                     <td>{{ $spec->getModel() }}</td>
@@ -40,11 +40,11 @@
                     <td>{{ $spec->getRam() }}</td>
                     <td>{{ $spec->getStorage() }}</td>
                     <td>{{ $spec->getColor() }}</td>
-                    <td>{{ optional($spec->mobilePhone)->getName() ?? __('messages.not_provided') }}</td>
+                    <td>{{ optional($spec->getMobilePhone())->getName() ?? __('messages.not_provided') }}</td>
                     <td class="text-end">
-                        <a href="{{ route('admin.specifications.show', $spec->getId()) }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view') }}</a>
-                        <a href="{{ route('admin.specifications.edit', $spec->getId()) }}" class="btn btn-primary btn-sm">{{ __('messages.edit') }}</a>
-                        <form action="{{ route('admin.specifications.destroy', $spec->getId()) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.are_you_sure') }}')">
+                        <a href="{{ route('admin.specifications.show', ['specification' => $spec->getId()]) }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view') }}</a>
+                        <a href="{{ route('admin.specifications.edit', ['specification' => $spec->getId()]) }}" class="btn btn-primary btn-sm">{{ __('messages.edit') }}</a>
+                        <form action="{{ route('admin.specifications.destroy', ['specification' => $spec->getId()]) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.are_you_sure') }}')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">{{ __('messages.delete') }}</button>
@@ -59,7 +59,7 @@
             </tbody>
         </table>
         </div>
-        {{ $specs->links() }}
+        {{ $viewData['specs']->links() }}
     </div>
 </div>
 @endsection

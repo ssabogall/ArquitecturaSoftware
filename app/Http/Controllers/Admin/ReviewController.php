@@ -3,7 +3,7 @@
 /**
  * Admin/ReviewController.php
  *
- * Controlador para gestionar aprobaciones y rechazos de reseñas.
+ * Controller for managing review approvals and rejections.
  *
  * @author Miguel Arcila
  */
@@ -22,7 +22,7 @@ class ReviewController extends Controller
         $viewData = [];
         $viewData['reviews'] = Review::with(['user', 'mobilePhone'])->orderByDesc('id')->paginate(50);
 
-        return view('admin.reviews.index', $viewData);
+        return view('admin.reviews.index')->with('viewData', $viewData);
     }
 
     public function approve(Review $review): RedirectResponse

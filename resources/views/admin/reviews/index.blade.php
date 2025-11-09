@@ -16,7 +16,7 @@
             <h5 class="card-title mb-0">{{ __('messages.reviews') }}</h5>
         </div>
 
-        @if(!isset($reviews) || $reviews->isEmpty())
+        @if(!isset($viewData['reviews']) || $viewData['reviews']->isEmpty())
             <p class="mb-0">{{ __('messages.no_results') }}</p>
         @else
             <div class="table-responsive">
@@ -34,14 +34,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($reviews as $review)
+                    @foreach($viewData['reviews'] as $review)
                         <tr>
                             <td>{{ $review->getId() }}</td>
-                            <td>{{ optional($review->user)->getName() }}</td>
-                            <td>{{ optional($review->mobilePhone)->getName() }}</td>
+                            <td>{{ optional($review->getUser())->getName() }}</td>
+                            <td>{{ optional($review->getMobilePhone())->getName() }}</td>
                             <td>
                                 <span class="badge text-bg-{{ $review->getStatus() === 'approved' ? 'success' : ($review->getStatus() === 'rejected' ? 'danger' : 'secondary') }}">
-                                    {{ __($review->getStatus()) }}
+                                    {{ __('messages.' . $review->getStatus()) }}
                                 </span>
                             </td>
                             <td>{{ $review->getRating() }}</td>
@@ -68,7 +68,7 @@
                     </tbody>
                 </table>
             </div>
-            {{ $reviews->links() }}
+            {{ $viewData['reviews']->links() }}
         @endif
     </div>
 </div>

@@ -17,7 +17,7 @@
       <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm">{{ __('messages.create') }}</a>
     </div>
 
-    @if($users->isEmpty())
+    @if($viewData['users']->isEmpty())
       <p class="mb-0">{{ __('messages.no_results') }}</p>
     @else
       <div class="table-responsive">
@@ -33,7 +33,7 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($users as $user)
+            @foreach($viewData['users'] as $user)
               <tr>
                 <td>{{ $user->getId() }}</td>
                 <td>{{ $user->getName() }}</td>
@@ -41,9 +41,9 @@
                 <td>{{ $user->isStaff() ? __('messages.yes') : __('messages.no') }}</td>
                 <td>{{ $user->getCreatedAt() }}</td>
                 <td class="text-end">
-                  <a href="{{ route('admin.users.show', $user->getId()) }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view') }}</a>
-                  <a href="{{ route('admin.users.edit', $user->getId()) }}" class="btn btn-primary btn-sm">{{ __('messages.edit') }}</a>
-                  <form action="{{ route('admin.users.destroy', $user->getId()) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.are_you_sure') }}')">
+                  <a href="{{ route('admin.users.show', ['user' => $user->getId()]) }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view') }}</a>
+                  <a href="{{ route('admin.users.edit', ['user' => $user->getId()]) }}" class="btn btn-primary btn-sm">{{ __('messages.edit') }}</a>
+                  <form action="{{ route('admin.users.destroy', ['user' => $user->getId()]) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.are_you_sure') }}')">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger btn-sm" type="submit">{{ __('messages.delete') }}</button>
@@ -54,7 +54,7 @@
           </tbody>
         </table>
       </div>
-      {{ $users->links() }}
+      {{ $viewData['users']->links() }}
     @endif
   </div>
 </div>

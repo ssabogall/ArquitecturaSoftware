@@ -3,7 +3,7 @@
 /**
  * MobilePhone.php
  *
- * Modelo para MobilePhone.
+ * Model for MobilePhone.
  *
  * @author Alejandro Carmona
  * @author Miguel Arcila
@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
 
 /**
  * MOBILE PHONE ATTRIBUTES
+ *
  * $this->attributes['id'] - int - contains the mobile phone primary key
  * $this->attributes['name'] - string - contains the mobile phone name
  * $this->attributes['photo_url'] - string|null - contains the photo URL
@@ -28,6 +29,9 @@ use Illuminate\Support\Str;
  * $this->attributes['stock'] - int - contains the available stock
  * $this->attributes['created_at'] - Carbon - contains the creation date
  * $this->attributes['updated_at'] - Carbon - contains the last update date
+ * $this->specification - Specification - contains the associated specification
+ * $this->orderItems - collection - contains the order items for this mobile phone
+ * $this->reviews - collection - contains the reviews for this mobile phone
  */
 class MobilePhone extends Model
 {
@@ -38,53 +42,6 @@ class MobilePhone extends Model
         'price',
         'stock',
     ];
-
-    public static function validate(Request $request): void
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            // Permitimos URL absoluta o ruta relativa (por eso solo validamos string y longitud)
-            'photo_url' => 'nullable|string|max:2048',
-            'brand' => 'required|string|max:255',
-            'price' => 'required|integer|min:0',
-            'stock' => 'required|integer|min:0',
-        ], [
-            'name.required' => 'El nombre es obligatorio.',
-            'name.string' => 'El nombre debe ser una cadena de texto.',
-            'name.max' => 'El nombre no puede superar los 255 caracteres.',
-
-            'photo_url.string' => 'La URL de la foto debe ser texto.',
-            'photo_url.max' => 'La URL de la foto no puede superar los 2048 caracteres.',
-
-            'brand.required' => 'La marca es obligatoria.',
-            'brand.string' => 'La marca debe ser texto.',
-            'brand.max' => 'La marca no puede superar los 255 caracteres.',
-
-            'price.required' => 'El precio es obligatorio.',
-            'price.integer' => 'El precio debe ser un número entero.',
-            'price.min' => 'El precio no puede ser negativo.',
-
-            'stock.required' => 'El stock es obligatorio.',
-            'stock.integer' => 'El stock debe ser un número entero.',
-            'stock.min' => 'El stock no puede ser negativo.',
-        ]);
-    }
-
-    // Relaciones
-    public function specification(): HasOne
-    {
-        return $this->hasOne(Specification::class, 'mobile_phone_id');
-    }
-
-    public function orderItems(): HasMany
-    {
-        return $this->hasMany(OrderItem::class, 'mobile_phone_id');
-    }
-
-    public function reviews(): HasMany
-    {
-        return $this->hasMany(Review::class, 'mobile_phone_id');
-    }
 
     // Getters
     public function getId(): int
@@ -135,11 +92,6 @@ class MobilePhone extends Model
         return $this->attributes['price'];
     }
 
-    public function getPriceFormatted(): string
-    {
-        return number_format($this->getPrice(), 0, ',', '.');
-    }
-
     public function getStock(): int
     {
         return $this->attributes['stock'];
@@ -167,27 +119,6 @@ class MobilePhone extends Model
         return (int) ($this->attributes['approved_reviews_count'] ?? 0);
     }
 
-    public function getApprovedReviewsAvgRatingFormatted(): ?string
-    {
-        $avg = $this->getApprovedReviewsAvgRating();
-
-        return $avg !== null ? number_format($avg, 1, ',', '.') : null;
-    }
-
-    public function getPhotoFilename(): ?string
-    {
-        $url = $this->getPhotoUrl();
-        if (! $url) {
-            return null;
-        }
-        $path = parse_url($url, PHP_URL_PATH);
-        if (is_string($path) && $path !== '') {
-            return basename($path);
-        }
-
-        return basename($url);
-    }
-
     // Setters
     public function setName(string $name): void
     {
@@ -212,5 +143,90 @@ class MobilePhone extends Model
     public function setStock(int $stock): void
     {
         $this->attributes['stock'] = $stock;
+    }
+
+    // Relationships
+    public function specification(): HasOne
+    {
+        return $this->hasOne(Specification::class, 'mobile_phone_id');
+    }
+
+    public function getSpecification(): ?Specification
+    {
+        return $this->specification;
+    }
+
+    public function orderItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class, 'mobile_phone_id');
+    }
+
+    public function getOrderItems()
+    {
+        return $this->orderItems;
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'mobile_phone_id');
+    }
+
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    // Validations
+    public static function validate(Request $request): void
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'photo_url' => 'nullable|string|max:2048',
+            'brand' => 'required|string|max:255',
+            'price' => 'required|integer|min:0',
+            'stock' => 'required|integer|min:0',
+        ]);
+    }
+
+    public static function validateAddToCart(Request $request): void
+    {
+        $request->validate([
+            'mobile_phone_id' => 'required|integer|exists:mobile_phones,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+    }
+
+    public static function validateUpdateCartItem(Request $request): void
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:0',
+        ]);
+    }
+
+    // Helper methods
+    public function getPriceFormatted(): string
+    {
+        return number_format($this->getPrice(), 0, ',', '.');
+    }
+
+    public function getApprovedReviewsAvgRatingFormatted(): ?string
+    {
+        $avg = $this->getApprovedReviewsAvgRating();
+
+        return $avg !== null ? number_format($avg, 1, ',', '.') : null;
+    }
+
+    public function getPhotoFilename(): ?string
+    {
+        $url = $this->getPhotoUrl();
+        if (! $url) {
+            return null;
+        }
+        $path = parse_url($url, PHP_URL_PATH);
+        if (is_string($path) && $path !== '') {
+            return basename($path);
+        }
+
+        return basename($url);
     }
 }

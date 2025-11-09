@@ -3,7 +3,7 @@
 /**
  * MobilePhoneController.php
  *
- * Controlador para los teléfonos móviles.
+ * Controller for mobile phones.
  *
  * @author Miguel Arcila
  */
@@ -12,7 +12,8 @@ namespace App\Http\Controllers;
 
 use App\Models\MobilePhone;
 use App\Models\Review;
-use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,15 +22,15 @@ class MobilePhoneController extends Controller
 {
     public function index(Request $request): View
     {
-        $q = trim((string) $request->query('q', ''));
+        $searchQuery = trim((string) $request->query('q', ''));
 
         $mobilePhoneQuery = MobilePhone::with('specification')
             ->where('stock', '>', 0);
 
-        if ($q !== '') {
-            $mobilePhoneQuery->where(function ($sub) use ($q) {
-                $sub->where('name', 'like', "%$q%")
-                    ->orWhere('brand', 'like', "%$q%");
+        if ($searchQuery !== '') {
+            $mobilePhoneQuery->where(function (Builder $query) use ($searchQuery): void {
+                $query->where('name', 'like', "%{$searchQuery}%")
+                    ->orWhere('brand', 'like', "%{$searchQuery}%");
             });
         }
 
@@ -38,36 +39,39 @@ class MobilePhoneController extends Controller
             ->paginate(12)
             ->withQueryString();
 
-        $viewData = [
-            'mobilePhones' => $mobilePhones,
-            'q' => $q,
-        ];
+        $viewData = [];
+        $viewData['mobilePhones'] = $mobilePhones;
+        $viewData['searchQuery'] = $searchQuery;
 
-        return view('mobilePhones.index', $viewData);
+        return view('mobilePhones.index')->with('viewData', $viewData);
     }
 
     public function show(int $id): View
     {
         $viewData = [];
-        $viewData['mobilePhone'] = MobilePhone::with(['specification', 'reviews' => function ($q) {
-            $q->where('status', 'approved')->latest();
-        }])->findOrFail($id);
+        $viewData['mobilePhone'] = MobilePhone::with([
+            'specification',
+            'reviews' => function ($query): void {
+                $query->where('status', 'approved')->latest();
+            },
+        ])->findOrFail($id);
 
-        $approved = $viewData['mobilePhone']->reviews;
-        $count = $approved->count();
-        $average = $count > 0 ? round($approved->avg(function ($r) {
-            return $r->getRating();
-        }), 1) : null;
+        $approvedReviews = $viewData['mobilePhone']->getReviews();
+        $reviewsCount = $approvedReviews->count();
+        $reviewsAverage = $reviewsCount > 0
+            ? round($approvedReviews->avg(function (Review $review): int {
+                return $review->getRating();
+            }), 1)
+            : null;
 
-        $viewData['reviewsAvg'] = $average;
-        $viewData['reviewsCount'] = $count;
+        $viewData['reviewsAvg'] = $reviewsAverage;
+        $viewData['reviewsCount'] = $reviewsCount;
 
-        return view('mobilePhones.show', $viewData);
+        return view('mobilePhones.show')->with('viewData', $viewData);
     }
 
     public function submitReview(Request $request, int $id): RedirectResponse
     {
-
         $request->merge([
             'user_id' => Auth::id(),
             'mobile_phone_id' => $id,

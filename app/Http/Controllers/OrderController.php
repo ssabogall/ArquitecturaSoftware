@@ -3,7 +3,7 @@
 /**
  * OrderController.php
  *
- * Controlador para las órdenes.
+ * Controller for orders.
  *
  * @author Miguel Arcila
  */
@@ -12,7 +12,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Contracts\View\View;
+use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,35 +25,47 @@ class OrderController extends Controller
             ->where('user_id', $request->user()->getId())
             ->orderByDesc('created_at')
             ->paginate(10);
-        $viewData = [
-            'orders' => $orders,
-        ];
 
-        return view('orders.index', $viewData);
+        $viewData = [];
+        $viewData['orders'] = $orders;
+
+        return view('orders.index')->with('viewData', $viewData);
     }
 
     public function show(Request $request, Order $order): View|RedirectResponse
     {
         if ((int) $order->getUserId() !== (int) $request->user()->getId()) {
-            return redirect()->route('order.index')->with('flash.message_key', 'messages.error')->with('flash.level', 'danger');
+            return redirect()
+                ->route('order.index')
+                ->with('flash.message_key', 'messages.error')
+                ->with('flash.level', 'danger');
         }
+
         $order->load(['items.mobilePhone', 'user']);
 
-        return view('orders.show', ['order' => $order]);
+        $viewData = [];
+        $viewData['order'] = $order;
+
+        return view('orders.show')->with('viewData', $viewData);
     }
 
     public function cancel(Request $request, Order $order): RedirectResponse
     {
         if ((int) $order->getUserId() !== (int) $request->user()->getId()) {
-            return redirect()->route('order.index')->with('flash.message_key', 'messages.error')->with('flash.level', 'danger');
+            return redirect()
+                ->route('order.index')
+                ->with('flash.message_key', 'messages.error')
+                ->with('flash.level', 'danger');
         }
+
         if (in_array($order->getStatus(), ['pending', 'paid'], true)) {
-            DB::transaction(function () use ($order) {
+            DB::transaction(function () use ($order): void {
                 $order->loadMissing('items.mobilePhone');
-                foreach ($order->items as $it) {
-                    $mobilePhone = $it->mobilePhone;
+
+                foreach ($order->getItems() as $orderItem) {
+                    $mobilePhone = $orderItem->getMobilePhone();
                     if ($mobilePhone) {
-                        $mobilePhone->setStock($mobilePhone->getStock() + $it->getQuantity());
+                        $mobilePhone->setStock($mobilePhone->getStock() + $orderItem->getQuantity());
                         $mobilePhone->save();
                     }
                 }
@@ -62,24 +74,33 @@ class OrderController extends Controller
                 $order->save();
             });
 
-            return back()->with('flash.message_key', 'messages.order_cancelled')->with('flash.level', 'success');
+            return back()
+                ->with('flash.message_key', 'messages.order_cancelled')
+                ->with('flash.level', 'success');
         }
 
-        return back()->with('flash.message_key', 'messages.invalid_action')->with('flash.level', 'warning');
+        return back()
+            ->with('flash.message_key', 'messages.invalid_action')
+            ->with('flash.level', 'warning');
     }
 
     public function return(Request $request, Order $order): RedirectResponse
     {
         if ((int) $order->getUserId() !== (int) $request->user()->getId()) {
-            return redirect()->route('order.index')->with('flash.message_key', 'messages.error')->with('flash.level', 'danger');
+            return redirect()
+                ->route('order.index')
+                ->with('flash.message_key', 'messages.error')
+                ->with('flash.level', 'danger');
         }
+
         if ($order->getStatus() === 'shipped') {
-            DB::transaction(function () use ($order) {
+            DB::transaction(function () use ($order): void {
                 $order->loadMissing('items.mobilePhone');
-                foreach ($order->items as $it) {
-                    $mobilePhone = $it->mobilePhone;
+
+                foreach ($order->getItems() as $orderItem) {
+                    $mobilePhone = $orderItem->getMobilePhone();
                     if ($mobilePhone) {
-                        $mobilePhone->setStock($mobilePhone->getStock() + $it->getQuantity());
+                        $mobilePhone->setStock($mobilePhone->getStock() + $orderItem->getQuantity());
                         $mobilePhone->save();
                     }
                 }
@@ -88,19 +109,30 @@ class OrderController extends Controller
                 $order->save();
             });
 
-            return back()->with('flash.message_key', 'messages.order_cancelled')->with('flash.level', 'success');
+            return back()
+                ->with('flash.message_key', 'messages.order_cancelled')
+                ->with('flash.level', 'success');
         }
 
-        return back()->with('flash.message_key', 'messages.invalid_action')->with('flash.level', 'warning');
+        return back()
+            ->with('flash.message_key', 'messages.invalid_action')
+            ->with('flash.level', 'warning');
     }
 
     public function invoice(Request $request, Order $order)
     {
         if ((int) $order->getUserId() !== (int) $request->user()->getId()) {
-            return redirect()->route('order.index')->with('flash.message_key', 'messages.error')->with('flash.level', 'danger');
+            return redirect()
+                ->route('order.index')
+                ->with('flash.message_key', 'messages.error')
+                ->with('flash.level', 'danger');
         }
+
         $order->load(['items.mobilePhone', 'user']);
-        $pdf = Pdf::loadView('orders.invoice', ['order' => $order]);
+
+        $viewData = [];
+        $viewData['order'] = $order;
+        $pdf = Pdf::loadView('orders.invoice')->with('viewData', $viewData);
         $fileName = 'invoice-'.$order->getId().'.pdf';
 
         return $pdf->stream($fileName);
@@ -109,10 +141,17 @@ class OrderController extends Controller
     public function invoiceDownload(Request $request, Order $order)
     {
         if ((int) $order->getUserId() !== (int) $request->user()->getId()) {
-            return redirect()->route('order.index')->with('flash.message_key', 'messages.error')->with('flash.level', 'danger');
+            return redirect()
+                ->route('order.index')
+                ->with('flash.message_key', 'messages.error')
+                ->with('flash.level', 'danger');
         }
+
         $order->load(['items.mobilePhone', 'user']);
-        $pdf = Pdf::loadView('orders.invoice', ['order' => $order]);
+
+        $viewData = [];
+        $viewData['order'] = $order;
+        $pdf = Pdf::loadView('orders.invoice')->with('viewData', $viewData);
         $fileName = 'invoice-'.$order->getId().'.pdf';
 
         return $pdf->download($fileName);

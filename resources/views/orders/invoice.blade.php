@@ -24,16 +24,16 @@
 <body>
     <div class="header">
         <p class="title">{{ __('messages.invoice') }}</p>
-        <div class="meta">{{ __('messages.invoice_number') }}: #{{ $order->getId() }}</div>
-        <div class="meta">{{ __('messages.date') }}: {{ $order->getDate() }}</div>
+        <div class="meta">{{ __('messages.invoice_number') }}: #{{ $viewData['order']->getId() }}</div>
+        <div class="meta">{{ __('messages.date') }}: {{ $viewData['order']->getDate() }}</div>
     </div>
 
     <div class="section">
         <strong>{{ __('messages.my_profile') }}</strong>
-        <div>{{ $order->user?->getName() }}</div>
-        <div>{{ __('messages.email') }}: {{ $order->user?->getEmail() }}</div>
-        <div>{{ __('messages.address') }}: {{ $order->user?->getAddress() ?? __('messages.not_provided') }}</div>
-        <div>{{ __('messages.phone') }}: {{ $order->user?->getPhone() ?? __('messages.not_provided') }}</div>
+        <div>{{ $viewData['order']->getUser()?->getName() }}</div>
+        <div>{{ __('messages.email') }}: {{ $viewData['order']->getUser()?->getEmail() }}</div>
+        <div>{{ __('messages.address') }}: {{ $viewData['order']->getUser()?->getAddress() ?? __('messages.not_provided') }}</div>
+        <div>{{ __('messages.phone') }}: {{ $viewData['order']->getUser()?->getPhone() ?? __('messages.not_provided') }}</div>
     </div>
 
     <div class="section">
@@ -47,11 +47,11 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($order->items as $it)
+                @forelse($viewData['order']->getItems() as $it)
                     <tr>
                         <td>
-                            {{ $it->mobilePhone?->getName() ?? __('messages.not_provided') }}
-                            <div class="small">{{ __('messages.brand') }}: {{ $it->mobilePhone?->getBrand() ?? __('messages.not_provided') }}</div>
+                            {{ $it->getMobilePhone()?->getName() ?? __('messages.not_provided') }}
+                            <div class="small">{{ __('messages.brand') }}: {{ $it->getMobilePhone()?->getBrand() ?? __('messages.not_provided') }}</div>
                         </td>
                         <td class="text-end">{{ $it->getQuantity() }}</td>
                         <td class="text-end">{{ __('messages.currency_symbol') }}{{ $it->getPriceFormatted() }}</td>
@@ -66,14 +66,14 @@
             <tfoot>
                 <tr>
                     <th colspan="3" class="text-end">{{ __('messages.total') }}</th>
-                    <th class="text-end">{{ __('messages.currency_symbol') }}{{ $order->getTotalFormatted() }}</th>
+                    <th class="text-end">{{ __('messages.currency_symbol') }}{{ $viewData['order']->getTotalFormatted() }}</th>
                 </tr>
             </tfoot>
         </table>
     </div>
 
     <div class="section small">
-        {{ __('messages.status') }}: {{ __('messages.' . $order->getStatus()) }}
+        {{ __('messages.status') }}: {{ __('messages.' . $viewData['order']->getStatus()) }}
     </div>
 </body>
 </html>

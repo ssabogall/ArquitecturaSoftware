@@ -3,7 +3,7 @@
 /**
  * messages.php
  *
- * Recursos para usar lang.
+ * Resources for language usage in spanish.
  *
  * @author Alejandro Carmona
  * @author Miguel Angel Arcila
@@ -36,7 +36,7 @@ return [
     'forgot_password' => '¿Olvidaste tu contraseña?',
     'hello_name' => 'Hola, :name',
 
-    // --- Formularios ---
+    // --- Forms ---
     'submit' => 'Enviar',
     'save' => 'Guardar',
     'cancel' => 'Cancelar',
@@ -59,8 +59,10 @@ return [
     'total' => 'Total',
     'date' => 'Fecha',
     'not_provided' => '—',
+    'user' => 'Usuario',
+    'items' => 'Artículos',
 
-    // --- Estados y mensajes ---
+    // --- Status and messages ---
     'no_results' => 'No se encontraron resultados',
     'are_you_sure' => '¿Estás seguro?',
     'yes' => 'Sí',
@@ -71,19 +73,19 @@ return [
     'info' => 'Información',
     'or' => 'o',
 
-    // --- Página de bienvenida ---
+    // --- Welcome page ---
     'welcome' => 'Bienvenido',
     'welcome_website' => 'Bienvenido a nuestro sitio web',
     'glad_you_are_here' => 'Nos alegra que estés aquí',
     'home_headline' => 'Encuentra tu próximo celular',
     'home_subheadline' => 'Nuestros productos mejor valorados',
 
-    // --- Contraseñas ---
+    // --- Passwords ---
     'reset_password' => 'Restablecer contraseña',
     'send_password_reset_link' => 'Enviar enlace para restablecer contraseña',
     'confirm_password_before_continue' => 'Por favor confirma tu contraseña antes de continuar.',
 
-    // --- Verificación de email ---
+    // --- Email verification ---
     'verify_email' => 'Verifica tu dirección de correo electrónico',
     'verification_link_sent' => 'Se ha enviado un nuevo enlace de verificación a tu correo electrónico.',
     'check_email_for_link' => 'Antes de continuar, revisa tu correo electrónico para el enlace de verificación.',
@@ -183,7 +185,7 @@ return [
     'user_updated' => 'Usuario actualizado correctamente.',
     'user_deleted' => 'Usuario eliminado correctamente.',
 
-    // --- Perfil de usuario ---
+    // --- User profile ---
     'my_account' => 'Mi cuenta',
     'profile_updated' => 'Perfil actualizado correctamente.',
 ];
