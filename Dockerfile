@@ -1,18 +1,30 @@
 FROM php:8.3.11-apache
 
-RUN apt-get update -y && apt-get install -y openssl zip unzip git
+# 1. System dependencies
+RUN apt-get update -y && apt-get install -y \
+    openssl \
+    zip \
+    unzip \
+    git \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2. PHP extensions
 RUN docker-php-ext-install pdo_mysql
 
+# 3. Composer
 RUN curl -sS https://getcomposer.org/installer \
     | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Working dir del proyecto
+# 4. Working dir del proyecto
 WORKDIR /var/www/html
 
-# Copiamos todo el proyecto Laravel
+# 5. Copiar el proyecto Laravel
 COPY . /var/www/html
 
-# Instalamos dependencias
+# 6. Instalar dependencias PHP
 RUN composer install \
     --ignore-platform-reqs \
     --no-interaction \
@@ -20,17 +32,33 @@ RUN composer install \
     --no-scripts \
     --prefer-dist
 
-# Generamos APP_KEY
-RUN php artisan key:generate
+# 7. Generar APP_KEY si no existe (en build). 
+#    En runtime, si pasas APP_KEY por .env/--env-file, ese valor será el que manda.
+RUN php artisan key:generate --force || true
 
-# Permisos
-RUN chmod -R 777 storage bootstrap/cache
+# 8. Crear symlink de storage (public/storage -> storage/app/public)
+RUN php artisan storage:link || true
 
-# Habilitar mod_rewrite
+# 9. Preparar directorios de escritura y permisos
+RUN mkdir -p \
+      storage \
+      bootstrap/cache \
+      public/images \
+      storage/app/public/reports \
+    && chown -R www-data:www-data \
+      storage \
+      bootstrap/cache \
+      public \
+    && chmod -R 775 \
+      storage \
+      bootstrap/cache \
+      public
+
+# 10. Habilitar mod_rewrite
 RUN a2enmod rewrite
 
-# Cambiar DocumentRoot a /var/www/html/public
+# 11. Cambiar DocumentRoot a /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 
-# Arranque de Apache
+# 12. Arranque de Apache
 CMD ["apache2-foreground"]
