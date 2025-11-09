@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 // Auth
 Auth::routes();
 
+// Locale switcher
+Route::get('/locale/{locale}', [App\Http\Controllers\LocaleController::class, 'setLocale'])->name('locale.set');
+
 // Home
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home.index');
 

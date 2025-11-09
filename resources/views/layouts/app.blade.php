@@ -31,6 +31,18 @@
             <!-- Nav Links -->
             <div class="navbar-nav ms-auto d-flex flex-row gap-3 align-items-center">
                 <a class="nav-link text-dark" href="{{ route('mobilePhones.index') }}">{{ __('messages.products') }}</a>
+
+                <!-- Language selector -->
+                <div class="dropdown nav-hover-dropdown me-2">
+                    <a href="#" class="nav-link dropdown-toggle text-dark d-flex align-items-center" id="langMenu" role="button" aria-expanded="false" title="{{ __('messages.language') }}">
+                        <i class="bi bi-globe fs-5"></i>
+                        <span class="visually-hidden">{{ strtoupper(app()->getLocale()) }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langMenu">
+                        <li><a class="dropdown-item" href="{{ route('locale.set', 'es') }}">{{ __('messages.language_spanish') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ route('locale.set', 'en') }}">{{ __('messages.language_english') }}</a></li>
+                    </ul>
+                </div>
                 <!-- Cart icon -->
                 <a class="nav-link text-dark d-flex align-items-center" href="{{ route('cart.index') }}" title="{{ __('messages.cart') }}" aria-label="{{ __('messages.cart') }}">
                     <i class="bi bi-cart fs-5"></i>

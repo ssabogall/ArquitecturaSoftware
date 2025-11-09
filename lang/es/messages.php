@@ -189,4 +189,8 @@ return [
     'my_account' => 'Mi cuenta',
     'profile_updated' => 'Perfil actualizado correctamente.',
     'balance' => 'Saldo',
+    // --- Language selector ---
+    'language' => 'Idioma',
+    'language_spanish' => 'Español',
+    'language_english' => 'English',
 ];
