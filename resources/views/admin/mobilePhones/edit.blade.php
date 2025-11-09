@@ -1,6 +1,6 @@
 {{--
   View: Admin Products Edit
-  Purpose: Muestra el formulario para editar un producto existente.
+  Purpose: Shows the form to edit an existing product.
 
   @author Alejandro Carmona
 --}}

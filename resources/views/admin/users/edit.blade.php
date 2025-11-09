@@ -1,6 +1,6 @@
 {{--
   View: Admin Users Edit
-  Purpose: Muestra el formulario para editar un usuario en admin.
+  Purpose: Shows the form to edit a user in admin.
 
   @author Alejandro Carmona
 --}}

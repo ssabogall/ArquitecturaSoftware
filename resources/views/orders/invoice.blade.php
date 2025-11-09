@@ -1,6 +1,6 @@
 {{--
   View: Invoice PDF
-  Purpose: Plantilla de factura para PDF. Usa getters y traducciones.
+    Purpose: Invoice template for PDF. Uses getters and translations.
 
   @author Miguel Arcila
 --}}

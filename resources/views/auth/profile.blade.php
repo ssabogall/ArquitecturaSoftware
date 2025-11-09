@@ -1,6 +1,6 @@
 {{--
-    View: Perfil de Usuario
-    Purpose: Permite ver y actualizar nombre, teléfono y dirección.
+    View: User Profile
+    Purpose: Allows viewing and updating name, phone, and address.
 
     @author Miguel Arcila
 --}}

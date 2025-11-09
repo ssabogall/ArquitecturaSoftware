@@ -1,6 +1,6 @@
 {{--
   View: Admin Users Show
-  Purpose: Muestra el detalle de un usuario en el panel de administrador.
+  Purpose: Shows the details of a user in the admin panel.
 
   @author Alejandro Carmona
 --}}

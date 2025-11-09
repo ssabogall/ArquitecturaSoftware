@@ -1,6 +1,6 @@
 {{--
     View: Admin Orders Index
-    Purpose: Muestra la lista de órdenes en el panel de administrador.
+    Purpose: Shows the list of orders in the admin panel.
 
     @author Alejandro Carmona
 --}}

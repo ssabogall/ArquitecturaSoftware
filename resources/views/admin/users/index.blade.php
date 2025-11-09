@@ -1,6 +1,6 @@
 {{--
   View: Admin Users Index
-  Purpose: Muestra la lista de usuarios en el panel de administrador.
+  Purpose: Shows the list of users in the admin panel.
 
   @author Alejandro Carmona
 --}}

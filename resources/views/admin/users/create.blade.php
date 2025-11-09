@@ -1,6 +1,6 @@
 {{--
   View: Admin Users Create
-  Purpose: Muestra el formulario para crear un nuevo usuario en admin.
+  Purpose: Shows the form to create a new user in admin.
 
   @author Alejandro Carmona
 --}}

@@ -1,6 +1,6 @@
 {{--
     View: Admin Specifications Index
-    Purpose: Lista de especificaciones técnicas.
+    Purpose: List of technical specifications.
 
     @author Miguel Arcila
 --}}

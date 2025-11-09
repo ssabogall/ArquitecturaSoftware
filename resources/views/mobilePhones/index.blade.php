@@ -1,8 +1,8 @@
 {{--
-  View: Index Phones
-  Purpose: Muestra la lista de teléfonos móviles disponibles.
+    View: Index Phones
+    Purpose: Shows the list of available mobile phones.
 
-  @author Miguel Arcila
+    @author Miguel Arcila
 --}}
 
 @extends('layouts.app')

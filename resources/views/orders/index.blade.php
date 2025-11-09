@@ -1,6 +1,6 @@
 {{--
   View: Index Orders
-  Purpose: Muestra la lista de pedidos del usuario.
+  Purpose: Shows the list of the user's orders.
 
   @author Miguel Arcila
 --}}

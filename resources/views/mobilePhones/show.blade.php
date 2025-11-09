@@ -1,6 +1,6 @@
 {{--
   View: Show Phone
-  Purpose: Muestra los detalles de un teléfono específico.
+    Purpose: Shows the details of a specific phone.
 
   @author Miguel Arcila
 --}}

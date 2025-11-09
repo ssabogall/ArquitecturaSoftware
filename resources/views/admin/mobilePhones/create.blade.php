@@ -1,6 +1,6 @@
 {{--
   View: Admin Products Create
-  Purpose: Muestra el formulario para crear un nuevo producto.
+  Purpose: Shows the form to create a new product.
 
   @author Alejandro Carmona
 --}}

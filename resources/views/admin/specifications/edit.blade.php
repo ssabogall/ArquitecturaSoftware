@@ -1,6 +1,6 @@
 {{--
     View: Admin Specifications Edit
-    Purpose: Editar una Specification existente.
+    Purpose: Edit an existing Specification.
 
     @author Miguel Arcila
 --}}

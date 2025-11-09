@@ -1,6 +1,6 @@
 {{--
   View: Index Cart
-  Purpose: Muestra el contenido del carrito de compras.
+    Purpose: Shows the contents of the shopping cart.
 
   @author Miguel Arcila
 --}}

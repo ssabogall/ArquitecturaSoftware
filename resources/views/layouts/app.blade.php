@@ -1,6 +1,6 @@
 {{--
     View: Layout App
-    Purpose: Layout base público para páginas de la aplicación.
+    Purpose: Public base layout for application pages.
 
     @author Alejandro Carmona
     @author Miguel Arcila

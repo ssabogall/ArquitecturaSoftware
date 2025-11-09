@@ -1,6 +1,6 @@
 {{--
     View: Layout Admin
-    Purpose: Layout base para el panel de administración.
+    Purpose: Base layout for the administration panel.
 
     @author Alejandro Carmona
     @author Miguel Arcila

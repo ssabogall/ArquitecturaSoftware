@@ -1,6 +1,6 @@
 {{--
     View: Admin Reviews Index
-    Purpose: Listado de reseñas para aprobación/denegación.
+    Purpose: List of reviews for approval/rejection.
 
     @author Miguel Arcila
 --}}

@@ -1,6 +1,6 @@
 {{--
     View: Admin Products Index
-    Purpose: Muestra la lista de productos en el panel de administrador.
+    Purpose: Shows the list of products in the admin panel.
 
     @author Alejandro Carmona
 --}}

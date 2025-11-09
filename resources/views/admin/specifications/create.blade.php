@@ -1,6 +1,6 @@
 {{--
     View: Admin Specifications Create
-    Purpose: Crear una nueva Specification.
+    Purpose: Create a new Specification.
 
     @author Miguel Arcila
 --}}

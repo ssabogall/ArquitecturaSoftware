@@ -1,6 +1,6 @@
 {{--
   View: Admin Products Show
-  Purpose: Muestra el detalle de un producto en el panel de administrador.
+  Purpose: Shows the details of a product in the admin panel.
 
   @author Alejandro Carmona
 --}}

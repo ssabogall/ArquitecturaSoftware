@@ -1,6 +1,6 @@
 {{--
     View: Admin Dashboard
-    Purpose: Muestra el panel principal del administrador con accesos y widgets de métricas.
+    Purpose: Shows the main admin dashboard with shortcuts and metric widgets.
 
     @author Alejandro Carmona
 --}}

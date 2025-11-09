@@ -1,6 +1,6 @@
 {{--
     View: Admin Specifications Show
-    Purpose: Mostrar detalle de Specification.
+    Purpose: Shows the details of a Specification.
 
     @author Miguel Arcila
 --}}

@@ -1,6 +1,6 @@
 {{--
     View: Home Index
-    Purpose: Muestra la página de inicio pública de la aplicación.
+    Purpose: Shows the public home page of the application.
 
     @author Alejandro Carmona
     @author Miguel Arcila

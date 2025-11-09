@@ -1,6 +1,6 @@
 {{--
   View: Show Order
-  Purpose: Muestra los detalles de un pedido específico.
+  Purpose: Shows the details of a specific order.
 
   @author Miguel Arcila
 --}}
