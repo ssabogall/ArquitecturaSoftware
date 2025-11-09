@@ -57,6 +57,14 @@
                             <li>
                                 <a class="dropdown-item" href="{{ route('order.index') }}">{{ __('messages.my_orders') }}</a>
                             </li>
+                            @if (Auth::user()->isStaff())
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                                        {{ __('messages.admin_panel') }}
+                                    </a>
+                                </li>
+                            @endif
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
