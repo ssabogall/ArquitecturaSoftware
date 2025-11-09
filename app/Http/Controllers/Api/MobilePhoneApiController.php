@@ -16,27 +16,11 @@ use App\Http\Resources\MobilePhoneCollection;
 use App\Models\MobilePhone;
 use Illuminate\Http\JsonResponse;
 
-class MobilePhoneApiControllerV3 extends Controller
+class MobilePhoneApiController extends Controller
 {
-    /**
-     * Returns all mobile phones without pagination.
-     *
-     * @return JsonResponse
-     */
     public function index(): JsonResponse
     {
         $phones = new MobilePhoneCollection(MobilePhone::all());
-        return response()->json($phones, 200);
-    }
-
-    /**
-     * Returns paginated list of mobile phones.
-     *
-     * @return JsonResponse
-     */
-    public function paginate(): JsonResponse
-    {
-        $phones = new MobilePhoneCollection(MobilePhone::paginate(5));
         return response()->json($phones, 200);
     }
 }
