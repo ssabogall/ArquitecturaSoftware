@@ -217,4 +217,18 @@ return [
     'no_specifications' => 'No specifications available for these phones.',
     'highlighted_specs_differ' => 'Highlighted cells indicate differences between models.',
     'out_of_stock' => 'Out of Stock',
+
+    // --- Reports ---
+    'reports' => 'Reports',
+    'generate_report' => 'Generate Report',
+    'sales_report' => 'Sales Report',
+    'orders_report' => 'Orders Report',
+    'product' => 'Product',
+    'sales_count' => 'Sales Count',
+    'total_units' => 'Total Units',
+    'total_revenue' => 'Total Revenue',
+    'order_number' => 'Order Number',
+    'customer' => 'Customer',
+    'generation_date' => 'Generation Date',
+    'no_data_available' => 'No data available for this report',
 ];

@@ -38,6 +38,25 @@
         </div>
     </div>
 
+    <div class="row g-3 mt-3">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-file-earmark-text me-2"></i>{{ __('messages.reports') }}</h5>
+                    <p class="text-muted mb-3">{{ __('messages.generate_report') }}</p>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('admin.reports.sales', ['type' => 'pdf']) }}" class="btn btn-danger btn-sm">
+                            <i class="bi bi-file-pdf me-1"></i>{{ __('messages.sales_report') }} (PDF)
+                        </a>
+                        <a href="{{ route('admin.reports.sales', ['type' => 'excel']) }}" class="btn btn-success btn-sm">
+                            <i class="bi bi-file-excel me-1"></i>{{ __('messages.sales_report') }} (Excel)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
         <div class="row g-3 mt-3">
             <div class="col-12">
                 <div class="alert alert-info d-flex align-items-center justify-content-between" role="alert">

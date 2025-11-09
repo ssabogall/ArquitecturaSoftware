@@ -217,4 +217,18 @@ return [
     'no_specifications' => 'No hay especificaciones disponibles para estos teléfonos.',
     'highlighted_specs_differ' => 'Las celdas resaltadas indican diferencias entre los modelos.',
     'out_of_stock' => 'Agotado',
+
+    // --- Reports ---
+    'reports' => 'Reportes',
+    'generate_report' => 'Generar reporte',
+    'sales_report' => 'Reporte de ventas',
+    'orders_report' => 'Reporte de pedidos',
+    'product' => 'Producto',
+    'sales_count' => 'Cantidad de ventas',
+    'total_units' => 'Unidades totales',
+    'total_revenue' => 'Ingresos totales',
+    'order_number' => 'Nº de pedido',
+    'customer' => 'Cliente',
+    'generation_date' => 'Fecha de generación',
+    'no_data_available' => 'No hay datos disponibles para este reporte',
 ];

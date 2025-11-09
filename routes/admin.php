@@ -41,3 +41,6 @@ Route::delete('specifications/{specification}', 'App\Http\Controllers\Admin\Spec
 Route::get('reviews', 'App\Http\Controllers\Admin\ReviewController@index')->name('reviews.index');
 Route::patch('reviews/{review}/approve', 'App\Http\Controllers\Admin\ReviewController@approve')->name('reviews.approve');
 Route::patch('reviews/{review}/reject', 'App\Http\Controllers\Admin\ReviewController@reject')->name('reviews.reject');
+
+// Reports
+Route::get('reports/sales/{type}', 'App\Http\Controllers\Admin\ReportController@generateSalesReport')->name('reports.sales')->where('type', 'pdf|excel');
