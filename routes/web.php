@@ -44,3 +44,7 @@ Route::post('/cart', 'App\Http\Controllers\CartController@add')->name('cart.add'
 Route::put('/cart/{id}', 'App\Http\Controllers\CartController@update')->name('cart.update');
 Route::delete('/cart/{id}', 'App\Http\Controllers\CartController@remove')->name('cart.remove');
 Route::post('/cart/checkout', 'App\Http\Controllers\CartController@checkout')->middleware('auth')->name('cart.checkout');
+
+// MobilePhones API - Version equipo 4
+Route::get('api/v3/mobilePhones', 'App\Http\Controllers\Api\MobilePhoneApiControllerV3@index')->name('api.v3.mobilePhones.index');
+Route::get('api/v3/mobilePhones/paginate', 'App\Http\Controllers\Api\MobilePhoneApiControllerV3@paginate')->name('api.v3.mobilePhones.paginate');
