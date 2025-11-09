@@ -2,9 +2,9 @@
 
 /**
  * ImageController
- * 
+ *
  * Controller for image management.
- * 
+ *
  * @author Alejandro Carmona
  */
 
@@ -32,11 +32,11 @@ class ImageController extends Controller
     public function save(Request $request): RedirectResponse
     {
         $imageUrl = $this->imageStorage->store($request);
-        
+
         if ($imageUrl) {
-            return back()->with('success', 'Image saved successfully: ' . $imageUrl);
+            return back()->with('success', 'Image saved successfully: '.$imageUrl);
         }
-        
+
         return back()->with('error', 'The image could not be saved.');
     }
 }

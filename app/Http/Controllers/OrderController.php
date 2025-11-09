@@ -12,10 +12,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class OrderController extends Controller
 {
@@ -59,7 +59,7 @@ class OrderController extends Controller
         }
 
         if (in_array($order->getStatus(), ['pending', 'paid'], true)) {
-            DB::transaction(function () use ($order): void {
+            DB::transaction(function () use ($order, $request): void {
                 $order->loadMissing('items.mobilePhone');
 
                 foreach ($order->getItems() as $orderItem) {
@@ -69,6 +69,10 @@ class OrderController extends Controller
                         $mobilePhone->save();
                     }
                 }
+
+                $user = $request->user();
+                $user->addBalance($order->getTotal());
+                $user->save();
 
                 $order->setStatus('cancelled');
                 $order->save();
@@ -94,7 +98,7 @@ class OrderController extends Controller
         }
 
         if ($order->getStatus() === 'shipped') {
-            DB::transaction(function () use ($order): void {
+            DB::transaction(function () use ($order, $request): void {
                 $order->loadMissing('items.mobilePhone');
 
                 foreach ($order->getItems() as $orderItem) {
@@ -104,6 +108,10 @@ class OrderController extends Controller
                         $mobilePhone->save();
                     }
                 }
+
+                $user = $request->user();
+                $user->addBalance($order->getTotal());
+                $user->save();
 
                 $order->setStatus('cancelled');
                 $order->save();

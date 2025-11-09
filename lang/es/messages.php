@@ -188,4 +188,5 @@ return [
     // --- User profile ---
     'my_account' => 'Mi cuenta',
     'profile_updated' => 'Perfil actualizado correctamente.',
+    'balance' => 'Saldo',
 ];

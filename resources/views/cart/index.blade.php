@@ -62,9 +62,18 @@
 
     <div class="d-flex justify-content-end mt-3">
         <div class="card" style="min-width: 320px;">
-            <div class="card-body d-flex justify-content-between">
-                <div class="fw-semibold">{{ __('messages.total') }}</div>
-                <div class="fw-bold">{{ __('messages.currency_symbol') }}{{ $viewData['total_formatted'] }}</div>
+            <div class="card-body">
+                @auth
+                <div class="d-flex justify-content-between mb-2">
+                    <div class="text-muted">{{ __('messages.balance') }}</div>
+                    <div class="fw-semibold text-success">{{ __('messages.currency_symbol') }}{{ number_format(auth()->user()->getBalance(), 0, ',', '.') }}</div>
+                </div>
+                <hr>
+                @endauth
+                <div class="d-flex justify-content-between">
+                    <div class="fw-semibold">{{ __('messages.total') }}</div>
+                    <div class="fw-bold">{{ __('messages.currency_symbol') }}{{ $viewData['total_formatted'] }}</div>
+                </div>
             </div>
             <div class="card-footer text-end">
                 @auth

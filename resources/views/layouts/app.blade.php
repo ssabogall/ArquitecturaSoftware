@@ -73,7 +73,11 @@
 
     <!-- Content -->
     <div class="container my-4">
-        @if (session('flash.message_key'))
+        @if (session('flash.message'))
+            <div class="alert alert-{{ session('flash.level', 'success') }}" role="alert">
+                {{ session('flash.message') }}
+            </div>
+        @elseif (session('flash.message_key'))
             <div class="alert alert-{{ session('flash.level', 'success') }}" role="alert">
                 {{ __(session('flash.message_key')) }}
             </div>

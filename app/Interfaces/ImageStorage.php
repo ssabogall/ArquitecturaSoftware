@@ -2,9 +2,9 @@
 
 /**
  * ImageStorage Interface
- * 
+ *
  * Defines the contract for image storage.
- * 
+ *
  * @author Alejandro Carmona
  */
 

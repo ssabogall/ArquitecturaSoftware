@@ -15,7 +15,11 @@
         <div class="card">
             <div class="card-header">{{ __('messages.my_account') }}</div>
             <div class="card-body">
-                @if (session('flash.message_key'))
+                @if (session('flash.message'))
+                    <div class="alert alert-{{ session('flash.level', 'success') }}" role="alert">
+                        {{ session('flash.message') }}
+                    </div>
+                @elseif (session('flash.message_key'))
                     <div class="alert alert-{{ session('flash.level', 'success') }}" role="alert">
                         {{ __(session('flash.message_key')) }}
                     </div>
@@ -31,6 +35,14 @@
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('messages.balance') }}</label>
+                        <div class="form-control-plaintext fw-bold text-success">
+                            {{ __('messages.currency_symbol') }}{{ number_format($viewData['user']->getBalance(), 0, ',', '.') }}
+                        </div>
+                        <small class="text-muted">{{ __('messages.balance') }} disponible para compras</small>
                     </div>
 
                     <div class="mb-3">

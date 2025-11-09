@@ -2,9 +2,9 @@
 
 /**
  * ImageLocalStorage
- * 
+ *
  * Local implementation of image storage.
- * 
+ *
  * @author Alejandro Carmona
  */
 
@@ -20,15 +20,15 @@ class ImageLocalStorage implements ImageStorage
     {
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
-            
+
             $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            
+            $filename = time().'.'.$extension;
+
             $path = $file->storeAs('images', $filename, 'public');
-            
+
             return Storage::url($path);
         }
-        
+
         return null;
     }
 }

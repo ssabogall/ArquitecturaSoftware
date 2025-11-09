@@ -26,6 +26,7 @@ class MobilePhoneController extends Controller
     {
         $this->imageStorage = $imageStorage;
     }
+
     public function index(): View
     {
         $viewData = [];
@@ -37,7 +38,8 @@ class MobilePhoneController extends Controller
     public function create(): View
     {
         $viewData = [];
-        $viewData['mobilePhone'] = new MobilePhone();
+        $viewData['mobilePhone'] = new MobilePhone;
+
         return view('admin.mobilePhones.create')->with('viewData', $viewData);
     }
 

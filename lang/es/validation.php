@@ -80,6 +80,11 @@ return [
             'string' => 'La dirección debe ser texto.',
             'max' => 'La dirección no puede superar los :max caracteres.',
         ],
+        'balance' => [
+            'numeric' => 'El saldo debe ser un número.',
+            'min' => 'El saldo no puede ser negativo.',
+            'max' => 'El saldo no puede superar :max.',
+        ],
 
         // Order
         'date' => [
@@ -213,6 +218,7 @@ return [
         'name' => 'nombre',
         'email' => 'correo electrónico',
         'password' => 'contraseña',
+        'balance' => 'saldo',
         'staff' => 'staff',
         'phone' => 'teléfono',
         'address' => 'dirección',

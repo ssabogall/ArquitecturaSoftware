@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Validator as ValidatorFacade;
  * $this->attributes['name'] - string - contains the user name
  * $this->attributes['email'] - string - contains the user email
  * $this->attributes['password'] - string - contains the user hashed password
+ * $this->attributes['balance'] - float - contains the user balance (money)
  * $this->attributes['staff'] - bool - indicates if the user is staff
  * $this->attributes['phone'] - string|null - contains the user phone number
  * $this->attributes['address'] - string|null - contains the user address
@@ -39,6 +40,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'balance',
         'staff',
         'phone',
         'address',
@@ -98,6 +100,11 @@ class User extends Authenticatable
         return $this->address;
     }
 
+    public function getBalance(): float
+    {
+        return (float) $this->attributes['balance'];
+    }
+
     public function getCreatedAt(): string
     {
         return (string) $this->attributes['created_at'];
@@ -139,13 +146,28 @@ class User extends Authenticatable
         $this->attributes['address'] = $address;
     }
 
+    public function setBalance(float $balance): void
+    {
+        $this->attributes['balance'] = $balance;
+    }
+
+    // Helper methods for balance
+    public function hasBalance(float $amount): bool
+    {
+        return $this->getBalance() >= $amount;
+    }
+
+    public function deductBalance(float $amount): void
+    {
+        $this->setBalance($this->getBalance() - $amount);
+    }
+
+    public function addBalance(float $amount): void
+    {
+        $this->setBalance($this->getBalance() + $amount);
+    }
+
     // Validations
-    /**
-     * Validate user data
-     *
-     * @param  array<string, mixed>  $data
-     * @param  int|null  $ignoreId  If provided, email uniqueness will ignore this user id (update scenario)
-     */
     public static function validate(array $data, ?int $ignoreId = null): Validator
     {
         $emailRule = 'required|string|email|max:255|unique:users,email';
@@ -157,6 +179,7 @@ class User extends Authenticatable
             'name' => 'required|string|max:255',
             'email' => $emailRule,
             'password' => $ignoreId === null ? 'required|string|min:8' : 'nullable|string|min:8',
+            'balance' => 'nullable|numeric|min:0|max:999999.99',
             'staff' => 'boolean',
             'phone' => 'nullable|string|max:30',
             'address' => 'nullable|string|max:255',

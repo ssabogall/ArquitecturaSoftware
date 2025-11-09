@@ -43,6 +43,7 @@ class UserController extends Controller
         $user->setName($validatedData['name']);
         $user->setEmail($validatedData['email']);
         $user->setPassword(Hash::make($validatedData['password']));
+        $user->setBalance((float) ($validatedData['balance'] ?? 0));
         $user->setStaff((bool) ($validatedData['staff'] ?? false));
         $user->setPhone($validatedData['phone'] ?? null);
         $user->setAddress($validatedData['address'] ?? null);
@@ -80,6 +81,9 @@ class UserController extends Controller
         $user->setEmail($validatedData['email']);
         if (! empty($validatedData['password'])) {
             $user->setPassword(Hash::make($validatedData['password']));
+        }
+        if (array_key_exists('balance', $validatedData)) {
+            $user->setBalance((float) $validatedData['balance']);
         }
         if (array_key_exists('staff', $validatedData)) {
             $user->setStaff((bool) $validatedData['staff']);

@@ -31,6 +31,9 @@
       <dt class="col-sm-3">{{ __('messages.address') }}</dt>
   <dd class="col-sm-9">{{ $viewData['user']->getAddress() ?? __('messages.not_provided') }}</dd>
 
+      <dt class="col-sm-3">{{ __('messages.balance') }}</dt>
+  <dd class="col-sm-9 fw-bold text-success">{{ __('messages.currency_symbol') }}{{ number_format($viewData['user']->getBalance(), 0, ',', '.') }}</dd>
+
       <dt class="col-sm-3">{{ __('messages.created_at') }}</dt>
   <dd class="col-sm-9">{{ $viewData['user']->getCreatedAt() }}</dd>
 

@@ -65,6 +65,15 @@
         @enderror
       </div>
 
+      <div class="mb-3">
+        <label for="balance" class="form-label">{{ __('messages.balance') }}</label>
+        <input type="number" class="form-control" id="balance" name="balance" value="{{ old('balance', $viewData['user']->getBalance()) }}" step="0.01" min="0" max="999999.99">
+        <div class="form-text">{{ __('messages.currency_symbol') }} (máximo 999,999.99)</div>
+        @error('balance')
+          <div class="text-danger small">{{ $message }}</div>
+        @enderror
+      </div>
+
       <div class="d-flex gap-2">
         <button type="submit" class="btn btn-primary">{{ __('messages.save') }}</button>
         <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">{{ __('messages.cancel') }}</a>

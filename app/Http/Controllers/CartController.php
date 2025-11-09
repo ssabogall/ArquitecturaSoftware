@@ -13,10 +13,10 @@ namespace App\Http\Controllers;
 use App\Models\MobilePhone;
 use App\Models\Order;
 use App\Models\OrderItem;
-use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use Throwable;
 
 class CartController extends Controller
@@ -163,8 +163,20 @@ class CartController extends Controller
             ];
         }
 
+        if (! $user->hasBalance($total)) {
+            $balanceFormatted = '$'.number_format($user->getBalance(), 0, ',', '.');
+            $totalFormatted = '$'.number_format($total, 0, ',', '.');
+
+            return redirect()->route('cart.index')
+                ->with('flash.message', "Saldo insuficiente. Tu saldo actual es {$balanceFormatted} y el total de la orden es {$totalFormatted}.")
+                ->with('flash.level', 'danger');
+        }
+
         DB::beginTransaction();
         try {
+            $user->deductBalance($total);
+            $user->save();
+
             $order = new Order;
             $order->setDate(now()->toDateString());
             $order->setStatus('pending');
