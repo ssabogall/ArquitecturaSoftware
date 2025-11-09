@@ -14,7 +14,6 @@ use Illuminate\Support\Collection;
 
 interface ReportGenerator
 {
-
     public function generate(Collection $data, array $columns, string $title): string;
 
     public function getExtension(): string;

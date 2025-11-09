@@ -190,13 +190,13 @@ return [
     'profile_updated' => 'Profile updated successfully.',
     'balance' => 'Balance',
     'available_for_purchases' => 'available for purchases',
-    
+
     // --- Address and Maps ---
     'enter_address' => 'Enter your address...',
     'start_typing_suggestions' => 'Start typing to see address suggestions',
     'location_on_map' => 'Location on map',
     'marker_updates_on_selection' => 'The marker will update when you select an address',
-    
+
     // --- Language selector ---
     'language' => 'Language',
     'language_spanish' => 'Español',

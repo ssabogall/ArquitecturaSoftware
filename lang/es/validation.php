@@ -191,7 +191,6 @@ return [
         'phone_not_found' => 'Uno o más teléfonos seleccionados no existen.',
     ],
 
-
     'attributes' => [
         'name' => 'nombre',
         'email' => 'correo electrónico',

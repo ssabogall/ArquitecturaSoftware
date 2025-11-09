@@ -20,25 +20,25 @@ class ImageLocalStorage implements ImageStorage
     {
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
-            
+
             $brand = $request->input('brand', 'default');
             $brandFolder = Str::slug($brand);
-            
+
             $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
-            
+
             $safeName = Str::slug($originalName);
-            $filename = $safeName . '-' . time() . '.' . $extension;
-            
-            $directory = public_path('images/' . $brandFolder);
-            
-            if (!file_exists($directory)) {
+            $filename = $safeName.'-'.time().'.'.$extension;
+
+            $directory = public_path('images/'.$brandFolder);
+
+            if (! file_exists($directory)) {
                 mkdir($directory, 0755, true);
             }
-            
+
             $file->move($directory, $filename);
-            
-            return 'images/' . $brandFolder . '/' . $filename;
+
+            return 'images/'.$brandFolder.'/'.$filename;
         }
 
         return null;

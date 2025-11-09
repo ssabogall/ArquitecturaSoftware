@@ -2,11 +2,11 @@
 
 /**
  * LocaleController
- *  
+ *
  * Set the application locale and redirect back.
- * 
+ *
  * @author Miguel Arcila
-*/
+ */
 
 namespace App\Http\Controllers;
 

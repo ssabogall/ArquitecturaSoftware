@@ -30,7 +30,7 @@ class CompareController extends Controller
         MobilePhone::validateCompare($request);
 
         $phoneIds = $request->input('phones');
-        
+
         $viewData = [];
         $viewData['title'] = __('messages.phone_comparison');
         $viewData['phones'] = MobilePhone::with('specification')

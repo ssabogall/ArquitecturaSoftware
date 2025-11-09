@@ -25,15 +25,15 @@ class PdfReportGenerator implements ReportGenerator
         ]);
 
         $filename = $this->generateFilename($title);
-        $path = storage_path('app/public/reports/' . $filename);
+        $path = storage_path('app/public/reports/'.$filename);
 
-        if (!file_exists(dirname($path))) {
+        if (! file_exists(dirname($path))) {
             mkdir(dirname($path), 0755, true);
         }
 
         $pdf->save($path);
 
-        return 'storage/reports/' . $filename;
+        return 'storage/reports/'.$filename;
     }
 
     public function getExtension(): string
