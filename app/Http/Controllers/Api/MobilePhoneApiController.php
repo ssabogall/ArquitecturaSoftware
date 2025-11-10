@@ -21,6 +21,7 @@ class MobilePhoneApiController extends Controller
     public function index(): JsonResponse
     {
         $phones = new MobilePhoneCollection(MobilePhone::all());
+
         return response()->json($phones, 200);
     }
 }

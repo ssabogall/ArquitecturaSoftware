@@ -18,7 +18,6 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class MobilePhoneCollection extends ResourceCollection
 {
-
     public function toArray(Request $request): array
     {
         return [
