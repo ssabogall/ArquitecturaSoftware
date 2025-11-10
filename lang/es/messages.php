@@ -231,4 +231,12 @@ return [
     'customer' => 'Cliente',
     'generation_date' => 'Fecha de generación',
     'no_data_available' => 'No hay datos disponibles para este reporte',
+
+    // --- API INSUMAX ---
+    'our_partners' => 'Conoce los aliados del grupo CELLHUB',
+    'partner_insumax' => 'Adquiere tus insumos médicos en INSUMAX',
+    'loading' => 'Cargando',
+    'view_more' => 'Ver más',
+    'no_products_available' => 'No hay productos disponibles en este momento',
+    'error_loading_products' => 'Error al cargar los productos. Por favor, intenta más tarde.',
 ];
