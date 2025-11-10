@@ -24,4 +24,16 @@ class MobilePhoneApiController extends Controller
 
         return response()->json($phones, 200);
     }
+
+    public function paginate(): JsonResponse
+    {
+        $topPhones = MobilePhone::withAvg('reviews', 'rating')
+            ->orderByDesc('reviews_avg_rating')
+            ->take(4)
+            ->get();
+
+        $phones = new MobilePhoneCollection($topPhones);
+
+        return response()->json($phones, 200);
+    }
 }

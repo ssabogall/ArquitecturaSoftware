@@ -26,6 +26,8 @@ class MobilePhoneCollection extends ResourceCollection
                     'name' => $phone->getName(),
                     'brand' => $phone->getBrand(),
                     'price' => $phone->getPrice(),
+                    'image' => $phone->getPhotoUrl(),
+                    'link' => route('mobilePhones.show', ['id' => $phone->getId()]),
                 ];
             }),
         ];
