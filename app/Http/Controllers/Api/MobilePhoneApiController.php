@@ -1,9 +1,9 @@
 <?php
 
 /**
- * MobilePhoneApiControllerV3.php
+ * MobilePhoneApiController.php
  *
- * API Controller (version 3) for listing mobile phones.
+ * API Controller for listing mobile phones.
  * Uses Laravel Resource Collections for structured JSON responses.
  *
  * @author Santiago Sabogal
