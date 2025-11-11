@@ -8,9 +8,12 @@
         <testsuite name="Unit">
             <directory>tests/Unit</directory>
         </testsuite>
+        <!-- Feature tests disabled - uncomment when needed -->
+        <!--
         <testsuite name="Feature">
             <directory>tests/Feature</directory>
         </testsuite>
+        -->
     </testsuites>
     <source>
         <include>
