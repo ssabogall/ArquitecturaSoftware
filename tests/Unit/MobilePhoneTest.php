@@ -23,7 +23,7 @@ class MobilePhoneTest extends TestCase
     public function test_mobile_phone_has_correct_attributes(): void
     {
         // Arrange: Create a new MobilePhone instance with test data
-        $phone = new MobilePhone();
+        $phone = new MobilePhone;
         $phone->setName('iPhone 15 Pro');
         $phone->setBrand('Apple');
         $phone->setPrice(129999);
@@ -43,7 +43,7 @@ class MobilePhoneTest extends TestCase
     public function test_mobile_phone_price_is_formatted_correctly(): void
     {
         // Arrange: Create a MobilePhone with a price
-        $phone = new MobilePhone();
+        $phone = new MobilePhone;
         $phone->setPrice(1299999);
 
         // Act: Get the formatted price
