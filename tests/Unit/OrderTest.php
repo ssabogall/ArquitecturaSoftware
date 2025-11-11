@@ -23,7 +23,7 @@ class OrderTest extends TestCase
     public function test_order_has_correct_attributes(): void
     {
         // Arrange: Create a new Order instance with test data
-        $order = new Order();
+        $order = new Order;
         $order->setDate('2025-11-10');
         $order->setStatus('pending');
         $order->setTotal(1500000);
@@ -46,7 +46,7 @@ class OrderTest extends TestCase
         $validStatuses = ['pending', 'paid', 'shipped', 'cancelled'];
 
         foreach ($validStatuses as $status) {
-            $order = new Order();
+            $order = new Order;
             $order->setStatus($status);
 
             // Act: Get the status
