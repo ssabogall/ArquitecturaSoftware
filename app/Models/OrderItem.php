@@ -19,8 +19,6 @@ use Illuminate\Http\Request;
  * ORDER ITEM ATTRIBUTES
  *
  * $this->attributes['id'] - int - contains the order item primary key
- * $this->attributes['order_id'] - int - references orders.id
- * $this->attributes['mobile_phone_id'] - int - references mobile_phones.id
  * $this->attributes['quantity'] - int - quantity of items
  * $this->attributes['price'] - int - unit price at purchase time
  * $this->attributes['created_at'] - Carbon - creation date

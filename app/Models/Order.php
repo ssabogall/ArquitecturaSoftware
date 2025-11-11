@@ -21,9 +21,8 @@ use Illuminate\Http\Request;
  *
  * $this->attributes['id'] - int - primary key
  * $this->attributes['date'] - string (Y-m-d) - order date
- * $this->attributes['status'] - string - pending|paid|shipped|cancelled
+ * $this->attributes['status'] - string - enum [pending, paid, shipped, cancelled]
  * $this->attributes['total'] - int - total amount
- * $this->attributes['user_id'] - int - owner user id
  * $this->attributes['created_at'] - Carbon - contains the creation date
  * $this->attributes['updated_at'] - Carbon - contains the last update date
  * $this->items - collection - contains the associated items

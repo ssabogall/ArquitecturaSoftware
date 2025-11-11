@@ -18,8 +18,6 @@ use Illuminate\Http\Request;
  * REVIEW ATTRIBUTES
  *
  * $this->attributes['id'] - int - contains the review primary key
- * $this->attributes['user_id'] - int - references users.id
- * $this->attributes['mobile_phone_id'] - int - references mobile_phones.id
  * $this->attributes['status'] - string - enum: pending, approved, rejected
  * $this->attributes['rating'] - int - rating value (1..5)
  * $this->attributes['comments'] - string|null - optional comments

@@ -151,20 +151,24 @@ class User extends Authenticatable
         $this->attributes['balance'] = $balance;
     }
 
-    // Helper methods for balance
-    public function hasBalance(float $amount): bool
+    // Relationships
+    public function orders()
     {
-        return $this->getBalance() >= $amount;
+        return $this->hasMany(Order::class, 'user_id');
     }
 
-    public function deductBalance(float $amount): void
+    public function getOrders()
     {
-        $this->setBalance($this->getBalance() - $amount);
+        return $this->orders;
     }
 
-    public function addBalance(float $amount): void
+    public function reviews()
     {
-        $this->setBalance($this->getBalance() + $amount);
+        return $this->hasMany(Review::class, 'user_id');
+    }
+    public function getReviews()
+    {
+        return $this->reviews;
     }
 
     // Validations
@@ -186,9 +190,8 @@ class User extends Authenticatable
         ]);
     }
 
-    /**
-     * Validate profile update data (name, phone, address)
-     */
+
+    // Validate profile update data (name, phone, address)
     public static function validateProfile(Request $request): void
     {
         $request->validate([
@@ -202,5 +205,20 @@ class User extends Authenticatable
     public function isStaff(): bool
     {
         return $this->getStaff();
+    }
+
+    public function hasBalance(float $amount): bool
+    {
+        return $this->getBalance() >= $amount;
+    }
+
+    public function deductBalance(float $amount): void
+    {
+        $this->setBalance($this->getBalance() - $amount);
+    }
+
+    public function addBalance(float $amount): void
+    {
+        $this->setBalance($this->getBalance() + $amount);
     }
 }

@@ -18,7 +18,6 @@ use Illuminate\Http\Request;
  * SPECIFICATION ATTRIBUTES
  *
  * $this->attributes['id'] - int - contains the specification primary key
- * $this->attributes['mobile_phone_id'] - int - references mobile_phones.id (1–1)
  * $this->attributes['model'] - string - phone model name
  * $this->attributes['processor'] - string - processor name
  * $this->attributes['battery'] - int - battery capacity (mAh)
