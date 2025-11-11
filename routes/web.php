@@ -11,6 +11,9 @@ Route::get('/locale/{locale}', [App\Http\Controllers\LocaleController::class, 's
 // Home
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home.index');
 
+// Partner Products
+Route::get('/productos-aliados', 'App\Http\Controllers\PartnerProductController@index')->name('partners.index');
+
 // Admin
 Route::middleware(['auth', 'App\Http\Middleware\IsAdmin'])->prefix('admin')->name('admin.')->group(base_path('routes/admin.php'));
 

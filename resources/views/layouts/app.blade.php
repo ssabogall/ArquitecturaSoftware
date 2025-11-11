@@ -32,6 +32,7 @@
             <div class="navbar-nav ms-auto d-flex flex-row gap-3 align-items-center">
                 <a class="nav-link text-dark" href="{{ route('mobilePhones.index') }}">{{ __('messages.products') }}</a>
                 <a class="nav-link text-dark" href="{{ route('compare.index') }}">{{ __('messages.compare_phones') }}</a>
+                <a class="nav-link text-dark" href="{{ route('partners.index') }}">{{ __('messages.partner_products') }}</a>
 
                 <!-- Language selector -->
                 <div class="dropdown nav-hover-dropdown me-2">

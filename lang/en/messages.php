@@ -232,7 +232,8 @@ return [
     'generation_date' => 'Generation Date',
     'no_data_available' => 'No data available for this report',
 
-    // --- API INSUMAX ---
+    // --- Partners ---
+    'partner_products' => 'Partner Products',
     'our_partners' => 'Meet CELLHUB Group Partners',
     'partner_insumax' => 'Get your medical supplies at INSUMAX',
     'loading' => 'Loading',
